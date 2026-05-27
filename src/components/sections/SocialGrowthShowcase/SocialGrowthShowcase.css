@@ -1,0 +1,943 @@
+/* ========================================
+   SOCIAL GROWTH SHOWCASE — PREMIUM CSS
+   Interactive Cinematic Accordion Section
+   Editorial · Futuristic · Luxury · Gen-Z
+   ======================================== */
+
+/* ========================================
+   SECTION ROOT LAYOUT
+   ======================================== */
+.sgs-section {
+  position: relative;
+  background: #FFFFFF;
+  overflow: hidden;
+  padding: clamp(6rem, 10vw, 10rem) 0;
+}
+
+/* ========================================
+   BACKGROUND LAYERS
+   Grain texture + orange glow + gradients
+   ======================================== */
+.sgs-bg-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sgs-bg-glow-top {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(255, 156, 96, 0.12) 0%, rgba(255, 156, 96, 0.04) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+  animation: sgs-glow-breathe 8s ease-in-out infinite;
+}
+
+.sgs-bg-glow-bottom {
+  position: absolute;
+  bottom: -10%;
+  right: -10%;
+  width: 700px;
+  height: 400px;
+  background: radial-gradient(ellipse at center, rgba(255, 156, 96, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(60px);
+}
+
+.sgs-bg-dot-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========================================
+   SECTION CONTAINER
+   ======================================== */
+.sgs-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 80px);
+}
+
+/* ========================================
+   SECTION HEADER
+   ======================================== */
+.sgs-header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.sgs-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  background: rgba(255, 156, 96, 0.08);
+  border: 1px solid rgba(255, 156, 96, 0.22);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #FF7030;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.sgs-label-dot {
+  width: 6px;
+  height: 6px;
+  background: #FF9C60;
+  border-radius: 50%;
+  animation: sgs-dot-pulse 2s ease-in-out infinite;
+}
+
+.sgs-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 8vw, 10rem);
+  line-height: 0.88;
+  color: #000000;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.sgs-heading-accent {
+  color: #FF9C60;
+}
+
+.sgs-subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.5vw, 17px);
+  color: rgba(0, 0, 0, 0.45);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ========================================
+   MAIN CONTENT GRID
+   Left: Accordion | Right: Story Panel
+   FIX: align-items:stretch makes both columns
+   the exact same height automatically.
+   ======================================== */
+.sgs-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  /* stretch = both grid children match the tallest child height */
+  align-items: stretch;
+}
+
+/* ========================================
+   LEFT — VERTICAL IMAGE ACCORDION
+   ======================================== */
+.sgs-accordion-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 680px;
+}
+
+/* ========================================
+   ACCORDION PANEL
+   Expands on hover / active state
+   ======================================== */
+.sgs-panel {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: none;
+  flex: 1;
+  /* Flex transition handles the expand/collapse */
+  transition:
+    flex 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.5s ease;
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  min-height: 60px;
+  /* Ensure children stack correctly */
+  isolation: isolate;
+}
+
+.sgs-panel.is-active {
+  flex: 4.5;
+  /* Cinematic glow border via box-shadow — does NOT cover the image */
+  box-shadow:
+    0 0 0 1.5px rgba(255, 156, 96, 0.55),
+    0 0 30px rgba(255, 156, 96, 0.18),
+    0 0 70px rgba(255, 156, 96, 0.08),
+    0 24px 64px rgba(0, 0, 0, 0.18);
+}
+
+.sgs-panel:not(.is-active):hover {
+  box-shadow:
+    0 0 0 1px rgba(255, 156, 96, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   IMAGE WRAPPER
+   Guarantees image fills 100% of panel
+   at all sizes during flex transition
+   ======================================== */
+.sgs-panel-image-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* z-index 0 keeps it behind overlays */
+  z-index: 0;
+}
+
+/* Panel image — always visible, always covering */
+.sgs-panel-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Smooth scale + filter transitions */
+  transition:
+    transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    filter 0.55s ease;
+  filter: grayscale(55%) brightness(0.72);
+  transform: scale(1.06);
+  /* Prevent layout shift / white flash */
+  will-change: transform, filter;
+}
+
+/* Active: full color, slight cinematic zoom-in */
+.sgs-panel.is-active .sgs-panel-image {
+  filter: grayscale(0%) brightness(0.82);
+  transform: scale(1.0);
+}
+
+/* Hover on inactive: partial de-grayscale */
+.sgs-panel:hover:not(.is-active) .sgs-panel-image {
+  filter: grayscale(25%) brightness(0.78);
+  transform: scale(1.03);
+}
+
+/* Panel overlay gradient — above image, below content */
+.sgs-panel-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.28) 45%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  transition: background 0.45s ease;
+  pointer-events: none;
+}
+
+.sgs-panel.is-active .sgs-panel-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.90) 0%,
+    rgba(0, 0, 0, 0.18) 55%,
+    transparent 100%
+  );
+}
+
+/* Panel number label */
+.sgs-panel-number {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  z-index: 4;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+  pointer-events: none;
+}
+
+.sgs-panel.is-active .sgs-panel-number {
+  color: rgba(255, 156, 96, 0.9);
+}
+
+/* Panel collapsed title — visible only when inactive */
+.sgs-panel-collapsed-label {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  z-index: 4;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.sgs-panel.is-active .sgs-panel-collapsed-label {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Panel expanded content — slides up when active */
+.sgs-panel-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 24px;
+  z-index: 4;
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.12s,
+    opacity 0.4s ease 0.08s;
+}
+
+.sgs-panel.is-active .sgs-panel-content {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sgs-panel-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(255, 156, 96, 0.18);
+  border: 1px solid rgba(255, 156, 96, 0.38);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #FF9C60;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.sgs-panel-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.4rem, 2.5vw, 2.4rem);
+  color: #FFFFFF;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+
+.sgs-panel-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.52);
+  line-height: 1.65;
+  max-width: 280px;
+}
+
+/* ========================================
+   RIGHT — DYNAMIC STORY PANEL
+   FIX: height:100% + flex column + justify-between
+   makes it exactly as tall as the accordion.
+   ======================================== */
+.sgs-story-panel {
+  display: flex;
+  flex-direction: column;
+  /* Space nav dots at top, stats at bottom */
+  justify-content: space-between;
+  padding: 0 clamp(12px, 3vw, 40px);
+  position: relative;
+  /* Match accordion height exactly */
+  height: 680px;
+  /* Vertically center the content block */
+  padding-top: clamp(20px, 3vw, 40px);
+  padding-bottom: clamp(20px, 3vw, 40px);
+}
+
+/* Case label */
+.sgs-story-case-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: #FF9C60;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sgs-story-case-label::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: #FF9C60;
+}
+
+/* ========================================
+   STORY PANEL HEADING
+   Clean, modern, bold — no italic style
+   ======================================== */
+.sgs-story-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  /* Tightened: fits cleanly in 2 lines inside the half-width story panel */
+  font-size: clamp(2rem, 4vw, 5rem);
+  line-height: 0.92;
+  color: #000000;
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
+  /* Block any browser-added hyphenation / word-wrap on top of our <br> */
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+/* Subtle orange accent on key word — no italic */
+.sgs-story-heading em {
+  font-family: 'Bebas Neue', sans-serif;
+  font-style: normal;
+  color: #FF9C60;
+  font-size: 1em;
+  letter-spacing: 0.01em;
+}
+
+/* Description */
+.sgs-story-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: rgba(0, 0, 0, 0.5);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  max-width: 460px;
+}
+
+/* ========================================
+   ANIMATED STATISTICS GRID
+   ======================================== */
+.sgs-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  /* No bottom margin needed — buttons removed */
+  margin-bottom: 0;
+}
+
+.sgs-stat-card {
+  padding: 20px 18px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.sgs-stat-card:hover {
+  background: rgba(255, 156, 96, 0.04);
+  border-color: rgba(255, 156, 96, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 156, 96, 0.08);
+}
+
+.sgs-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 156, 96, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sgs-stat-card:hover::before {
+  opacity: 1;
+}
+
+.sgs-stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+  line-height: 1;
+  color: #000000;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.sgs-stat-number span {
+  color: #FF9C60;
+}
+
+.sgs-stat-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: rgba(0, 0, 0, 0.35);
+  text-transform: uppercase;
+}
+
+/* ========================================
+   CTA BUTTON AREA
+   ======================================== */
+.sgs-cta-area {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.sgs-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #FF9C60, #FF7030);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #000;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 30px rgba(255, 156, 96, 0.35),
+    0 8px 24px rgba(255, 112, 48, 0.2);
+  transition: all 0.35s ease;
+}
+
+.sgs-btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 50px rgba(255, 156, 96, 0.6),
+    0 12px 36px rgba(255, 112, 48, 0.35);
+}
+
+.sgs-btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sgs-btn-primary:hover::after { opacity: 1; }
+
+.sgs-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: none;
+  transition: color 0.3s ease;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.sgs-btn-ghost:hover {
+  color: #FF7030;
+}
+
+.sgs-btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.07);
+  transition: all 0.3s ease;
+}
+
+.sgs-btn-ghost:hover .sgs-btn-arrow {
+  background: rgba(255, 156, 96, 0.15);
+  color: #FF7030;
+}
+
+/* Story panel navigation dots — now <button> elements */
+.sgs-story-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Premium breathing space between dots and case label */
+  margin-bottom: 36px;
+  flex-shrink: 0;
+}
+
+.sgs-story-nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.15);
+  cursor: none;
+  border: none;
+  padding: 0;
+  outline: none;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  flex-shrink: 0;
+}
+
+.sgs-story-nav-dot.active {
+  background: #FF9C60;
+  width: 24px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(255, 156, 96, 0.5);
+}
+
+.sgs-story-nav-dot:hover:not(.active) {
+  background: rgba(255, 156, 96, 0.4);
+  transform: scale(1.3);
+}
+
+/* Empty state when no panel is selected */
+.sgs-story-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.sgs-story-empty p {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: rgba(0,0,0,0.25);
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   FLOATING PARTICLES
+   ======================================== */
+.sgs-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 156, 96, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ========================================
+   BOTTOM STATS ROW
+   Floating glass cards with counter animations
+   ======================================== */
+.sgs-bottom-stats {
+  margin-top: clamp(4rem, 7vw, 7rem);
+  position: relative;
+}
+
+.sgs-bottom-stats-label {
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: rgba(0,0,0,0.25);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.sgs-bottom-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.sgs-bottom-stat-card {
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  animation: sgs-card-float var(--float-dur, 6s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.sgs-bottom-stat-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.1),
+    0 0 40px rgba(255, 156, 96, 0.12);
+  border-color: rgba(255, 156, 96, 0.25);
+}
+
+.sgs-bottom-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,156,96,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.sgs-bottom-stat-card:hover::before {
+  opacity: 1;
+}
+
+.sgs-bottom-stat-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.sgs-bottom-stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1;
+  color: #000;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.sgs-bottom-stat-number .sgs-orange-accent {
+  color: #FF9C60;
+}
+
+.sgs-bottom-stat-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(0,0,0,0.35);
+  text-transform: uppercase;
+}
+
+/* ========================================
+   STORY PANEL TRANSITION ANIMATIONS
+   Content fades when panel changes
+   ======================================== */
+.sgs-story-content-enter {
+  animation: sgs-story-in 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.sgs-story-content-exit {
+  animation: sgs-story-out 0.3s ease forwards;
+}
+
+/* ========================================
+   MOUSE-FOLLOW LIGHT ON ACCORDION
+   ======================================== */
+.sgs-mouse-light {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 156, 96, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: multiply;
+}
+
+/* ========================================
+   KEYFRAME ANIMATIONS
+   ======================================== */
+
+@keyframes sgs-glow-breathe {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+}
+
+@keyframes sgs-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* Panel float — uses box-shadow only, NO transform
+   to avoid breaking overflow:hidden on children */
+@keyframes sgs-panel-float {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1.5px rgba(255, 156, 96, 0.55),
+      0 0 30px rgba(255, 156, 96, 0.18),
+      0 0 70px rgba(255, 156, 96, 0.08),
+      0 24px 64px rgba(0, 0, 0, 0.18);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px rgba(255, 156, 96, 0.7),
+      0 0 50px rgba(255, 156, 96, 0.28),
+      0 0 100px rgba(255, 156, 96, 0.12),
+      0 32px 80px rgba(0, 0, 0, 0.22);
+  }
+}
+
+/* Applied to active panel via JS class — pulses glow */
+.sgs-panel--floating,
+.sgs-panel.is-active {
+  animation: sgs-panel-float 5s ease-in-out infinite;
+}
+
+@keyframes sgs-card-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sgs-story-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    clip-path: inset(0 0 20% 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+@keyframes sgs-story-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+
+@keyframes sgs-counter-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE
+   Stacked cards on small screens
+   ======================================== */
+@media (max-width: 1024px) {
+  .sgs-main-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  /* Tablet: horizontal accordion */
+  .sgs-accordion-wrapper {
+    flex-direction: row;
+    height: 440px;
+  }
+
+  .sgs-panel {
+    flex: 1;
+    min-width: 48px;
+    /* Image still fills in horizontal layout */
+  }
+
+  .sgs-panel-image-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sgs-panel.is-active {
+    flex: 4;
+  }
+
+  .sgs-panel-content {
+    padding: 20px 16px;
+  }
+
+  .sgs-panel-collapsed-label {
+    display: none;
+  }
+
+  .sgs-bottom-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sgs-accordion-wrapper {
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+  }
+
+  .sgs-panel {
+    flex: none;
+    height: 70px;
+    min-height: 70px;
+    border-radius: 16px;
+    transition: height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .sgs-panel.is-active {
+    flex: none;
+    height: 340px;
+  }
+
+  .sgs-panel-number {
+    display: none;
+  }
+
+  .sgs-story-panel {
+    padding: 0;
+  }
+
+  .sgs-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sgs-bottom-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sgs-cta-area {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .sgs-bottom-stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .sgs-bottom-stat-card {
+    padding: 22px 14px;
+  }
+
+  .sgs-story-heading {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+}

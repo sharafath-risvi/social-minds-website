@@ -1,0 +1,1480 @@
+/* ================================================================
+   SOCIAL MINDS — ABOUT PAGE CINEMATIC CSS SYSTEM v1.0
+   Premium editorial design — motion-heavy luxury experience
+
+   Color System (strict):
+   - #000000 / #080808  → Black
+   - #FFFFFF / #F8F7F4  → White
+   - #ff9c60            → Orange
+   - #838383            → Gray
+================================================================ */
+
+/* ================================================================
+   SHARED UTILITIES
+================================================================ */
+
+/* Film grain overlay — applied to dark sections */
+.ab-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+/* Orange eyebrow pill — used across all sections */
+.ab-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  background: rgba(255, 156, 96, 0.08);
+  border: 1px solid rgba(255, 156, 96, 0.2);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #ff9c60;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.ab-eyebrow-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff9c60;
+  animation: ab-pulse 2s ease-in-out infinite;
+}
+
+/* ================================================================
+   SECTION 01 — ABOUT HERO
+================================================================ */
+.ab-hero {
+  position: relative;
+  min-height: 100vh;
+  background: #080808;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Full-bleed background image with parallax */
+.ab-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/about/agency.png');
+  background-size: cover;
+  background-position: center;
+  /* Parallax handled via JS inline transform */
+  will-change: transform;
+}
+
+/* Multi-layer dark overlay — cinematic depth */
+.ab-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.85) 100%),
+    linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 60%);
+  z-index: 2;
+}
+
+/* Ambient orange glow — hero atmosphere */
+.ab-hero-glow {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(255,156,96,0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ab-hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+  width: 100%;
+}
+
+/* Giant hero headline */
+.ab-hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 11rem);
+  line-height: 0.88;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 32px;
+}
+
+.ab-hero-title-orange {
+  color: #ff9c60;
+}
+
+.ab-hero-title-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.18);
+}
+
+.ab-hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.5vw, 18px);
+  color: rgba(255,255,255,0.45);
+  max-width: 520px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  letter-spacing: 0.01em;
+}
+
+/* Floating metric badges */
+.ab-hero-metrics {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ab-hero-metric {
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.ab-hero-metric-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: #ff9c60;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.ab-hero-metric-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #838383;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* Scroll indicator */
+.ab-hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.ab-hero-scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(255,156,96,0.6), transparent);
+  animation: ab-scroll-drop 1.5s ease-in-out infinite;
+}
+
+.ab-hero-scroll-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  writing-mode: horizontal-tb;
+}
+
+/* ================================================================
+   SECTION 02 — ABOUT STORY (asymmetric split)
+================================================================ */
+.ab-story {
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+  padding: clamp(6rem, 10vw, 10rem) 0;
+}
+
+.ab-story-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+
+.ab-story-image-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+
+.ab-story-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  display: block;
+}
+
+.ab-story-image-wrap:hover .ab-story-img {
+  transform: scale(1.0);
+}
+
+/* Floating stat card over story image */
+.ab-story-float-card {
+  position: absolute;
+  bottom: 32px;
+  right: -24px;
+  background: #080808;
+  border: 1px solid rgba(255,156,96,0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(255,156,96,0.06);
+  z-index: 5;
+}
+
+.ab-story-float-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  color: #ff9c60;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.ab-story-float-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #838383;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Story text content */
+.ab-story-content h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 7rem);
+  line-height: 0.88;
+  color: #080808;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 28px;
+}
+
+.ab-story-content h2 span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #080808;
+}
+
+.ab-story-content p {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: #555555;
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+
+/* 2x2 stat grid inside story */
+.ab-story-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.ab-story-stat {
+  padding: 20px 22px;
+  background: #f8f7f4;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ab-story-stat:hover {
+  border-color: rgba(255,156,96,0.3);
+  box-shadow: 0 4px 24px rgba(255,156,96,0.06);
+}
+
+.ab-story-stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: #ff9c60;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.ab-story-stat-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #838383;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ================================================================
+   SECTION 03 — MISSION & VISION (split cinematic)
+================================================================ */
+.ab-mv {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mission — dark half */
+.ab-mv-mission {
+  background: #080808;
+  padding: clamp(6rem, 10vw, 10rem) clamp(24px, 5vw, 80px);
+  position: relative;
+  overflow: hidden;
+}
+
+.ab-mv-mission-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Giant number accent behind content */
+.ab-mv-bg-number {
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(12rem, 28vw, 28rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,156,96,0.05);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  top: 50%;
+  right: -5%;
+  transform: translateY(-50%);
+  z-index: 0;
+  letter-spacing: -0.02em;
+}
+
+.ab-mv-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 8vw, 9rem);
+  line-height: 0.86;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 28px;
+}
+
+.ab-mv-heading-white { color: #ffffff; }
+.ab-mv-heading-orange { color: #ff9c60; }
+.ab-mv-heading-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,156,96,0.4);
+}
+
+.ab-mv-body {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: rgba(255,255,255,0.45);
+  line-height: 1.85;
+  margin-bottom: 32px;
+}
+
+/* Animated divider line */
+.ab-mv-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #ff9c60, transparent);
+  margin-bottom: 32px;
+}
+
+/* Vision — white half */
+.ab-mv-vision {
+  background: #f8f7f4;
+  padding: clamp(6rem, 10vw, 10rem) clamp(24px, 5vw, 80px);
+  position: relative;
+  overflow: hidden;
+}
+
+.ab-mv-vision-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.ab-mv-vision .ab-mv-heading-white { color: #080808; }
+.ab-mv-vision .ab-mv-heading-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0,0,0,0.12);
+}
+
+.ab-mv-vision .ab-mv-body {
+  color: rgba(0,0,0,0.5);
+}
+
+.ab-mv-vision .ab-mv-line {
+  background: linear-gradient(90deg, #080808, transparent);
+}
+
+/* Floating pillars — vision supporting points */
+.ab-mv-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ab-mv-pillar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+
+.ab-mv-mission .ab-mv-pillar:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.ab-mv-vision .ab-mv-pillar:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+.ab-mv-pillar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff9c60;
+  flex-shrink: 0;
+}
+
+.ab-mv-pillar-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ab-mv-mission .ab-mv-pillar-text { color: rgba(255,255,255,0.65); }
+.ab-mv-vision .ab-mv-pillar-text { color: rgba(0,0,0,0.65); }
+
+/* ================================================================
+   SECTION 04 — FOUNDER EXPERIENCE
+================================================================ */
+.ab-founder {
+  position: relative;
+  background: #080808;
+  overflow: hidden;
+  padding: clamp(7rem, 12vw, 12rem) 0;
+}
+
+.ab-founder-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255,156,96,0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ab-founder-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(48px, 6vw, 100px);
+  align-items: center;
+}
+
+/* Founder portrait container */
+.ab-founder-portrait {
+  position: relative;
+}
+
+.ab-founder-img-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  border: 1px solid rgba(255,156,96,0.15);
+  box-shadow:
+    0 40px 100px rgba(0,0,0,0.7),
+    0 0 80px rgba(255,156,96,0.06);
+}
+
+.ab-founder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transform: scale(1.03);
+  transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+
+.ab-founder-img-wrap:hover .ab-founder-img {
+  transform: scale(1.0);
+}
+
+/* Dark gradient at bottom of portrait */
+.ab-founder-img-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(0deg, rgba(8,8,8,0.9) 0%, transparent 100%);
+  z-index: 1;
+}
+
+/* Floating quote card — overlaps portrait */
+.ab-founder-quote-card {
+  position: absolute;
+  bottom: -24px;
+  right: -32px;
+  background: rgba(255,156,96,0.08);
+  border: 1px solid rgba(255,156,96,0.2);
+  border-radius: 20px;
+  padding: 24px 28px;
+  max-width: 280px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 5;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.ab-founder-quote-mark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: #ff9c60;
+  line-height: 0.8;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+.ab-founder-quote-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+}
+
+/* Founder content */
+.ab-founder-content {
+  padding: 20px 0;
+}
+
+.ab-founder-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 7rem);
+  line-height: 0.88;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 8px;
+}
+
+.ab-founder-name span {
+  color: #ff9c60;
+}
+
+.ab-founder-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #838383;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.ab-founder-bio {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: rgba(255,255,255,0.45);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+
+/* Founder vision statement — large styled quote */
+.ab-founder-vision {
+  margin: 32px 0;
+  padding: 24px 0 24px 24px;
+  border-left: 2px solid #ff9c60;
+}
+
+.ab-founder-vision-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  color: #ffffff;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Founder stats row */
+.ab-founder-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.ab-founder-stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: #ff9c60;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.ab-founder-stat-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #838383;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ================================================================
+   SECTION 05 — JOURNEY TIMELINE (horizontal cinematic)
+================================================================ */
+.ab-timeline {
+  position: relative;
+  background: #f8f7f4;
+  padding: clamp(7rem, 12vw, 11rem) 0;
+  overflow: hidden;
+}
+
+.ab-timeline-header {
+  text-align: center;
+  padding: 0 clamp(24px, 5vw, 80px);
+  margin-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.ab-timeline-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 8rem);
+  line-height: 0.88;
+  color: #080808;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.ab-timeline-heading span {
+  color: #ff9c60;
+}
+
+/* Horizontal scroll track */
+.ab-timeline-track {
+  position: relative;
+  padding: 0 clamp(24px, 5vw, 80px);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+
+.ab-timeline-track::-webkit-scrollbar { display: none; }
+.ab-timeline-track:active { cursor: grabbing; }
+
+/* Connecting line through timeline */
+.ab-timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,156,96,0.2) 10%, rgba(255,156,96,0.2) 90%, transparent);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Individual timeline milestone */
+.ab-tl-item {
+  flex-shrink: 0;
+  width: clamp(240px, 30vw, 340px);
+  padding: 0 24px 0 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Year badge on the timeline line */
+.ab-tl-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  color: #ff9c60;
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+  padding: 4px 12px;
+  background: rgba(255,156,96,0.08);
+  border: 1px solid rgba(255,156,96,0.2);
+  border-radius: 100px;
+}
+
+/* The card */
+.ab-tl-card {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.ab-tl-card:hover {
+  border-color: rgba(255,156,96,0.25);
+  box-shadow: 0 16px 48px rgba(255,156,96,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  transform: translateY(-6px);
+}
+
+/* Orange top accent line */
+.ab-tl-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff9c60, transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.ab-tl-card:hover::before { opacity: 1; }
+
+.ab-tl-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: #080808;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.ab-tl-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #838383;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.ab-tl-metric {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #ff9c60;
+  text-transform: uppercase;
+}
+
+/* ================================================================
+   SECTION 06 — CREATIVE PROCESS (animated flow)
+================================================================ */
+.ab-process {
+  position: relative;
+  background: #080808;
+  padding: clamp(7rem, 12vw, 11rem) 0;
+  overflow: hidden;
+}
+
+.ab-process-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+
+.ab-process-header {
+  margin-bottom: clamp(4rem, 8vw, 6rem);
+}
+
+.ab-process-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 8rem);
+  line-height: 0.88;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.ab-process-heading span {
+  color: #ff9c60;
+}
+
+.ab-process-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: rgba(255,255,255,0.4);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-top: 20px;
+}
+
+/* Process steps grid */
+.ab-process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+.ab-process-step {
+  position: relative;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 40px 32px;
+  overflow: hidden;
+  transition: background 0.4s ease, border-color 0.4s ease;
+  cursor: default;
+}
+
+.ab-process-step:hover {
+  background: rgba(255,156,96,0.04);
+  border-color: rgba(255,156,96,0.12);
+}
+
+/* Large step number — editorial decoration */
+.ab-process-step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,156,96,0.12);
+  line-height: 1;
+  margin-bottom: 24px;
+  transition: -webkit-text-stroke 0.4s ease;
+}
+
+.ab-process-step:hover .ab-process-step-num {
+  -webkit-text-stroke: 1px rgba(255,156,96,0.3);
+}
+
+.ab-process-step-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.ab-process-step-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.ab-process-step-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.75;
+}
+
+/* Connecting arrow between steps */
+.ab-process-step::after {
+  content: '→';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: rgba(255,156,96,0.25);
+  z-index: 2;
+}
+
+.ab-process-step:last-child::after { display: none; }
+
+/* Orange accent bar at bottom of each step */
+.ab-process-step-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: #ff9c60;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+.ab-process-step:hover .ab-process-step-bar {
+  width: 100%;
+}
+
+/* ================================================================
+   SECTION 07 — WHY BRANDS TRUST US
+================================================================ */
+.ab-trust {
+  position: relative;
+  background: #ffffff;
+  padding: clamp(7rem, 12vw, 11rem) 0;
+  overflow: hidden;
+}
+
+.ab-trust-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+
+.ab-trust-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: clamp(4rem, 7vw, 6rem);
+}
+
+.ab-trust-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 7.5rem);
+  line-height: 0.88;
+  color: #080808;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.ab-trust-heading span { color: #ff9c60; }
+
+.ab-trust-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.4vw, 16px);
+  color: #838383;
+  line-height: 1.8;
+  align-self: end;
+}
+
+/* Metrics grid — animated counter cards */
+.ab-trust-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.ab-trust-metric-card {
+  padding: 32px 28px;
+  background: #f8f7f4;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 20px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ab-trust-metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff9c60, transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.ab-trust-metric-card:hover {
+  border-color: rgba(255,156,96,0.2);
+  box-shadow: 0 8px 32px rgba(255,156,96,0.08);
+  transform: translateY(-4px);
+}
+
+.ab-trust-metric-card:hover::before { opacity: 1; }
+
+.ab-trust-metric-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #ff9c60;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  margin-bottom: 8px;
+}
+
+.ab-trust-metric-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #838383;
+  text-transform: uppercase;
+}
+
+/* Trust reasons grid */
+.ab-trust-reasons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ab-trust-reason {
+  padding: 28px 28px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 20px;
+  transition: all 0.4s ease;
+}
+
+.ab-trust-reason:hover {
+  border-color: rgba(255,156,96,0.2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+}
+
+.ab-trust-reason-icon {
+  font-size: 24px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.ab-trust-reason-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #080808;
+  margin-bottom: 10px;
+  letter-spacing: 0.01em;
+}
+
+.ab-trust-reason-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #838383;
+  line-height: 1.75;
+}
+
+/* ================================================================
+   SECTION 08 — CULTURE GRID (cinematic image mosaic)
+================================================================ */
+.ab-culture {
+  position: relative;
+  background: #080808;
+  padding: clamp(7rem, 12vw, 11rem) 0;
+  overflow: hidden;
+}
+
+.ab-culture-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+
+.ab-culture-header {
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.ab-culture-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 8rem);
+  line-height: 0.88;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.ab-culture-heading span { color: #ff9c60; }
+
+/* Asymmetric culture grid */
+.ab-culture-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 10px;
+}
+
+.ab-culture-cell {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  /* GPU-only hover */
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+}
+
+.ab-culture-cell:hover {
+  transform: scale(1.015);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(255,156,96,0.06);
+  z-index: 2;
+}
+
+.ab-culture-cell:nth-child(1) { grid-row: 1 / 3; /* spans full height left */ }
+.ab-culture-cell:nth-child(2) { grid-column: 2; grid-row: 1; }
+.ab-culture-cell:nth-child(3) { grid-column: 2; grid-row: 2; }
+
+.ab-culture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.06);
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.ab-culture-cell:hover .ab-culture-img {
+  transform: scale(1.0);
+}
+
+/* Dark gradient on each cell */
+.ab-culture-cell-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, transparent 30%, rgba(0,0,0,0.6) 100%);
+  z-index: 1;
+}
+
+/* Hover reveal overlay */
+.ab-culture-cell-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 20px 24px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.ab-culture-cell:hover .ab-culture-cell-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ab-culture-cell-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: rgba(255,156,96,0.12);
+  border: 1px solid rgba(255,156,96,0.25);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #ff9c60;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ab-culture-cell-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* 4th culture item — floating card right side */
+.ab-culture-extra {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ab-culture-extra-card {
+  padding: 28px 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.ab-culture-extra-card:hover {
+  border-color: rgba(255,156,96,0.15);
+  background: rgba(255,156,96,0.03);
+}
+
+.ab-culture-extra-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  color: #ff9c60;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.ab-culture-extra-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #838383;
+  text-transform: uppercase;
+}
+
+/* ================================================================
+   SECTION 09 — FINAL CTA
+================================================================ */
+.ab-cta {
+  position: relative;
+  background: #080808;
+  overflow: hidden;
+  padding: clamp(8rem, 14vw, 14rem) 0;
+  text-align: center;
+}
+
+.ab-cta-glow-top {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(255,156,96,0.07) 0%, transparent 65%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ab-cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+
+.ab-cta-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 10vw, 12rem);
+  line-height: 0.86;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 32px;
+}
+
+.ab-cta-heading span { color: #ff9c60; }
+
+.ab-cta-heading-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.15);
+}
+
+.ab-cta-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: rgba(255,255,255,0.4);
+  max-width: 520px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+}
+
+/* Premium CTA button */
+.ab-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 48px;
+  background: #ff9c60;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #080808;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 0 40px rgba(255,156,96,0.3);
+}
+
+.ab-cta-btn:hover {
+  background: #ffffff;
+  box-shadow: 0 0 60px rgba(255,156,96,0.4), 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.ab-cta-btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.ab-cta-btn:hover .ab-cta-btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ================================================================
+   ANIMATIONS — Keyframes
+================================================================ */
+@keyframes ab-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+@keyframes ab-scroll-drop {
+  0% { opacity: 1; transform: scaleY(0); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+}
+
+@keyframes ab-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes ab-glow-pulse {
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.12; }
+}
+
+/* ================================================================
+   RESPONSIVE — Tablet (≤1024px)
+================================================================ */
+@media (max-width: 1024px) {
+  .ab-story-grid,
+  .ab-founder-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .ab-story-float-card {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .ab-founder-quote-card {
+    right: 16px;
+    bottom: -16px;
+    max-width: 240px;
+  }
+
+  .ab-process-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-process-step::after { display: none; }
+
+  .ab-trust-header {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-trust-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-trust-reasons {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-timeline-track {
+    overflow-x: scroll;
+  }
+}
+
+/* ================================================================
+   RESPONSIVE — Mobile (≤640px)
+================================================================ */
+@media (max-width: 640px) {
+  .ab-hero-title {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .ab-hero-metrics {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ab-story-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-process-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-trust-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-trust-reasons {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-culture-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 260px 220px 220px;
+  }
+
+  .ab-culture-cell:nth-child(1) { grid-row: auto; }
+
+  .ab-culture-extra {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ab-founder-stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .ab-cta-heading {
+    font-size: clamp(3rem, 14vw, 5.5rem);
+  }
+
+  /* Force show overlays on mobile — no hover */
+  .ab-culture-cell-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================================
+   REDUCED MOTION — Accessibility
+================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .ab-story-img,
+  .ab-founder-img,
+  .ab-culture-img,
+  .ab-culture-cell,
+  .ab-tl-card,
+  .ab-process-step-bar {
+    transition: none;
+  }
+  .ab-eyebrow-dot,
+  .ab-hero-scroll-line {
+    animation: none;
+  }
+}

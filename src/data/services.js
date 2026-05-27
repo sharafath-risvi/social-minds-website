@@ -1,0 +1,73 @@
+// ========================================
+// SERVICES DATA
+// All Social Minds service offerings
+// ========================================
+
+export const services = [
+  {
+    id: 'social-media-marketing',
+    icon: '◈',
+    number: '01',
+    title: 'Social Media Marketing',
+    subtitle: 'Platform Domination',
+    description: 'Full-spectrum social media management that transforms your presence into a lead-generating machine. Data-driven strategies, algorithmic mastery, and premium content delivery.',
+    features: ['Instagram & Reels Strategy', 'Algorithm Optimization', 'Engagement Growth', 'Analytics & Reporting'],
+    color: '#FF9C60',
+    tag: 'MARKETING',
+  },
+  {
+    id: 'branding',
+    icon: '◉',
+    number: '02',
+    title: 'Brand Identity',
+    subtitle: 'Premium Visual Systems',
+    description: 'We architect brand identities that stop scrolling. From visual language to color systems, your brand will feel unmistakably premium in a saturated digital market.',
+    features: ['Logo & Visual Identity', 'Brand Guidelines', 'Color Systems', 'Typography Design'],
+    color: '#FF9C60',
+    tag: 'BRANDING',
+  },
+  {
+    id: 'personal-branding',
+    icon: '◎',
+    number: '03',
+    title: 'Personal Branding',
+    subtitle: 'Authority Building',
+    description: 'Build a powerful personal brand that attracts clients, partnerships, and opportunities automatically. From founder-led content to thought leadership positioning.',
+    features: ['Founder Content Strategy', 'LinkedIn Optimization', 'Thought Leadership', 'Audience Building'],
+    color: '#FF9C60',
+    tag: 'PERSONAL',
+  },
+  {
+    id: 'reel-growth',
+    icon: '▣',
+    number: '04',
+    title: 'Reel Growth Engine',
+    subtitle: 'Viral Content Creation',
+    description: 'Systematic reel production that hits the algorithm sweet spot. From hooks to CTAs, every second of your reel is engineered for maximum reach and engagement.',
+    features: ['Script & Hook Writing', 'Reel Production', 'Trending Audio', 'Viral Distribution'],
+    color: '#FF9C60',
+    tag: 'REELS',
+  },
+  {
+    id: 'content-strategy',
+    icon: '◆',
+    number: '05',
+    title: 'Content Strategy',
+    subtitle: 'Systematic Storytelling',
+    description: 'A content machine built on psychology, data, and creativity. We map your audience journey and create content that converts followers into loyal customers.',
+    features: ['Content Calendar', 'Audience Psychology', 'Content Pillars', 'Conversion Copywriting'],
+    color: '#FF9C60',
+    tag: 'STRATEGY',
+  },
+  {
+    id: 'performance-marketing',
+    icon: '◇',
+    number: '06',
+    title: 'Performance Marketing',
+    subtitle: 'Paid Growth Systems',
+    description: 'Precision-targeted paid campaigns that maximize every rupee of ad spend. Meta Ads, Instagram Promotions, and retargeting funnels designed for ROI.',
+    features: ['Meta Ads Management', 'Campaign Optimization', 'Retargeting Funnels', 'ROI Tracking'],
+    color: '#FF9C60',
+    tag: 'PERFORMANCE',
+  },
+];

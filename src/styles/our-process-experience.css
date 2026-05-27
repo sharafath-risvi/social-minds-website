@@ -1,0 +1,984 @@
+/* ========================================================
+   OUR PROCESS EXPERIENCE — CINEMATIC CSS SYSTEM
+   Social Minds Premium Design — v1.0
+   
+   Color System:
+   - #000000 / #080808  → Black (35%)
+   - #FFFFFF            → White (35%)
+   - #ff9c60            → Orange (20%)
+   - #838383            → Gray (10%)
+   ======================================================== */
+
+/* ========================================================
+   SECTION WRAPPER — Root container
+   ======================================================== */
+.ope-section {
+  position: relative;
+  background: #080808;
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 9rem) 0;
+}
+
+/* ========================================================
+   GRAIN TEXTURE OVERLAY — Editorial film grain background
+   ======================================================== */
+.ope-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+/* ========================================================
+   AMBIENT GLOW BLOBS — Cinematic depth atmosphere
+   ======================================================== */
+.ope-ambient-top {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(255, 156, 96, 0.06) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ope-ambient-bottom {
+  position: absolute;
+  bottom: -200px;
+  right: -100px;
+  width: 700px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(255, 156, 96, 0.04) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========================================================
+   SECTION HEADER — Premium editorial headline block
+   ======================================================== */
+.ope-header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  padding: 0 clamp(20px, 4vw, 80px);
+  position: relative;
+  z-index: 2;
+}
+
+.ope-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  background: rgba(255, 156, 96, 0.07);
+  border: 1px solid rgba(255, 156, 96, 0.18);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #ff9c60;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.ope-eyebrow-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff9c60;
+  animation: ope-pulse 2s ease-in-out infinite;
+}
+
+.ope-main-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.2rem, 8vw, 10rem);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.ope-title-orange {
+  color: #ff9c60;
+}
+
+.ope-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.6vw, 17px);
+  color: #838383;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+/* ========================================================
+   3-COLUMN LAYOUT — Desktop cinematic grid
+   ======================================================== */
+.ope-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  gap: clamp(20px, 2.5vw, 40px);
+  padding: 0 clamp(20px, 4vw, 60px);
+  position: relative;
+  z-index: 2;
+  align-items: start;
+  min-height: 680px;
+}
+
+/* ========================================================
+   LEFT PANEL — Process number, heading, description
+   ======================================================== */
+.ope-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 0;
+  position: sticky;
+  top: 120px;
+  min-height: 460px;
+}
+
+/* Process step number — massive editorial */
+.ope-step-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 10vw, 12rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 156, 96, 0.25);
+  margin-bottom: 8px;
+  user-select: none;
+  transition: -webkit-text-stroke 0.6s ease;
+}
+
+.ope-step-number.active {
+  -webkit-text-stroke: 2px #ff9c60;
+  color: transparent;
+}
+
+/* Mini label above heading */
+.ope-step-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #ff9c60;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ope-step-label::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1.5px;
+  background: #ff9c60;
+  flex-shrink: 0;
+}
+
+/* Step heading */
+.ope-step-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  line-height: 0.92;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 20px;
+}
+
+/* Step description */
+.ope-step-description {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.3vw, 15px);
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.78;
+  margin-bottom: 28px;
+}
+
+/* Micro stat chips */
+.ope-micro-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.ope-micro-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.ope-micro-stat-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff9c60;
+  letter-spacing: 0.05em;
+}
+
+.ope-micro-stat-label {
+  font-size: 11px;
+  color: #838383;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Progress bar indicators */
+.ope-progress-track {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ope-progress-pip {
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  flex: 1;
+}
+
+.ope-progress-pip.active {
+  background: #ff9c60;
+  box-shadow: 0 0 8px rgba(255, 156, 96, 0.5);
+}
+
+.ope-progress-pip.passed {
+  background: rgba(255, 156, 96, 0.3);
+}
+
+/* ========================================================
+   CENTER PANEL — Cinematic asymmetric editorial image grid
+   ======================================================== */
+.ope-center {
+  /* Asymmetric editorial grid wrapper */
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-rows: 220px 170px 200px;
+  gap: 10px;
+  position: relative;
+}
+
+/* ── Ambient center glow behind the grid ── */
+.ope-center::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 156, 96, 0.04) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========================================================
+   GRID ITEM — Base styles for every cell
+   ======================================================== */
+.ope-grid-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: none;
+  /* GPU-accelerated hover transform */
+  will-change: transform;
+  transition:
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s ease;
+  box-shadow:
+    0 6px 30px rgba(0, 0, 0, 0.65),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 1;
+}
+
+/* ── Grid item sizing — asymmetric editorial placement ── */
+
+/* Item 1: Large dominant — left tall spanning rows 1-2 */
+.ope-grid-item:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  border-radius: 20px;
+}
+
+/* Item 2: Top right — landscape cinematic */
+.ope-grid-item:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  border-radius: 16px;
+}
+
+/* Item 3: Middle right — square */
+.ope-grid-item:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+  border-radius: 16px;
+}
+
+/* Item 4: Bottom left — wide cinematic strip */
+.ope-grid-item:nth-child(4) {
+  grid-column: 1;
+  grid-row: 3;
+  border-radius: 16px;
+}
+
+/* Item 5: Bottom right — overlapping floating card */
+.ope-grid-item:nth-child(5) {
+  grid-column: 2;
+  grid-row: 3;
+  border-radius: 16px;
+  /* subtle upward float — creates layered depth feeling */
+  transform: translateY(-8px);
+  z-index: 2;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(255, 156, 96, 0.05);
+}
+
+/* ── Hover lift — GPU transform only ── */
+.ope-grid-item:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.85),
+    0 0 50px rgba(255, 156, 96, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.07) inset;
+  border-color: rgba(255, 156, 96, 0.12);
+  z-index: 10;
+}
+
+/* Item 5 hover — starts translated so we offset */
+.ope-grid-item:nth-child(5):hover {
+  transform: translateY(-14px) scale(1.015);
+}
+
+/* ── Active / selected state (driven by activeIndex) ── */
+.ope-grid-item.active {
+  border-color: rgba(255, 156, 96, 0.22);
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(255, 156, 96, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.ope-grid-item:nth-child(5).active {
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.85),
+    0 0 70px rgba(255, 156, 96, 0.12);
+}
+
+/* ========================================================
+   GRID IMAGE — fills entire cell
+   ======================================================== */
+.ope-grid-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Slight default zoom, resets on hover for cinematic feel */
+  transform: scale(1.06);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+  display: block;
+}
+
+.ope-grid-item:hover .ope-grid-img {
+  transform: scale(1.0);
+}
+
+/* ========================================================
+   ALWAYS-ON DARK CINEMATIC GRADIENT — depth layer
+   ======================================================== */
+.ope-grid-grad {
+  position: absolute;
+  inset: 0;
+  /* Directional gradient: darker at bottom for overlay legibility */
+  background: linear-gradient(
+    160deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.18) 30%,
+    rgba(0, 0, 0, 0.62) 75%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  z-index: 1;
+  transition: opacity 0.45s ease;
+}
+
+/* Deepen on hover — richer depth */
+.ope-grid-item:hover .ope-grid-grad {
+  opacity: 0.8;
+}
+
+/* ========================================================
+   ORANGE GLOW LAYER — atmospheric bottom accent
+   ======================================================== */
+.ope-grid-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 156, 96, 0.09) 0%,
+    rgba(255, 156, 96, 0.03) 50%,
+    transparent 100%
+  );
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.ope-grid-item:hover .ope-grid-glow,
+.ope-grid-item.active .ope-grid-glow {
+  opacity: 1;
+}
+
+/* ========================================================
+   HOVER OVERLAY — Glass info panel
+   Fades in on hover, slides up from bottom
+   ======================================================== */
+.ope-grid-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: 18px 20px 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  /* Smooth reveal — opacity + Y offset */
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  /* Subtle glass background behind text */
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.3) 70%,
+    transparent 100%
+  );
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+.ope-grid-item:hover .ope-grid-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Category label pill ── */
+.ope-grid-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  background: rgba(255, 156, 96, 0.12);
+  border: 1px solid rgba(255, 156, 96, 0.22);
+  border-radius: 100px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #ff9c60;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.ope-grid-category-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ff9c60;
+  flex-shrink: 0;
+}
+
+/* ── Overlay title ── */
+.ope-grid-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.7rem);
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 5px;
+}
+
+/* ── Overlay metric ── */
+.ope-grid-metric {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ff9c60;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ========================================================
+   ACTIVE RING INDICATOR — top-left pulse on hovered item
+   ======================================================== */
+.ope-grid-active-ring {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 6;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 156, 96, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.7);
+  transition:
+    opacity 0.35s ease,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 156, 96, 0.08);
+}
+
+.ope-grid-item.active .ope-grid-active-ring {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ope-grid-active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff9c60;
+  animation: ope-pulse 1.8s ease-in-out infinite;
+}
+
+/* ========================================================
+   FLOATING GRAIN TEXTURE per card — editorial depth
+   ======================================================== */
+.ope-grid-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ========================================================
+   RIGHT PANEL — Animated metrics and strategy details
+   ======================================================== */
+.ope-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 0;
+  position: sticky;
+  top: 120px;
+  min-height: 460px;
+}
+
+/* Right mega heading */
+.ope-right-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 5.5rem);
+  line-height: 0.88;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 12px;
+}
+
+.ope-right-heading span {
+  color: #ff9c60;
+}
+
+/* Process explanation text */
+.ope-right-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.38);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+}
+
+/* Metric cards */
+.ope-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ope-metric-card {
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.ope-metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 156, 96, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.ope-metric-card:hover {
+  border-color: rgba(255, 156, 96, 0.12);
+  background: rgba(255, 156, 96, 0.03);
+}
+
+.ope-metric-card:hover::before {
+  opacity: 1;
+}
+
+.ope-metric-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  color: #ff9c60;
+  line-height: 0.9;
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+
+.ope-metric-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #838383;
+  text-transform: uppercase;
+}
+
+/* Progress bar in metric card */
+.ope-metric-bar-track {
+  margin-top: 10px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ope-metric-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff9c60, #ff7030);
+  border-radius: 2px;
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Performance indicator card */
+.ope-performance-card {
+  padding: 18px 20px;
+  background: rgba(255, 156, 96, 0.04);
+  border: 1px solid rgba(255, 156, 96, 0.1);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.ope-performance-card:hover {
+  background: rgba(255, 156, 96, 0.07);
+  border-color: rgba(255, 156, 96, 0.2);
+}
+
+.ope-perf-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 156, 96, 0.1);
+  border: 1px solid rgba(255, 156, 96, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.ope-perf-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #838383;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.ope-perf-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+
+.ope-perf-bar-outer {
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* ========================================================
+   HOVER INTERACTION — Panel hover lift effect
+   ======================================================== */
+.ope-panel:hover:not(.expanded) {
+  border-color: rgba(255, 156, 96, 0.1);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(255, 156, 96, 0.04);
+}
+
+/* ========================================================
+   ANIMATIONS — Keyframes
+   ======================================================== */
+@keyframes ope-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes ope-count-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ope-metric-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes ope-slide-left {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ope-slide-right {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ope-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stagger animation utility */
+.ope-metric-card:nth-child(1) { animation-delay: 0ms; }
+.ope-metric-card:nth-child(2) { animation-delay: 80ms; }
+.ope-metric-card:nth-child(3) { animation-delay: 160ms; }
+.ope-metric-card:nth-child(4) { animation-delay: 240ms; }
+
+/* ========================================================
+   CONTENT TRANSITION CLASSES — Left/Right panel transitions
+   ======================================================== */
+.ope-content-enter {
+  animation: ope-fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ope-content-from-left {
+  animation: ope-slide-right 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ope-content-from-right {
+  animation: ope-slide-left 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ope-metrics-animate .ope-metric-card {
+  animation: ope-metric-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ========================================================
+   STEP NAVIGATION DOTS — Bottom center
+   ======================================================== */
+.ope-step-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+  z-index: 2;
+}
+
+.ope-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.35s ease;
+  cursor: none;
+}
+
+.ope-dot.active {
+  background: #ff9c60;
+  border-color: #ff9c60;
+  box-shadow: 0 0 10px rgba(255, 156, 96, 0.5);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ========================================================
+   MOBILE RESPONSIVE — Stacked premium layout
+   ======================================================== */
+@media (max-width: 1024px) {
+  .ope-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 clamp(16px, 4vw, 40px);
+  }
+
+  .ope-left {
+    position: static;
+    min-height: auto;
+    padding: 0;
+    text-align: center;
+  }
+
+  .ope-step-label {
+    justify-content: center;
+  }
+
+  .ope-micro-stats {
+    align-items: center;
+  }
+
+  .ope-progress-track {
+    justify-content: center;
+  }
+
+  .ope-step-number {
+    font-size: clamp(4rem, 18vw, 8rem);
+  }
+
+  .ope-right {
+    position: static;
+    min-height: auto;
+    padding: 0;
+  }
+
+  /* Mobile grid — 2-col condensed */
+  .ope-center {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 160px 180px;
+    gap: 8px;
+  }
+
+  /* On tablet — reset the float offset */
+  .ope-grid-item:nth-child(5) {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .ope-main-title {
+    font-size: clamp(2.8rem, 14vw, 5rem);
+  }
+
+  /* Mobile grid — single column stacked cards */
+  .ope-center {
+    grid-template-columns: 1fr;
+    grid-template-rows: 220px 180px 200px 180px 180px;
+    gap: 10px;
+  }
+
+  .ope-grid-item:nth-child(1),
+  .ope-grid-item:nth-child(2),
+  .ope-grid-item:nth-child(3),
+  .ope-grid-item:nth-child(4),
+  .ope-grid-item:nth-child(5) {
+    grid-column: 1;
+    grid-row: auto;
+    transform: none !important;
+  }
+
+  /* Force show overlay on mobile (no hover) */
+  .ope-grid-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ope-grid-glow {
+    opacity: 0.7;
+  }
+
+  .ope-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .ope-metric-value {
+    font-size: 1.8rem;
+  }
+
+  .ope-right-heading {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    text-align: center;
+  }
+
+  .ope-right-desc {
+    text-align: center;
+  }
+
+  .ope-step-heading {
+    font-size: clamp(1.8rem, 9vw, 3rem);
+  }
+}
+
+/* ========================================================
+   NO CURSOR on mobile
+   ======================================================== */
+@media (max-width: 768px) {
+  .ope-grid-item,
+  .ope-dot {
+    cursor: pointer;
+  }
+}
+
+/* ========================================================
+   REDUCED MOTION — Accessibility
+   ======================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .ope-grid-item,
+  .ope-grid-img,
+  .ope-grid-overlay {
+    transition: none;
+    transform: none !important;
+  }
+  .ope-eyebrow-dot,
+  .ope-grid-active-dot {
+    animation: none;
+  }
+}
