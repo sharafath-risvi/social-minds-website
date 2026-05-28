@@ -606,24 +606,24 @@ function RightPanel({ panelRef }) {
         }} />
 
         {strips.map((s, i) => (
-          <motion.div
+          /* Plain div instead of motion.div — removes 5 concurrent Framer Motion
+             y-animation RAF loops that were competing with GSAP during scroll.
+             Visual appearance is identical — strips just sit still (they're already
+             revealed by GSAP) rather than continuously floating. */
+          <div
             key={s.label}
-            animate={{ y: [0, i % 2 === 0 ? -4 : -7, 0] }}
-            transition={{ duration: 3.5 + i * 0.6, repeat: Infinity, ease: 'easeInOut', delay: s.delay }}
             style={{
               width: s.w,
               display: 'flex',
               alignItems: 'center',
               gap: '10px',
               padding: '9px 12px 9px 14px',
-              // No backdropFilter — eliminates 5 concurrent GPU blur composites
               background: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(255,255,255,0.07)',
               borderLeft: '1px solid rgba(255,156,96,0.2)',
               borderRadius: '0 10px 10px 0',
               position: 'relative',
               overflow: 'hidden',
-              willChange: 'transform',
             }}
           >
             {/* Subtle inner glow on strip hover-feel */}
@@ -680,7 +680,7 @@ function RightPanel({ panelRef }) {
                 flexShrink: 0,
               }}
             />
-          </motion.div>
+          </div>
         ))}
       </div>
 
@@ -730,7 +730,9 @@ function RightPanel({ panelRef }) {
             <motion.div
               key={i}
               animate={{ opacity: [0.3, 0.3 + (h / 20) * 0.7, 0.3] }}
-              transition={{ duration: 0.9 + (i % 5) * 0.2, repeat: Infinity, ease: 'easeInOut', delay: i * 0.06 }}
+              /* Doubled duration — halves the RAF firing rate of 20 simultaneous
+                 opacity animations (was 0.9–2.7s, now 1.8–5.4s) */
+              transition={{ duration: 1.8 + (i % 5) * 0.4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.06 }}
               style={{
                 flex: 1,
                 height: `${h}px`,
@@ -803,8 +805,8 @@ export default function HeroSection() {
   const springY = useSpring(mouseY, { stiffness: 40, damping: 22 });
   const glowX   = useTransform(springX, [-600, 600], [-40, 40]);
   const glowY   = useTransform(springY, [-400, 400], [-25, 25]);
-  const layer1X = useTransform(springX, [-600, 600], [-20, 20]);
-  const layer1Y = useTransform(springY, [-400, 400], [-14, 14]);
+  // layer1X/layer1Y intentionally removed from headline — mouse parallax on text
+  // was the top source of continuous re-renders during scroll (spring physics kept firing).
 
   // ── GSAP SCROLL TIMELINE ──
   useEffect(() => {
@@ -818,13 +820,17 @@ export default function HeroSection() {
           trigger: wrapperRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.6,   // ↓ from 1.2 — halves lag buffer for snappier scrub
+          /* scrub:1 — smoother ScrollTrigger buffer, avoids RAF fighting with
+             Framer Motion spring physics running in the same frame */
+          scrub: 1,
           invalidateOnRefresh: true,
           onComplete: () => {
+            /* idleFloat: translateY only (NO rotation) — rotation forced
+               matrix3d recalculation on every animation frame. Pure translateY
+               stays on the GPU compositor layer without triggering layout. */
             idleFloat = gsap.to(phoneRef.current, {
-              y: -42,
-              rotation: 0.5,
-              duration: 3,
+              y: -18,
+              duration: 4,
               ease: 'sine.inOut',
               yoyo: true,
               repeat: -1,
@@ -852,9 +858,12 @@ export default function HeroSection() {
       }, 0);
 
       // ── PHASE 2 (20–55%): phone rises into center ──
+      // rotationX / rotationY removed — they forced matrix3d (expensive 3D
+      // perspective matrix) on every scroll tick. scale + y + opacity are
+      // all handled cheaply in the GPU compositor without layout recalc.
       tl.fromTo(phoneRef.current,
-        { opacity: 0, scale: 0.6, y: 160, rotationX: 28, rotationY: -8, transformPerspective: 1200 },
-        { opacity: 1, scale: 1, y: -28, rotationX: 0, rotationY: 0, transformPerspective: 1200, duration: 0.38, ease: 'none' },
+        { opacity: 0, scale: 0.6, y: 160 },
+        { opacity: 1, scale: 1,   y: -28, duration: 0.38, ease: 'none' },
         0.18
       );
 
@@ -988,20 +997,23 @@ export default function HeroSection() {
 
           {/* TEXT LAYER */}
           <div ref={textRef} style={{ willChange: 'transform, opacity', transformOrigin: 'center center' }}>
-            <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="tag-orange"
-              style={{ marginBottom: '40px' }}
-            >
-              <motion.span animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, repeat: Infinity }} style={{ color: '#FF9C60', fontSize: '7px' }}>●</motion.span>
-              PREMIUM SOCIAL MEDIA AGENCY — EST. 2023
-            </motion.div>
 
-            <motion.div style={{ x: layer1X, y: layer1Y, marginBottom: '28px' }}>
+
+            {/* Headline text — no spring parallax on x/y.
+               Mouse parallax on the headline text drove continuous spring
+               re-renders during scroll (Framer Motion RAF competing with GSAP). */}
+            <motion.div style={{ marginBottom: '28px' }}>
               {headlineLines.map((line, lineIdx) => (
-                <div key={lineIdx} style={{ overflow: 'hidden', lineHeight: '0.9' }}>
+                <div
+                  key={lineIdx}
+                  style={{
+                    /* overflow:visible — prevents glyph clipping at lineHeight 0.9 */
+                    overflow: 'visible',
+                    lineHeight: '0.9',
+                    /* bottom buffer so descenders & stroke edges aren't sheared */
+                    paddingBottom: '0.12em',
+                  }}
+                >
                   <motion.div
                     initial={{ y: '105%' }}
                     animate={{ y: 0 }}
@@ -1011,13 +1023,16 @@ export default function HeroSection() {
                       fontSize: 'clamp(3rem, 10vw, 11rem)',
                       lineHeight: '0.9',
                       display: 'block',
+                      width: '100%',
                       ...(line.orange ? {
                         background: 'linear-gradient(135deg, #FF9C60 0%, #FFD4B8 40%, #FF7030 100%)',
                         WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                         textShadow: 'none',
                         filter: 'drop-shadow(0 0 40px rgba(255,156,96,0.5))',
                       } : line.outlined ? {
-                        WebkitTextStroke: '2px rgba(255,255,255,0.22)', color: 'transparent',
+                        /* Premium orange outline — vivid, luxury editorial feel */
+                        WebkitTextStroke: '2px rgba(255,112,48,0.82)',
+                        color: 'transparent',
                       } : { color: '#fff' }),
                     }}
                   >{line.text}</motion.div>
@@ -1056,12 +1071,15 @@ export default function HeroSection() {
           willChange: 'transform, opacity',
           transformStyle: 'preserve-3d',
         }}>
+          {/* Phone ambient glow — static radial-gradient, no filter:blur.
+             filter:blur on a child of phoneRef triggered full GPU repaint
+             on every GSAP scroll tick (phoneRef transforms propagate to children). */}
           <div style={{
             position: 'absolute', top: '50%', left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '120%', height: '120%', borderRadius: '50%',
-            background: 'radial-gradient(ellipse, rgba(255,156,96,0.18) 0%, transparent 65%)',
-            filter: 'blur(30px)', zIndex: -1,
+            background: 'radial-gradient(ellipse, rgba(255,156,96,0.14) 0%, transparent 65%)',
+            zIndex: -1,
           }} />
           <div style={{
             position: 'absolute', top: 0, left: '10%',
