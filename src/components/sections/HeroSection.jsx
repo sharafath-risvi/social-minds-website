@@ -991,7 +991,7 @@ export default function HeroSection() {
           position: 'relative', zIndex: 10,
           width: '100%', maxWidth: '1600px',
           margin: '0 auto',
-          padding: 'clamp(6rem, 12vw, 9rem) 32px clamp(4rem, 8vw, 6rem)',
+          padding: 'clamp(8rem, 14vw, 11rem) 32px clamp(4rem, 8vw, 6rem)',
           display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
         }}>
 
