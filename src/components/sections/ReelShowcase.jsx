@@ -118,8 +118,8 @@ function ReelCard({ reel, index, inView }) {
           transform: 'translate(-50%, -60%)',
           width: '56px',
           height: '56px',
-          background: 'rgba(255,255,255,0.15)',
-          backdropFilter: 'blur(10px)',
+          // Removed backdropFilter:blur \u2014 solid bg over dark card overlay is identical
+          background: 'rgba(255,255,255,0.18)',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',

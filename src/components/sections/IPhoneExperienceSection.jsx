@@ -82,9 +82,9 @@ function MetricCard({ card, i, inView }) {
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.8 }}
         style={{
-          background: 'rgba(15,15,15,0.9)',
-          backdropFilter: 'blur(28px)',
-          WebkitBackdropFilter: 'blur(28px)',
+          background: 'rgba(15,15,15,0.92)',
+          // Removed backdropFilter:blur(28px) — 3 floating animated cards blurring
+          // over dark bg = unnecessary compositing cost on every float keyframe
           border: `1px solid ${card.color}22`,
           borderRadius: '20px',
           padding: '20px 24px',
@@ -92,6 +92,7 @@ function MetricCard({ card, i, inView }) {
           boxShadow: `0 8px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 0 1px ${card.color}08`,
           position: 'relative',
           overflow: 'hidden',
+          willChange: 'transform',
         }}
       >
         {/* Glow accent */}
@@ -171,8 +172,7 @@ function ReelPreviewCard({ card, i, inView }) {
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -60%)',
           width: '32px', height: '32px',
-          background: 'rgba(255,255,255,0.15)',
-          backdropFilter: 'blur(10px)',
+          background: 'rgba(255,255,255,0.2)',
           borderRadius: '50%',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           border: '1px solid rgba(255,255,255,0.25)',
@@ -210,9 +210,10 @@ export default function IPhoneExperienceSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const iphoneY = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const textY = useTransform(scrollYProgress, [0, 1], [30, -30]);
-  const glowScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.2, 0.9]);
+  // Reduced from [50,-50] to [25,-25] — halves the per-tick transform distance
+  const iphoneY = useTransform(scrollYProgress, [0, 1], [25, -25]);
+  const textY = useTransform(scrollYProgress, [0, 1], [15, -15]);
+  const glowScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1.1, 0.9]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -227,7 +228,8 @@ export default function IPhoneExperienceSection() {
       mouseX.set(e.clientX - innerWidth / 2);
       mouseY.set(e.clientY - innerHeight / 2);
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    // passive:true — prevents blocking the browser scroll thread
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
@@ -273,15 +275,14 @@ export default function IPhoneExperienceSection() {
         ))}
       </motion.div>
 
-      {/* ── LAYERED GLOW SYSTEM ── */}
+      {/* ── LAYERED GLOW SYSTEM — pure radial-gradients, no filter:blur ── */}
       {/* Center mega glow */}
       <motion.div
         style={{
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
           width: '900px', height: '700px',
-          background: 'radial-gradient(ellipse at 50% 50%, rgba(255,156,96,0.16) 0%, rgba(255,80,0,0.08) 30%, transparent 65%)',
-          filter: 'blur(80px)',
+          background: 'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(255,156,96,0.20) 0%, rgba(255,80,0,0.07) 35%, transparent 65%)',
           scale: glowScale,
           zIndex: 1,
         }}
@@ -291,8 +292,7 @@ export default function IPhoneExperienceSection() {
       <div style={{
         position: 'absolute', top: '30%', left: '30%',
         width: '600px', height: '500px',
-        background: 'radial-gradient(ellipse, rgba(160,80,255,0.08) 0%, transparent 60%)',
-        filter: 'blur(100px)',
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(160,80,255,0.10) 0%, rgba(160,80,255,0.03) 45%, transparent 60%)',
         zIndex: 1,
         pointerEvents: 'none',
       }} />
@@ -300,8 +300,7 @@ export default function IPhoneExperienceSection() {
       <div style={{
         position: 'absolute', bottom: '20%', right: '20%',
         width: '500px', height: '400px',
-        background: 'radial-gradient(ellipse, rgba(60,180,255,0.06) 0%, transparent 65%)',
-        filter: 'blur(80px)',
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(60,180,255,0.09) 0%, rgba(60,180,255,0.03) 45%, transparent 65%)',
         zIndex: 1,
         pointerEvents: 'none',
       }} />

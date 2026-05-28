@@ -50,13 +50,12 @@ function MarqueeRow({ items, reverse = false, speed = 'normal' }) {
               alignItems: 'center',
               gap: '8px',
               padding: '10px 20px',
-              background: 'rgba(255,255,255,0.04)',
+              // Replaced backdropFilter:blur(12px) — was applied to 30+ cloned moving elements
+              // causing a massive compositing layer cost on every marquee animation frame.
+              background: 'rgba(20,20,20,0.85)',
               border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '100px',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
               flexShrink: 0,
-              transition: 'all 0.3s ease',
             }}
           >
             <span style={{ fontSize: '14px' }}>{item.icon}</span>
@@ -119,14 +118,14 @@ export default function BrandMarquee() {
         </motion.div>
       </div>
 
-      {/* Orange ambient glow */}
+      {/* Orange ambient glow — pure radial-gradient, no filter:blur */}
       <div style={{
         position: 'absolute',
         top: '50%', left: '50%',
         transform: 'translate(-50%, -50%)',
         width: '600px', height: '200px',
-        background: 'radial-gradient(ellipse, rgba(255,156,96,0.05) 0%, transparent 70%)',
-        filter: 'blur(40px)',
+        // radial-gradient achieves the same soft glow as blur(40px) but costs zero GPU
+        background: 'radial-gradient(ellipse 60% 100% at 50% 50%, rgba(255,156,96,0.09) 0%, rgba(255,156,96,0.03) 55%, transparent 80%)',
         pointerEvents: 'none',
         zIndex: 0,
       }} />

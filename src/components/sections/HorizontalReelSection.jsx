@@ -119,8 +119,8 @@ function ReelCard({ reel, index }) {
       <div style={{
         position: 'absolute', top: '14px', left: '14px',
         padding: '4px 10px',
-        background: 'rgba(0,0,0,0.4)',
-        backdropFilter: 'blur(10px)',
+        // Solid dark bg — replacing backdropFilter:blur which fires on all 16 visible card elements
+        background: 'rgba(0,0,0,0.55)',
         borderRadius: '100px',
         border: '1px solid rgba(255,255,255,0.15)',
       }}>
@@ -137,8 +137,7 @@ function ReelCard({ reel, index }) {
       <div style={{
         position: 'absolute', top: '14px', right: '14px',
         padding: '4px 8px',
-        background: 'rgba(0,0,0,0.5)',
-        backdropFilter: 'blur(10px)',
+        background: 'rgba(0,0,0,0.60)',
         borderRadius: '6px',
         border: '1px solid rgba(255,255,255,0.1)',
       }}>
@@ -157,8 +156,7 @@ function ReelCard({ reel, index }) {
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
           width: '48px', height: '48px',
-          background: 'rgba(255,255,255,0.15)',
-          backdropFilter: 'blur(12px)',
+          background: 'rgba(255,255,255,0.18)',
           borderRadius: '50%',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           border: '1.5px solid rgba(255,255,255,0.3)',
@@ -223,9 +221,9 @@ export default function HorizontalReelSection() {
     offset: ['start end', 'end start'],
   });
 
-  // Row 1 moves left, row 2 moves right
-  const row1X = useTransform(scrollYProgress, [0, 1], ['0%', '-12%']);
-  const row2X = useTransform(scrollYProgress, [0, 1], ['-8%', '4%']);
+  // Reduced range to ±6%/2% — halves transform distance per scroll tick
+  const row1X = useTransform(scrollYProgress, [0, 1], ['0%', '-6%']);
+  const row2X = useTransform(scrollYProgress, [0, 1], ['-4%', '2%']);
 
   const split1 = reels.slice(0, 4);
   const split2 = reels.slice(4, 8);
@@ -240,13 +238,12 @@ export default function HorizontalReelSection() {
         overflow: 'hidden',
       }}
     >
-      {/* Background glow */}
+      {/* Background glow — pure radial-gradient, no filter:blur */}
       <div style={{
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -50%)',
         width: '1000px', height: '600px',
-        background: 'radial-gradient(ellipse, rgba(255,156,96,0.04) 0%, transparent 70%)',
-        filter: 'blur(80px)',
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,156,96,0.07) 0%, rgba(255,156,96,0.02) 45%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 

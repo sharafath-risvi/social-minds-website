@@ -86,8 +86,8 @@ export default function ProcessTimeline() {
       <div style={{
         position: 'absolute', top: '50%', right: '0',
         width: '500px', height: '800px',
-        background: 'radial-gradient(ellipse at right, rgba(255,156,96,0.04) 0%, transparent 65%)',
-        filter: 'blur(80px)',
+        // Pure radial-gradient — eliminates filter:blur(80px) repaint during scroll
+        background: 'radial-gradient(ellipse 40% 60% at 100% 50%, rgba(255,156,96,0.07) 0%, rgba(255,156,96,0.02) 45%, transparent 70%)',
         transform: 'translateY(-50%)',
         pointerEvents: 'none',
       }} />

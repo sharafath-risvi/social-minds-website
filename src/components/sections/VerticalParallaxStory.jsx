@@ -80,8 +80,9 @@ function CinematicImagePanel({ chapter, scrollY }) {
     offset: ['start end', 'end start'],
   });
 
-  const imgY    = useTransform(scrollYProgress, [0, 1], [30, -30]);
-  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.04, 1.0, 1.04]);
+  // Reduced range from [30,-30] to [15,-15] — halves transform update distance per tick
+  const imgY    = useTransform(scrollYProgress, [0, 1], [15, -15]);
+  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.02, 1.0, 1.02]);
 
   return (
     <div
@@ -634,10 +635,10 @@ export default function VerticalParallaxStory() {
               alignItems: 'center',
               gap: '8px',
               padding: '9px 18px',
-              background: 'rgba(255,255,255,0.04)',
+              background: 'rgba(30,30,30,0.90)',
               border: '1px solid rgba(255,156,96,0.22)',
               borderRadius: '100px',
-              backdropFilter: 'blur(8px)',
+              // Removed backdropFilter:blur(8px) — solid dark bg is equivalent on #080808
               boxShadow: '0 0 16px rgba(255,156,96,0.08)',
             }}>
               <div style={{

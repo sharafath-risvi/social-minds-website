@@ -111,7 +111,8 @@ export default function CinematicIPhoneHero() {
       mouseX.set(e.clientX - innerWidth / 2);
       mouseY.set(e.clientY - innerHeight / 2);
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    // passive:true — prevents blocking the browser scroll thread
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
@@ -158,13 +159,12 @@ export default function CinematicIPhoneHero() {
         ))}
       </motion.div>
 
-      {/* Primary orange glow */}
+      {/* Primary orange glow — pure radial-gradient, no filter:blur */}
       <div style={{
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -50%)',
         width: '700px', height: '700px',
-        background: 'radial-gradient(circle, rgba(255,156,96,0.12) 0%, rgba(255,80,0,0.06) 40%, transparent 70%)',
-        filter: 'blur(80px)',
+        background: 'radial-gradient(circle 55% at 50% 50%, rgba(255,156,96,0.16) 0%, rgba(255,80,0,0.07) 40%, transparent 70%)',
         zIndex: 1,
         animation: 'pulse-glow-intense 4s ease-in-out infinite',
       }} />
@@ -173,8 +173,7 @@ export default function CinematicIPhoneHero() {
       <div style={{
         position: 'absolute', top: '40%', left: '40%',
         width: '500px', height: '500px',
-        background: 'radial-gradient(circle, rgba(160,80,255,0.08) 0%, transparent 65%)',
-        filter: 'blur(100px)',
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(160,80,255,0.10) 0%, rgba(160,80,255,0.03) 45%, transparent 65%)',
         zIndex: 1,
       }} />
 
@@ -182,8 +181,7 @@ export default function CinematicIPhoneHero() {
       <div style={{
         position: 'absolute', top: '55%', right: '20%',
         width: '400px', height: '300px',
-        background: 'radial-gradient(ellipse, rgba(60,180,255,0.05) 0%, transparent 65%)',
-        filter: 'blur(80px)',
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(60,180,255,0.08) 0%, rgba(60,180,255,0.02) 45%, transparent 65%)',
         zIndex: 1,
       }} />
 
@@ -267,14 +265,15 @@ export default function CinematicIPhoneHero() {
               animate={{ y: [0, -14, 0] }}
               transition={{ duration: card.floatDur, repeat: Infinity, ease: 'easeInOut', delay: i * 0.7 }}
               style={{
-                background: 'rgba(10,10,10,0.85)',
-                backdropFilter: 'blur(24px)',
-                WebkitBackdropFilter: 'blur(24px)',
+                background: 'rgba(10,10,10,0.90)',
+                // Removed backdropFilter:blur(24px) — 4 animated floating cards
+                // over black bg = 4 unnecessary compositor blur layers cycling continuously
                 border: `1px solid ${card.color}25`,
                 borderRadius: '20px',
                 padding: '16px 20px',
                 minWidth: '160px',
                 boxShadow: `0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px ${card.color}10, inset 0 1px 0 rgba(255,255,255,0.05)`,
+                willChange: 'transform',
               }}
             >
               {/* Live indicator */}

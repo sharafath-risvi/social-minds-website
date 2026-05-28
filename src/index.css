@@ -78,6 +78,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: none;
+  /* Prevent rubber-band overscroll from interfering with Lenis */
+  overscroll-behavior: none;
 }
 
 /* ========================================
@@ -730,6 +732,46 @@ body {
 html.lenis { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* ========================================
+   SCROLL PERFORMANCE — GPU ACCELERATION
+   ======================================== */
+
+/* Contain each section's layout/paint — prevents scroll-triggered reflows
+   from cascading across the whole page */
+section {
+  contain: layout style paint;
+  /* Promote sticky sections to their own GPU layer */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Marquee wrappers: GPU layer + backface isolation to prevent repaint on scroll */
+.animate-marquee,
+.animate-marquee-fast,
+.animate-marquee-slow,
+.animate-marquee-reverse,
+.animate-marquee-reverse-fast {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Sticky hero: force own compositor layer, prevents jitter at hero→services boundary */
+.hero-scroll-canvas,
+[style*="position: sticky"] {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Text rendering: speed > quality during scroll, re-renders at rest */
+h1, h2, h3, h4 {
+  text-rendering: optimizeSpeed;
+}
 
 /* ========================================
    INTERACTIVE ELEMENT CURSOR

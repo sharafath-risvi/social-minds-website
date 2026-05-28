@@ -216,7 +216,7 @@ export default function Testimonials() {
       {/* ── HEADER ── */}
       <div style={{
         textAlign: 'center',
-        padding: '0 clamp(24px, 5vw, 80px)',
+        padding: '0 clamp(24px, 4vw, 60px)',
         marginBottom: '64px',
         position: 'relative', zIndex: 2,
       }}>
@@ -231,6 +231,24 @@ export default function Testimonials() {
           WHAT BRANDS SAY
         </motion.div>
 
+        {/* Subtle eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.05 }}
+          style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 'clamp(10px, 1.2vw, 13px)',
+            fontWeight: 500,
+            letterSpacing: '0.22em',
+            color: 'rgba(0,0,0,0.3)',
+            textTransform: 'uppercase',
+            marginBottom: '10px',
+          }}
+        >
+          Real Stories. Real Results.
+        </motion.p>
+
         <div style={{ overflow: 'hidden' }}>
           <motion.h2
             initial={{ y: '105%' }}
@@ -238,13 +256,15 @@ export default function Testimonials() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(2.5rem, 7vw, 9rem)',
+              fontSize: 'clamp(3.2rem, 8.5vw, 10.5rem)',
               color: '#0D0D0D',
-              lineHeight: '0.9',
-              marginBottom: '20px',
+              lineHeight: '0.92',
+              marginBottom: '24px',
+              whiteSpace: 'nowrap',
+              letterSpacing: '0.01em',
             }}
           >
-            Brands Don't<br />
+            Brands Don&apos;t{' '}
             <span style={{
               background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
               WebkitBackgroundClip: 'text',
@@ -262,7 +282,7 @@ export default function Testimonials() {
             fontFamily: "'Inter', sans-serif",
             fontSize: '16px',
             color: 'rgba(0,0,0,0.45)',
-            maxWidth: '440px',
+            maxWidth: '480px',
             margin: '0 auto',
           }}
         >

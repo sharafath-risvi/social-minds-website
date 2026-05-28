@@ -1069,7 +1069,8 @@ export default function HeroSection() {
           zIndex: 15,
           opacity: 0,
           willChange: 'transform, opacity',
-          transformStyle: 'preserve-3d',
+          // Removed transform-style:preserve-3d — 3D stacking context is heavier than
+          // a standard compositor layer and wasn't needed for this 2D phone reveal
         }}>
           {/* Phone ambient glow — static radial-gradient, no filter:blur.
              filter:blur on a child of phoneRef triggered full GPU repaint
@@ -1096,13 +1097,16 @@ export default function HeroSection() {
         {/* ── RIGHT PANEL ── */}
         <RightPanel panelRef={rightPanelRef} />
 
-        {/* AMBIENT GLOW */}
+        {/* AMBIENT GLOW — pure radial-gradient, no filter:blur.
+             filter:blur(60px) on a sibling of the GSAP-animated phoneRef
+             was causing a GPU repaint on every single scroll tick. */}
         <div id="phone-ambient-glow" style={{
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
           width: '700px', height: '700px', borderRadius: '50%',
-          background: 'radial-gradient(ellipse, rgba(255,156,96,0.06) 0%, transparent 60%)',
-          filter: 'blur(60px)', zIndex: 4, pointerEvents: 'none', opacity: 0,
+          background: 'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(255,156,96,0.10) 0%, rgba(255,156,96,0.03) 45%, transparent 70%)',
+          zIndex: 4, pointerEvents: 'none', opacity: 0,
+          willChange: 'opacity',
         }} />
 
       </section>

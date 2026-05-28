@@ -31,16 +31,17 @@
   transform: translateX(-50%);
   width: 1000px;
   height: 600px;
+  /* Pure radial-gradient — same visual as blur(60px) but zero GPU cost */
   background: radial-gradient(
-    ellipse at center,
-    rgba(255, 156, 96, 0.055) 0%,
-    rgba(255, 156, 96, 0.018) 40%,
+    ellipse 50% 50% at 50% 50%,
+    rgba(255, 156, 96, 0.08) 0%,
+    rgba(255, 156, 96, 0.03) 40%,
     transparent 70%
   );
-  filter: blur(60px);
   pointer-events: none;
   z-index: 0;
   animation: cps-glow-drift 12s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .cps-bg-glow-2 {
@@ -49,12 +50,13 @@
   right: -5%;
   width: 700px;
   height: 400px;
+  /* Pure radial-gradient — eliminates expensive blur(80px) repaint */
   background: radial-gradient(
-    ellipse at center,
-    rgba(255, 156, 96, 0.04) 0%,
+    ellipse 50% 50% at 50% 50%,
+    rgba(255, 156, 96, 0.07) 0%,
+    rgba(255, 156, 96, 0.02) 40%,
     transparent 65%
   );
-  filter: blur(80px);
   pointer-events: none;
   z-index: 0;
 }
@@ -341,14 +343,14 @@
   flex-direction: column;
   align-items: center;
   padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.05);
+  /* Replaced backdrop-filter:blur(16px) — blurring inside a sticky 100vh container
+     composites the entire viewport on every scroll tick. Solid glass alternative
+     is visually equivalent and costs nothing. */
+  background: rgba(28, 28, 28, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 14px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   transition: all 0.35s ease;
   cursor: default;
-  /* Scene opacity controls visibility — pill starts visible */
   opacity: 1;
 }
 

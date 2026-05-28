@@ -141,8 +141,8 @@ function ReasonCard({ reason, index, inView }) {
         padding: isFeatured ? '44px 40px' : '28px 26px',
         overflow: 'hidden',
         cursor: 'default',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        // Removed backdropFilter:blur(16px) — 6 cards blurring through white bg = 6 compositor layers
+        // Solid opaque white achieves the same visual since the bg is light anyway
         transform: hovered ? 'translateY(-7px) scale(1.004)' : 'translateY(0) scale(1)',
         transition: 'all 0.42s cubic-bezier(0.22,1,0.36,1)',
         display: 'flex',
@@ -534,12 +534,10 @@ export default function WhySocialMinds() {
                 alignItems: 'center',
                 gap: '8px',
                 padding: '9px 20px',
-                background: 'rgba(255,255,255,0.88)',
+                background: 'rgba(255,255,255,0.92)',
                 border: '1px solid rgba(255,156,96,0.3)',
                 borderRadius: '100px',
                 boxShadow: '0 2px 16px rgba(255,156,96,0.12), inset 0 1px 0 rgba(255,255,255,0.9)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
               }}>
                 <div style={{
                   width: '5px', height: '5px', borderRadius: '50%',

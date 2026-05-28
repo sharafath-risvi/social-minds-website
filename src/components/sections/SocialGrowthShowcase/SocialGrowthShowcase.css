@@ -33,11 +33,12 @@
   transform: translateX(-50%);
   width: 900px;
   height: 500px;
-  background: radial-gradient(ellipse at center, rgba(255, 156, 96, 0.12) 0%, rgba(255, 156, 96, 0.04) 40%, transparent 70%);
+  /* Pure radial-gradient — replaces filter:blur(40px) with zero GPU cost */
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255, 156, 96, 0.16) 0%, rgba(255, 156, 96, 0.05) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
-  filter: blur(40px);
   animation: sgs-glow-breathe 8s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .sgs-bg-glow-bottom {
@@ -46,10 +47,10 @@
   right: -10%;
   width: 700px;
   height: 400px;
-  background: radial-gradient(ellipse at center, rgba(255, 156, 96, 0.08) 0%, transparent 65%);
+  /* Pure radial-gradient — replaces filter:blur(60px) */
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255, 156, 96, 0.12) 0%, rgba(255, 156, 96, 0.04) 40%, transparent 65%);
   pointer-events: none;
   z-index: 0;
-  filter: blur(60px);
 }
 
 .sgs-bg-dot-pattern {
@@ -679,7 +680,7 @@
 
 .sgs-bottom-stat-card {
   padding: 32px 24px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 24px;
   text-align: center;
@@ -687,11 +688,12 @@
   overflow: hidden;
   cursor: none;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  /* Removed backdrop-filter:blur(20px) — blurring through white bg costs full viewport
+     repaint on every scroll. Solid near-white is visually identical. */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   animation: sgs-card-float var(--float-dur, 6s) ease-in-out infinite;
   animation-delay: var(--float-delay, 0s);
+  will-change: transform;
 }
 
 .sgs-bottom-stat-card:hover {
