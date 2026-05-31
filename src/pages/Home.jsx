@@ -17,6 +17,8 @@ import ServicesShowcase from '../components/sections/ServicesShowcase';
 import VerticalParallaxStory from '../components/sections/VerticalParallaxStory';
 // ── Section 07 — Social Growth Showcase (WHITE)
 import SocialGrowthShowcase from '../components/sections/SocialGrowthShowcase/SocialGrowthShowcase';
+// ── Section 07b — Growth Ecosystem — Social Minds OS (WHITE)
+import GrowthEcosystemSection from '../components/sections/GrowthEcosystemSection';
 // ── Section 08 — Content Strategy (DARK)
 import ContentStrategySection from '../components/sections/ContentStrategySection';
 
@@ -49,6 +51,9 @@ export default function Home() {
 
       {/* ── 07 GROWTH SHOWCASE — White, case studies + before/after ── */}
       <SocialGrowthShowcase />
+
+      {/* ── 07b GROWTH ECOSYSTEM — White, Social Minds OS two-column iPhone ── */}
+      <GrowthEcosystemSection />
 
       {/* ── 08 CONTENT STRATEGY — Dark, 3 content type cards ── */}
       <ContentStrategySection />
