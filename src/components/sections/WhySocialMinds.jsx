@@ -1,640 +1,339 @@
-// ========================================
-// WHY SOCIAL MINDS — v5.0
-// SAME layout, grid, content, CTA
-// UPGRADED: cinematic premium aesthetics
-// Awwwards / Linear / Apple visual depth
-// Luxury glassmorphism cards
-// Mouse-follow ambient lighting
-// ========================================
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './WhySocialMinds.css';
 
-import { useRef, useState, useCallback } from 'react';
-import { motion, useInView } from 'framer-motion';
+gsap.registerPlugin(ScrollTrigger);
 
-// ========================================
-// REASONS DATA — unchanged
-// ========================================
-const REASONS = [
+/* ─────────────────────────────────────────
+   SERVICES — bright images, all preloaded
+   via always-in-DOM img elements (zero lag)
+───────────────────────────────────────── */
+const SERVICES = [
   {
-    id: 'strategy',
-    icon: '🎯',
-    title: 'Strategy First',
+    id: 0,
+    label: 'REELS STRATEGY',
+    heading: ['STOP THE', 'SCROLL'],
     description:
-      'We build the growth blueprint before we create a single post. Every move is calculated, intentional, and engineered for maximum brand impact.',
-    stat: '100%',
-    statLabel: 'Strategy-backed',
-    featured: false,
+      'We engineer short-form content that captures attention in seconds and converts viewers into followers, leads and paying customers.',
+    image: '/wsm/reels.webp',
   },
   {
-    id: 'cinematic',
-    icon: '🎬',
-    title: 'Cinematic Quality',
+    id: 1,
+    label: 'BRAND IDENTITY',
+    heading: ['BECOME', 'UNFORGETTABLE'],
     description:
-      'Studio-level production values on every single reel, campaign, and brand visual. Your audience will feel the difference before they even read a word.',
-    stat: '4K',
-    statLabel: 'Production standard',
-    featured: true,
+      'We build distinctive brand systems that make your business instantly recognizable across every platform and every touchpoint.',
+    image: '/wsm/brand.webp',
   },
   {
-    id: 'data',
-    icon: '📊',
-    title: 'Data-Driven Growth',
+    id: 2,
+    label: 'CONTENT PRODUCTION',
+    heading: ['CREATE WITH', 'PURPOSE'],
     description:
-      'We track 50+ performance metrics per campaign. If it moves a number, we see it — and we act on it immediately.',
-    stat: '50+',
-    statLabel: 'Tracked metrics',
-    featured: false,
+      'Every visual, every frame and every asset is crafted to elevate your brand authority and drive measurable, lasting growth.',
+    image: '/wsm/production.webp',
   },
   {
-    id: 'speed',
-    icon: '⚡',
-    title: 'Rapid Execution',
+    id: 3,
+    label: 'ANALYTICS & GROWTH',
+    heading: ['GROW WITH', 'DATA'],
     description:
-      'Ideation to published content in 48 hours. Speed is a competitive advantage we hand directly to your brand.',
-    stat: '48h',
-    statLabel: 'Turnaround',
-    featured: false,
+      'Every decision is backed by performance metrics, audience insights and growth analytics that compound over time.',
+    image: '/wsm/analytics.webp',
   },
   {
-    id: 'results',
-    icon: '🏆',
-    title: 'Proven Results',
+    id: 4,
+    label: 'CAMPAIGN LAUNCH',
+    heading: ['EXECUTE', 'TO SCALE'],
     description:
-      "50+ brands scaled. 10M+ views generated. We don't pitch promises — we show you the receipts.",
-    stat: '10M+',
-    statLabel: 'Views generated',
-    featured: false,
-  },
-  {
-    id: 'partnership',
-    icon: '🤝',
-    title: 'True Partnership',
-    description:
-      "We treat your brand as our own. Your growth is our obsession — not just a deliverable we invoice you for.",
-    stat: '50+',
-    statLabel: 'Brands partnered',
-    featured: false,
+      'From strategy to execution, we build and launch campaigns engineered to generate measurable, predictable business results.',
+    image: '/wsm/launch.webp',
   },
 ];
 
-// ========================================
-// INDIVIDUAL CARD — premium visual upgrade
-// ========================================
-function ReasonCard({ reason, index, inView }) {
-  const [hovered, setHovered] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-  const cardRef = useRef(null);
-  const isFeatured = reason.featured;
+const N = SERVICES.length;
 
-  const handleMouseMove = useCallback((e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePos({ x, y });
+/*
+  Queue = [next1, next2, next3].
+  The active card becomes the full background image and is removed from the small-card queue.
+*/
+function buildQueue(activeId) {
+  return [(activeId + 1) % N, (activeId + 2) % N, (activeId + 3) % N];
+}
+
+/* Small arrow SVG */
+const ArrowIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
+
+const ChevronLeft = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M15 18l-6-6 6-6" />
+  </svg>
+);
+
+const ChevronRight = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 18l6-6-6-6" />
+  </svg>
+);
+
+export default function WhySocialMinds() {
+  const [activeId, setActiveId] = useState(0);
+
+  const sectionRef = useRef(null);
+  const showcaseRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const active = SERVICES[activeId];
+
+  // Derive the queue dynamically from the current scroll-driven activeId
+  const queue = buildQueue(activeId);
+
+  /* ── Decode all hero <img> elements on mount (eliminate any remaining stutter) ── */
+  useEffect(() => {
+    const t = setTimeout(() => {
+      document
+        .querySelectorAll('img.wsm-hero-img')
+        .forEach(el => { if (el.decode) el.decode().catch(() => {}); });
+    }, 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  /* ── GSAP Scroll Pinning & Scrubbing ── */
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: showcaseRef.current,
+        start: 'center center', // Wait until the image area is centered in viewport
+        end: '+=2000', // Adjusted to balance with snap points
+        pin: sectionRef.current, // Pin the entire section to prevent layout shifts
+        scrub: 0.5, // Faster response time to scroll wheel
+        onUpdate: (self) => {
+          const totalItems = SERVICES.length;
+          const newIndex = Math.min(totalItems - 1, Math.floor(self.progress * totalItems));
+          setActiveId((prev) => (prev === newIndex ? prev : newIndex));
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onMouseMove={handleMouseMove}
-      style={{
-        gridColumn: isFeatured ? 'span 2' : 'span 1',
-        gridRow: isFeatured ? 'span 2' : 'span 1',
-        position: 'relative',
-        borderRadius: '28px',
-        // Layered glass background
-        background: hovered
-          ? 'rgba(255,255,255,0.97)'
-          : isFeatured
-          ? 'rgba(255,255,255,0.95)'
-          : 'rgba(255,255,255,0.78)',
-        // Premium border — inner highlight + outer glow on hover
-        border: hovered
-          ? '1px solid rgba(255,156,96,0.5)'
-          : isFeatured
-          ? '1px solid rgba(255,156,96,0.2)'
-          : '1px solid rgba(0,0,0,0.065)',
-        // Layered shadow system
-        boxShadow: hovered
-          ? [
-              '0 0 0 1px rgba(255,156,96,0.12)',
-              '0 8px 32px rgba(255,120,40,0.14)',
-              '0 24px 64px rgba(0,0,0,0.10)',
-              'inset 0 1px 0 rgba(255,255,255,0.9)',
-            ].join(', ')
-          : isFeatured
-          ? [
-              '0 4px 24px rgba(0,0,0,0.07)',
-              '0 12px 48px rgba(0,0,0,0.05)',
-              'inset 0 1px 0 rgba(255,255,255,0.8)',
-            ].join(', ')
-          : [
-              '0 2px 12px rgba(0,0,0,0.05)',
-              '0 4px 24px rgba(0,0,0,0.04)',
-              'inset 0 1px 0 rgba(255,255,255,0.75)',
-            ].join(', '),
-        padding: isFeatured ? '44px 40px' : '28px 26px',
-        overflow: 'hidden',
-        cursor: 'default',
-        // Removed backdropFilter:blur(16px) — 6 cards blurring through white bg = 6 compositor layers
-        // Solid opaque white achieves the same visual since the bg is light anyway
-        transform: hovered ? 'translateY(-7px) scale(1.004)' : 'translateY(0) scale(1)',
-        transition: 'all 0.42s cubic-bezier(0.22,1,0.36,1)',
-        display: 'flex',
-        flexDirection: 'column',
-        willChange: 'transform',
-      }}
-    >
-      {/* ── MOUSE-FOLLOW SPOTLIGHT ── */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: hovered
-          ? `radial-gradient(circle 180px at ${mousePos.x}% ${mousePos.y}%, rgba(255,156,96,0.09) 0%, transparent 70%)`
-          : 'none',
-        borderRadius: '28px',
-        pointerEvents: 'none',
-        transition: 'opacity 0.3s ease',
-        opacity: hovered ? 1 : 0,
-        zIndex: 0,
-      }} />
+    <section ref={sectionRef} id="why-social-minds" className="wsm-section">
+      <div className="wsm-wrap">
 
-      {/* ── CORNER SHIMMER (featured + hover) ── */}
-      {(isFeatured || hovered) && (
-        <div style={{
-          position: 'absolute', top: 0, right: 0,
-          width: isFeatured ? '220px' : '140px',
-          height: isFeatured ? '220px' : '140px',
-          background: `radial-gradient(circle at 100% 0%, rgba(255,156,96,${isFeatured ? '0.12' : '0.07'}) 0%, transparent 65%)`,
-          pointerEvents: 'none',
-          zIndex: 0,
-        }} />
-      )}
-
-      {/* ── TOP ACCENT LINE — slides in on hover ── */}
-      <div style={{
-        position: 'absolute', top: 0, left: '20px',
-        width: hovered ? '45%' : '0%',
-        height: '2px',
-        background: 'linear-gradient(90deg, #FF9C60, #FF7030, transparent)',
-        borderRadius: '0 0 2px 0',
-        transition: 'width 0.45s cubic-bezier(0.22,1,0.36,1)',
-        zIndex: 1,
-      }} />
-
-      {/* ── INNER BORDER HIGHLIGHT — top rim glass feel ── */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0,
-        height: '1px',
-        background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.9) 50%, transparent 100%)',
-        borderRadius: '28px 28px 0 0',
-        zIndex: 1,
-      }} />
-
-      {/* ── ALL CARD CONTENT — z:2 to sit above bg layers ── */}
-      <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', flex: 1 }}>
-
-        {/* Icon + stat row */}
-        <div style={{
-          display: 'flex',
-          alignItems: isFeatured ? 'flex-start' : 'center',
-          justifyContent: 'space-between',
-          marginBottom: isFeatured ? '28px' : '18px',
-          flexDirection: isFeatured ? 'column' : 'row',
-          gap: isFeatured ? '20px' : '0',
-        }}>
-          {/* Premium icon box */}
-          <div style={{
-            width: isFeatured ? '64px' : '50px',
-            height: isFeatured ? '64px' : '50px',
-            borderRadius: isFeatured ? '18px' : '14px',
-            // Glass icon container
-            background: hovered
-              ? 'linear-gradient(145deg, rgba(255,156,96,0.16) 0%, rgba(255,112,48,0.06) 100%)'
-              : 'linear-gradient(145deg, rgba(0,0,0,0.055) 0%, rgba(0,0,0,0.025) 100%)',
-            border: hovered
-              ? '1px solid rgba(255,156,96,0.38)'
-              : '1px solid rgba(0,0,0,0.08)',
-            boxShadow: hovered
-              ? '0 4px 16px rgba(255,156,96,0.2), inset 0 1px 0 rgba(255,255,255,0.6)'
-              : 'inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 8px rgba(0,0,0,0.06)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: isFeatured ? '28px' : '21px',
-            transition: 'all 0.42s ease',
-            flexShrink: 0,
-            transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
-          }}>
-            {reason.icon}
-          </div>
-
-          {/* Stat — normal cards top-right */}
-          {!isFeatured && (
-            <div style={{ textAlign: 'right' }}>
-              <div style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: '26px',
-                letterSpacing: '0.02em',
-                lineHeight: 1,
-                // Orange gradient number
-                background: hovered
-                  ? 'linear-gradient(135deg, #FF9C60, #FF7030)'
-                  : 'linear-gradient(135deg, rgba(0,0,0,0.18), rgba(0,0,0,0.1))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                transition: 'background 0.35s ease',
-              }}>
-                {reason.stat}
-              </div>
-              <div style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '7px',
-                fontWeight: 700,
-                color: hovered ? 'rgba(255,112,48,0.65)' : 'rgba(0,0,0,0.28)',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                marginTop: '2px',
-                transition: 'color 0.35s ease',
-              }}>
-                {reason.statLabel}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Featured stat bar */}
-        {isFeatured && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '12px',
-            marginBottom: '24px',
-            padding: '16px 20px',
-            background: 'linear-gradient(135deg, rgba(255,156,96,0.08) 0%, rgba(255,112,48,0.04) 100%)',
-            border: '1px solid rgba(255,156,96,0.2)',
-            borderRadius: '14px',
-            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.7)',
-          }}>
-            <span style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '42px',
-              background: 'linear-gradient(135deg, #FF9C60 0%, #FF7030 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              letterSpacing: '0.02em',
-              lineHeight: 1,
-            }}>
-              {reason.stat}
-            </span>
-            <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '11px',
-              fontWeight: 700,
-              color: 'rgba(0,0,0,0.38)',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-            }}>
-              {reason.statLabel}
-            </span>
-          </div>
-        )}
-
-        {/* Title */}
-        <h3 style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: isFeatured ? 'clamp(2.1rem, 3.5vw, 3.4rem)' : 'clamp(1.35rem, 2vw, 1.9rem)',
-          color: '#0A0A0A',
-          lineHeight: 1,
-          letterSpacing: '0.01em',
-          marginBottom: isFeatured ? '14px' : '9px',
-        }}>
-          {reason.title}
-        </h3>
-
-        {/* Thin divider */}
-        <div style={{
-          width: '100%',
-          height: '1px',
-          background: `linear-gradient(90deg, ${hovered ? 'rgba(255,156,96,0.3)' : 'rgba(0,0,0,0.07)'}, transparent)`,
-          marginBottom: isFeatured ? '16px' : '12px',
-          transition: 'background 0.4s ease',
-        }} />
-
-        {/* Description */}
-        <p style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: isFeatured ? '14.5px' : '12.5px',
-          color: hovered ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.42)',
-          lineHeight: 1.78,
-          flex: 1,
-          transition: 'color 0.35s ease',
-        }}>
-          {reason.description}
-        </p>
-
-        {/* Bottom CTA row */}
-        <div style={{
-          marginTop: isFeatured ? '24px' : '18px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          {/* Animated line */}
-          <div style={{
-            width: hovered ? '36px' : '18px',
-            height: '1.5px',
-            background: hovered
-              ? 'linear-gradient(90deg, #FF9C60, #FF7030)'
-              : 'rgba(0,0,0,0.12)',
-            borderRadius: '1px',
-            transition: 'width 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s ease',
-          }} />
-          <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '9px',
-            fontWeight: 700,
-            letterSpacing: '0.14em',
-            color: hovered ? '#FF7030' : 'rgba(0,0,0,0.22)',
-            textTransform: 'uppercase',
-            transition: 'color 0.35s ease',
-          }}>
-            {isFeatured ? 'Our Edge' : 'Learn More'}
-          </span>
-          {/* Arrow chevron */}
-          <span style={{
-            fontSize: '10px',
-            color: hovered ? '#FF7030' : 'rgba(0,0,0,0.15)',
-            transform: hovered ? 'translateX(3px)' : 'translateX(0)',
-            transition: 'transform 0.35s ease, color 0.35s ease',
-            lineHeight: 1,
-          }}>→</span>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ========================================
-// MAIN EXPORT — layout IDENTICAL to v4
-// ========================================
-export default function WhySocialMinds() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-
-  return (
-    <section
-      ref={ref}
-      style={{
-        // Richer off-white — warm tinted for luxury feel
-        background: 'linear-gradient(160deg, #FEFDFB 0%, #F7F5F1 45%, #FEFCFA 100%)',
-        padding: 'clamp(5rem, 10vw, 9rem) clamp(24px, 5vw, 80px)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* ── LAYERED BACKGROUND ATMOSPHERE ── */}
-
-      {/* Grain texture */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        opacity: 0.022,
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
-
-      {/* Warm dot grid */}
-      <div className="dot-bg-white" style={{ position: 'absolute', inset: 0, opacity: 0.45, zIndex: 0 }} />
-
-      {/* Top-left large warm glow */}
-      <div style={{
-        position: 'absolute', top: '-120px', left: '-120px',
-        width: '600px', height: '600px',
-        background: 'radial-gradient(circle, rgba(255,156,96,0.1) 0%, rgba(255,180,120,0.04) 40%, transparent 68%)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-
-      {/* Top-right soft warm fill */}
-      <div style={{
-        position: 'absolute', top: '-40px', right: '-40px',
-        width: '380px', height: '380px',
-        background: 'radial-gradient(circle, rgba(255,220,180,0.08) 0%, transparent 65%)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-
-      {/* Center deep glow */}
-      <div style={{
-        position: 'absolute', top: '40%', left: '50%',
-        transform: 'translateX(-50%)',
-        width: '1000px', height: '500px',
-        background: 'radial-gradient(ellipse, rgba(255,156,96,0.045) 0%, transparent 65%)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-
-      {/* Bottom-right warm glow */}
-      <div style={{
-        position: 'absolute', bottom: '-80px', right: '-60px',
-        width: '450px', height: '450px',
-        background: 'radial-gradient(circle, rgba(255,140,80,0.07) 0%, transparent 65%)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-
-      {/* Floating soft blur orbs — CSS only, no filter:blur on large elements */}
-      <div style={{
-        position: 'absolute', top: '25%', left: '8%',
-        width: '120px', height: '120px',
-        background: 'radial-gradient(circle, rgba(255,156,96,0.12) 0%, transparent 70%)',
-        borderRadius: '50%',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '30%', right: '10%',
-        width: '90px', height: '90px',
-        background: 'radial-gradient(circle, rgba(255,156,96,0.1) 0%, transparent 70%)',
-        borderRadius: '50%',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-
-      <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
-
-        {/* ── CENTERED HEADER — layout unchanged ── */}
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(3rem, 6vw, 5rem)' }}>
-
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55 }}
-            className="tag-orange-dark"
-            style={{ marginBottom: '24px', display: 'inline-flex' }}
-          >
-            <span style={{ fontSize: '7px' }}>●</span>
-            WHY SOCIAL MINDS
-          </motion.div>
-
-          {/* Heading */}
+        {/* ════════════════════════════════════════
+            SECTION HEADING (above the showcase)
+        ════════════════════════════════════════ */}
+        <div className="wsm-section-header">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            className="wsm-section-title"
+            initial={{ opacity: 0, y: 28 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(2.8rem, 7vw, 9rem)',
-              color: '#0A0A0A',
-              lineHeight: '0.9',
-              letterSpacing: '-0.015em',
-              margin: '0 0 22px 0',
-            }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            Built For Brands That<br />
-            <span style={{
-              background: 'linear-gradient(135deg, #FF9C60 0%, #FF7030 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              Refuse To Blend In.
+            <span className="wsm-title-line">WHY CHOOSE</span>
+            <span className="wsm-title-line">
+              SOCIAL{' '}<span className="wsm-title-accent">MINDS</span>
             </span>
           </motion.h2>
-
-          {/* Paragraph */}
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            className="wsm-section-sub"
+            initial={{ opacity: 0, y: 14 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.2 }}
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: 'clamp(14px, 1.3vw, 16px)',
-              color: 'rgba(0,0,0,0.42)',
-              lineHeight: 1.82,
-              maxWidth: '580px',
-              margin: '0 auto 32px',
-              letterSpacing: '0.01em',
-            }}
+            transition={{ duration: 0.55, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
-            We combine cinematic storytelling, strategic execution, and data-driven
-            growth systems to create brands people cannot ignore.
+            Every strategy, asset and campaign is engineered for measurable business growth.
           </motion.p>
-
-          {/* Feature tags — premium style */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}
-          >
-            {['Strategy-Led', 'Cinematic Quality', 'Growth Engine'].map((tag) => (
-              <div key={tag} style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '9px 20px',
-                background: 'rgba(255,255,255,0.92)',
-                border: '1px solid rgba(255,156,96,0.3)',
-                borderRadius: '100px',
-                boxShadow: '0 2px 16px rgba(255,156,96,0.12), inset 0 1px 0 rgba(255,255,255,0.9)',
-              }}>
-                <div style={{
-                  width: '5px', height: '5px', borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                  boxShadow: '0 0 8px rgba(255,156,96,0.7)',
-                  flexShrink: 0,
-                }} />
-                <span style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  letterSpacing: '0.12em',
-                  color: 'rgba(0,0,0,0.58)',
-                  textTransform: 'uppercase',
-                }}>{tag}</span>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
-        {/* ── BENTO GRID — layout unchanged ── */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gridAutoRows: 'minmax(220px, auto)',
-          gap: '14px',
-        }}>
-          {[
-            REASONS[1], // Cinematic Quality — featured (2×2)
-            REASONS[0], // Strategy First
-            REASONS[3], // Rapid Execution
-            REASONS[2], // Data-Driven
-            REASONS[4], // Proven Results
-            REASONS[5], // True Partnership
-          ].map((reason, i) => (
-            <ReasonCard
-              key={reason.id}
-              reason={reason}
-              index={i}
-              inView={inView}
-            />
-          ))}
-        </div>
-
-        {/* ── CTA — layout unchanged ── */}
+        {/* ════════════════════════════════════════
+            SHOWCASE CONTAINER
+        ════════════════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          ref={showcaseRef}
+          className="wsm-showcase"
+          initial={{ opacity: 0, y: 28 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.75 }}
-          style={{ textAlign: 'center', marginTop: 'clamp(3rem, 6vw, 5rem)' }}
+          transition={{ duration: 0.7, delay: 0.18 }}
         >
-          {/* Decorative divider */}
-          <div style={{
-            width: '56px', height: '2px',
-            background: 'linear-gradient(90deg, transparent, #FF9C60, transparent)',
-            margin: '0 auto 28px',
-            borderRadius: '1px',
-          }} />
 
-          <a
-            href="/contact"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '18px 44px',
-              background: 'linear-gradient(135deg, #FF9C60 0%, #FF7030 100%)',
-              borderRadius: '100px',
-              textDecoration: 'none',
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '14px',
-              fontWeight: 700,
-              color: '#fff',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              boxShadow: '0 8px 32px rgba(255,112,48,0.38), 0 2px 8px rgba(255,112,48,0.2)',
-              transition: 'all 0.38s cubic-bezier(0.22,1,0.36,1)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-3px)';
-              e.currentTarget.style.boxShadow = '0 18px 48px rgba(255,112,48,0.48), 0 4px 12px rgba(255,112,48,0.25)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(255,112,48,0.38), 0 2px 8px rgba(255,112,48,0.2)';
-            }}
-          >
-            Join the Family
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              width: '24px', height: '24px', borderRadius: '50%',
-              background: 'rgba(255,255,255,0.22)',
-              fontSize: '12px',
-            }}>↗</span>
-          </a>
+          {/* ════════════════════════════════════
+              LAYER 1 — BACKGROUND IMAGES
+              All 5 <img> always in DOM.
+              CSS opacity/transform crossfades
+              on the GPU — zero JS per frame.
+          ════════════════════════════════════ */}
+          <div className="wsm-bg-layer" aria-hidden="true">
+            {SERVICES.map(svc => (
+              <img
+                key={svc.id}
+                src={svc.image}
+                alt=""
+                decoding="sync"
+                fetchPriority="high"
+                className={`wsm-hero-img${svc.id === activeId ? ' is-active' : ''}`}
+              />
+            ))}
+            {/* Subtle full-area dark overlay — improves text + card readability
+                without making the image dark (just rgba 0,0,0,0.20) */}
+            <div className="wsm-bg-overlay" />
+            {/* Left gradient — deeper darkening only where text lives */}
+            <div className="wsm-left-grad" />
+          </div>
+
+          {/* ════════════════════════════════════
+              LAYER 2 — LEFT CONTENT
+          ════════════════════════════════════ */}
+          <div className="wsm-content-area">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`txt-${activeId}`}
+                className="wsm-content-block"
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {/* Service tag */}
+                <span className="wsm-service-tag">
+                  <span className="wsm-tag-dot" />
+                  {active.label}
+                </span>
+
+                {/* Dynamic heading */}
+                <h3 className="wsm-heading">
+                  {active.heading.map((line, i) => (
+                    <span key={i} className="wsm-heading-line">{line}</span>
+                  ))}
+                </h3>
+
+                {/* Dynamic description */}
+                <p className="wsm-desc">{active.description}</p>
+
+                {/* CTA */}
+                <motion.a
+                  href="#contact"
+                  className="wsm-cta"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Start Growing Today
+                  <ArrowIcon />
+                </motion.a>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Progress pips */}
+            <div className="wsm-pips">
+              {SERVICES.map((_, i) => (
+                <button
+                  key={i}
+                  className={`wsm-pip${i === activeId ? ' active' : ''}`}
+                  aria-label={`View ${SERVICES[i].label}`}
+                  style={{ pointerEvents: 'none' }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* ════════════════════════════════════
+              LAYER 3 — CARDS AREA (center-right,
+              shifted 50px below center)
+              Queue = [activeId, next1, next2].
+              Active card (pos 0) = orange highlight.
+              next1/next2 are clickable.
+          ════════════════════════════════════ */}
+          <div className="wsm-cards-area">
+
+            {/* Thumbnail card row */}
+            <div className="wsm-cards-row">
+              <AnimatePresence mode="popLayout" initial={false}>
+                {queue.map((sid, idx) => {
+                  const svc = SERVICES[sid];
+                  const isFirstInQueue = idx === 0;
+
+                  return (
+                    <motion.button
+                      key={sid}
+                      className={`wsm-thumb${isFirstInQueue ? ' is-active' : ''}`}
+                      aria-label={`Preview ${svc.label}`}
+                      aria-pressed={isFirstInQueue}
+                      layout
+                      initial={{ opacity: 0, x: 72, scale: 0.88 }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                        scale: isFirstInQueue ? 1.05 : 1,
+                      }}
+                      exit={{ opacity: 0, x: -44, scale: 0.88, transition: { duration: 0.35 } }}
+                      transition={{
+                        layout: { duration: 0.52, ease: [0.25, 0.46, 0.45, 0.94] },
+                        opacity: { duration: 0.55 },
+                        x: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] },
+                        scale: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] },
+                      }}
+                      style={{ cursor: 'default' }}
+                    >
+                      <div
+                        className="wsm-thumb-img"
+                        style={{ backgroundImage: `url(${svc.image})` }}
+                      />
+                      <div className="wsm-thumb-overlay" />
+                      <div className="wsm-thumb-footer">
+                        <span className="wsm-thumb-label">{svc.label}</span>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </AnimatePresence>
+            </div>{/* /wsm-cards-row */}
+
+            {/* ── Navigation bar: dots ── */}
+            <div className="wsm-nav-bar">
+              <div className="wsm-nav-dots" role="tablist">
+                {SERVICES.map((svc, i) => (
+                  <button
+                    key={i}
+                    role="tab"
+                    aria-selected={i === activeId}
+                    aria-label={svc.label}
+                    className={`wsm-dot${i === activeId ? ' active' : ''}`}
+                    style={{ pointerEvents: 'none' }}
+                  />
+                ))}
+              </div>
+            </div>{/* /wsm-nav-bar */}
+
+          </div>{/* /wsm-cards-area */}
+
+          {/* Service counter — bottom-left */}
+          <div className="wsm-counter" aria-hidden="true">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={activeId}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.3 }}
+                className="wsm-counter-current"
+              >
+                {String(activeId + 1).padStart(2, '0')}
+              </motion.span>
+            </AnimatePresence>
+            <span className="wsm-counter-sep">/</span>
+            <span className="wsm-counter-total">{String(N).padStart(2, '0')}</span>
+          </div>
+
         </motion.div>
-
       </div>
     </section>
   );

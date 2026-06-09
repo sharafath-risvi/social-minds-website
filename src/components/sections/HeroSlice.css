@@ -1,0 +1,431 @@
+/* ============================================================
+   HERO SLICE LAYOUT — v2 refined
+   Two-column editorial hero. White bg. Premium polish.
+   ============================================================ */
+
+/* ── Two-col wrapper — fills the 100vh sticky shell ── */
+.hero-twocol {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+/* ── Inner content row ── */
+.hero-twocol-inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(28px, 5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(36px, 4.5vw, 72px);
+  height: 100%;
+}
+
+/* ─────────────────────────────────────────────────
+   LEFT COLUMN — Headline, desc, CTAs, trust stats
+───────────────────────────────────────────────── */
+.hero-left {
+  flex: 0 0 46%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /*
+    Push content below the fixed navbar.
+    Navbar is typically 64-80px. We add extra breathing room so the
+    "PREMIUM DIGITAL GROWTH AGENCY" badge is never clipped.
+    padding-top pushes the content block down; the outer hero-twocol
+    is already position:absolute/inset:0 so this reliably clears the nav.
+  */
+  padding-top: clamp(80px, 10vh, 104px);
+  padding-bottom: clamp(24px, 3vh, 48px);
+  /* Slight downward shift to match slices visual weight */
+  margin-top: 16px;
+}
+
+/* ── Agency label ── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #FF7030;
+  margin-bottom: clamp(16px, 2.2vh, 24px);
+}
+
+.hero-badge-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF9C60;
+  flex-shrink: 0;
+  animation: heroBadgePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes heroBadgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 156, 96, 0.5); }
+  50%       { box-shadow: 0 0 0 7px rgba(255, 156, 96, 0); }
+}
+
+/* ── Main headline ── */
+.hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 7vw, 8.5rem);
+  line-height: 0.88;
+  letter-spacing: 0.012em;
+  margin: 0 0 clamp(20px, 2.8vh, 32px);
+  display: flex;
+  flex-direction: column;
+  /* Gap between headline lines for stronger hierarchy */
+  gap: 0.04em;
+}
+
+.hero-hl-black {
+  display: block;
+  color: #0a0a0a;
+}
+
+/* IMPOSSIBLE — the hero word. Larger, orange, visual anchor. */
+.hero-hl-orange {
+  display: block;
+  color: #FF7030;
+  /* Scale IMPOSSIBLE slightly larger than the other lines */
+  font-size: 1.08em;
+  line-height: 0.92;
+  /* Very subtle downward shadow gives it weight on the white bg */
+  text-shadow:
+    0 3px 0 rgba(255, 112, 48, 0.12),
+    0 0 80px rgba(255, 112, 48, 0.06);
+}
+
+/* ── Description ── */
+.hero-desc {
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.72;
+  color: rgba(10, 10, 10, 0.52);
+  margin: 0 0 clamp(28px, 3.6vh, 42px);
+  max-width: 400px;
+  letter-spacing: -0.01em;
+}
+
+/* ── CTA buttons ── */
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(28px, 4.2vh, 48px);
+}
+
+/* Primary — black pill, turns orange on hover */
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 34px;
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  transition:
+    background 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.14),
+    0 6px 24px rgba(0, 0, 0, 0.10);
+}
+
+.hero-btn-primary:hover {
+  background: #FF7030;
+  /* Lift — visible elevation change */
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 12px rgba(255, 112, 48, 0.28),
+    0 12px 40px rgba(255, 112, 48, 0.20);
+}
+
+.hero-btn-primary:active {
+  transform: translateY(-1px);
+  box-shadow:
+    0 2px 6px rgba(255, 112, 48, 0.22),
+    0 6px 20px rgba(255, 112, 48, 0.14);
+}
+
+/* Ghost — minimal outline */
+.hero-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 28px;
+  background: transparent;
+  color: #0a0a0a;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  border: 1.5px solid rgba(10, 10, 10, 0.18);
+  transition:
+    border-color 0.22s ease,
+    color 0.22s ease,
+    background 0.22s ease,
+    transform 0.2s ease;
+}
+
+.hero-btn-ghost:hover {
+  border-color: #FF9C60;
+  color: #FF7030;
+  background: rgba(255, 156, 96, 0.05);
+  transform: translateY(-2px);
+}
+
+/* ── Trust stats — premium metrics row ── */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  padding: 0 clamp(20px, 2.6vw, 36px);
+}
+
+.hero-stat:first-child {
+  padding-left: 0;
+}
+
+/* Larger, bolder numbers */
+.hero-stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1;
+  color: #0a0a0a;
+  letter-spacing: 0.02em;
+}
+
+/* Smaller, lighter labels */
+.hero-stat-lbl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.32);
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* Thin vertical divider */
+.hero-stat-div {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 32px;
+  background: rgba(10, 10, 10, 0.10);
+}
+
+/* ─────────────────────────────────────────────────
+   RIGHT COLUMN — Vertical slice composition
+───────────────────────────────────────────────── */
+.hero-right {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Slice wrapper
+   paddingTop pushed down to clear the navbar and create
+   breathing room at the top of the composition.         ── */
+.hero-slices-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: clamp(8px, 1vw, 13px);
+  height: 100%;
+  /* Push the entire slice group down ~50px below the navbar */
+  padding-top: clamp(88px, 11vh, 110px);
+  padding-bottom: clamp(24px, 3vh, 40px);
+  width: 100%;
+}
+
+/* ── Individual slice ── */
+.hero-slice {
+  position: relative;
+  flex-shrink: 0;
+  cursor: default;
+  overflow: hidden;
+  will-change: transform;
+  /* Clean dark shadows only — no white glow, no white fade */
+  box-shadow:
+    0 6px 30px rgba(0, 0, 0, 0.11),
+    0 2px 8px rgba(0, 0, 0, 0.07);
+  /* NO mask-image — that was creating the white fade at slice bottoms */
+}
+
+.hero-slice:hover {
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.16),
+    0 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+/* ── Slice hover label ── */
+.hero-slice-label {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(8, 8, 8, 0.60);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 5px 11px;
+  border-radius: 100px;
+  white-space: nowrap;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* ───────────────────────────────────────────────────
+   TABLET — ≤ 1100px
+─────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .hero-twocol-inner {
+    padding: 0 clamp(20px, 4vw, 48px);
+    gap: clamp(24px, 3.5vw, 44px);
+  }
+
+  .hero-left {
+    flex: 0 0 46%;
+    margin-top: 20px;
+  }
+
+  .hero-headline {
+    font-size: clamp(3.2rem, 6vw, 6rem);
+  }
+
+  /* Show only 4 slices on tablet */
+  .hero-slices-wrap .hero-slice:last-child {
+    display: none;
+  }
+
+  .hero-slices-wrap {
+    padding-top: clamp(76px, 9vh, 90px);
+  }
+}
+
+/* ───────────────────────────────────────────────────
+   MOBILE — ≤ 768px
+─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-twocol-inner {
+    flex-direction: column;
+    padding: 90px 20px 36px;
+    gap: 32px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  .hero-left {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .hero-right {
+    height: 240px;
+    width: 100%;
+    flex: none;
+  }
+
+  .hero-slices-wrap {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;
+    gap: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    height: 240px;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .hero-slices-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-slice {
+    width: 150px !important;
+    height: 100% !important;
+    margin-top: 0 !important;
+    flex-shrink: 0;
+    border-radius: 16px !important;
+  }
+
+  .hero-slices-wrap .hero-slice:last-child {
+    display: block;
+  }
+
+  .hero-headline {
+    font-size: clamp(3rem, 11vw, 4.8rem);
+  }
+
+  .hero-desc {
+    font-size: 15px;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero-stat-div {
+    display: none;
+  }
+
+  .hero-stat {
+    padding: 0;
+  }
+
+  .hero-stat-val {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+}

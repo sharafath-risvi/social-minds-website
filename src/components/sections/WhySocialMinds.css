@@ -1,0 +1,623 @@
+/* ================================================================
+   WHY SOCIAL MINDS — Cinematic Hero Showcase (Refined)
+   Key principles:
+   · BG images use CSS opacity/transform — GPU only, zero JS lag
+   · Cards are absolute at bottom-right — never block the hero
+   · Content is absolute left, vertically centered
+   · Light gradient — image stays bright and visible
+   ================================================================ */
+
+/* ── SECTION ── */
+.wsm-section {
+  background: #FFFFFF;
+  padding: clamp(5rem, 9vw, 9rem) 0;
+}
+
+.wsm-wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 60px);
+}
+
+/* ════════════════════════════════════════
+   SECTION HEADING (above showcase)
+════════════════════════════════════════ */
+.wsm-section-header {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 4vw, 4rem);
+}
+
+.wsm-section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 10.5vw, 13rem);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: #111111;
+  margin: 0 0 clamp(14px, 1.6vw, 20px) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each line of the heading */
+.wsm-title-line {
+  display: block;
+}
+
+.wsm-title-accent {
+  color: #FF7030;
+}
+
+.wsm-section-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.7;
+  color: #666666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ════════════════════════════════════════
+   SHOWCASE CONTAINER
+   Large, immersive, overflow:hidden clips
+   entering/exiting cards at edges.
+════════════════════════════════════════ */
+.wsm-showcase {
+  position: relative;
+  width: 100%;
+  min-height: clamp(800px, 62vw, 920px);
+  border-radius: 32px;
+  overflow: hidden;
+  background: #111; /* Shown while images load */
+  isolation: isolate;
+}
+
+/* ════════════════════════════════════════
+   LAYER 1 — BACKGROUND IMAGE SYSTEM
+   ─────────────────────────────────────
+   All 5 images are ALWAYS in the DOM.
+   Only .is-active is visible.
+   CSS handles crossfade via opacity +
+   transform — pure GPU, zero JS overhead.
+   This is the fix for Content Production
+   and Analytics & Growth lag.
+════════════════════════════════════════ */
+.wsm-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Hidden img preloader rule no longer needed — img elements ARE the bg images now */
+
+/*
+  All 5 <img class="wsm-hero-img"> are always in the DOM.
+  Only .is-active is visible (opacity:1 + scale:1).
+  Using <img> instead of div+background-image gives the browser
+  the highest decode priority — no lazy-decode stutter on any card.
+  object-fit:cover + inset:0 is visually identical to background-size:cover.
+*/
+.wsm-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Inactive: hidden + slightly zoomed */
+  opacity: 0;
+  transform: scale(1.06) translateZ(0);
+  /* GPU compositor only — zero JS overhead per frame */
+  transition:
+    opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+  /* Prevent display of alt text or broken-image icon */
+  font-size: 0;
+}
+
+.wsm-hero-img.is-active {
+  opacity: 1;
+  transform: scale(1) translateZ(0);
+  z-index: 1;
+}
+
+/*
+  Full-area subtle overlay — rgba(0,0,0,0.20) tint.
+  Improves card and text readability on bright images
+  without making the image look dark.
+  Sits between the imgs (z-index 1) and the left gradient (z-index 3).
+*/
+.wsm-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.20);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/*
+  Left-side gradient — deeper darkening only where text lives.
+  z-index 3 so it sits above the overlay.
+*/
+.wsm-left-grad {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    to right,
+    rgba(6, 6, 6, 0.80) 0%,
+    rgba(6, 6, 6, 0.60) 14%,
+    rgba(6, 6, 6, 0.32) 30%,
+    rgba(6, 6, 6, 0.06) 50%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════
+   LAYER 2 — LEFT CONTENT AREA
+   Absolute, left side, vertically centered.
+   Cards are now center-right, so no extra
+   bottom padding needed.
+════════════════════════════════════════ */
+.wsm-content-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 46%;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(40px, 5vw, 72px) clamp(36px, 5vw, 72px);
+}
+
+.wsm-content-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Service tag */
+.wsm-service-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #FF9C60;
+  margin-bottom: clamp(14px, 1.8vw, 22px);
+}
+
+.wsm-tag-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FF9C60;
+  flex-shrink: 0;
+}
+
+/* Dynamic heading */
+.wsm-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4.5rem, 7.5vw, 10rem);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 clamp(16px, 2vw, 24px) 0;
+  text-shadow:
+    0 2px 32px rgba(0, 0, 0, 0.45),
+    0 0 80px rgba(0, 0, 0, 0.25);
+}
+
+.wsm-heading-line {
+  display: block;
+}
+
+/* Description */
+.wsm-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 1.35vw, 17px);
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 380px;
+  margin: 0 0 clamp(24px, 3vw, 36px) 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* CTA button */
+.wsm-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  background: linear-gradient(135deg, #FF9C60 0%, #FF7030 100%);
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000000;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 36px rgba(255, 112, 48, 0.40),
+    0 6px 20px rgba(255, 112, 48, 0.22);
+  transition: box-shadow 0.3s ease;
+}
+
+.wsm-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.wsm-cta:hover { box-shadow: 0 0 56px rgba(255,112,48,0.55), 0 8px 28px rgba(255,112,48,0.28); }
+.wsm-cta:hover::before { opacity: 1; }
+
+/* Progress pips */
+.wsm-pips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(22px, 2.8vw, 32px);
+}
+
+.wsm-pip {
+  height: 3px;
+  width: 22px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  transition: width 0.4s ease, background 0.35s ease, box-shadow 0.35s ease;
+}
+
+.wsm-pip.active {
+  width: 44px;
+  background: #FF9C60;
+  box-shadow: 0 0 10px rgba(255, 156, 96, 0.55);
+}
+
+.wsm-pip:hover:not(.active) {
+  background: rgba(255, 156, 96, 0.4);
+  width: 30px;
+}
+
+/* ════════════════════════════════════════
+   LAYER 3 — CARDS AREA WRAPPER
+   Vertically centered on right, then shifted
+   ~50px below center for better visual balance.
+════════════════════════════════════════ */
+.wsm-cards-area {
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% + 50px));
+  right: clamp(24px, 3vw, 44px);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+/* Card row */
+.wsm-cards-row {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(10px, 1.2vw, 15px);
+  overflow: visible;
+}
+
+/* Individual thumbnail card — ~15% larger than before */
+.wsm-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(138px, 13vw, 186px);
+  height: clamp(230px, 23.5vw, 328px);
+  border-radius: 20px;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  background: #1a1a1a;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.4s ease;
+}
+
+
+
+/* Active card — permanent orange border + glow + slight scale
+   The scale is driven by framer-motion animate prop.
+   box-shadow here adds the orange outline + glow. */
+.wsm-thumb.is-active {
+  box-shadow:
+    0 0 0 2.5px #FF9C60,
+    0 0 28px rgba(255, 156, 96, 0.40),
+    0 14px 40px rgba(0, 0, 0, 0.45);
+  cursor: default;
+}
+
+/* Thumbnail bg image */
+.wsm-thumb-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+
+/* Bottom gradient for label readability */
+.wsm-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 6, 0.88) 0%,
+    rgba(6, 6, 6, 0.45) 42%,
+    rgba(6, 6, 6, 0.05) 72%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+/* Card label row */
+.wsm-thumb-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 12px 14px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.wsm-thumb-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(9px, 0.85vw, 11px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.3;
+  flex: 1;
+  transition: color 0.3s ease;
+}
+
+
+
+/* Active card label stays orange */
+.wsm-thumb.is-active .wsm-thumb-label { color: #FF9C60; }
+
+/* ══════════════════════════════════════
+   NAV BAR — below card row
+   Frosted-glass pill: ← [●○○○○] →
+   Visible on both bright and dark images.
+══════════════════════════════════════ */
+.wsm-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(12, 12, 12, 0.88);
+  border-radius: 100px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  align-self: center;
+}
+
+
+
+/* Dot row */
+.wsm-nav-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 4px;
+}
+
+.wsm-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.30);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+  transition:
+    width 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    background 0.38s ease;
+}
+
+.wsm-dot.active {
+  width: 22px;
+  background: #FF9C60;
+  box-shadow: 0 0 8px rgba(255, 156, 96, 0.55);
+}
+
+.wsm-dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* ─ Counter — bottom left ─ */
+.wsm-counter {
+  position: absolute;
+  bottom: clamp(20px, 2.5vw, 32px);
+  left: clamp(40px, 5vw, 72px);
+  z-index: 20;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.wsm-counter-current {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.wsm-counter-sep {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.wsm-counter-total {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+/* ════════════════════════════════════════
+   TABLET — ≤ 1100px
+════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .wsm-showcase {
+    min-height: clamp(720px, 78vw, 860px);
+  }
+
+  .wsm-content-area {
+    width: 52%;
+    padding-right: 32px;
+    /* No extra bottom padding — cards are centered, not at bottom */
+  }
+
+  .wsm-heading {
+    font-size: clamp(4rem, 7vw, 8rem);
+  }
+
+  .wsm-thumb {
+    width: clamp(120px, 11.5vw, 162px);
+    height: clamp(178px, 18.5vw, 242px);
+  }
+}
+
+/* ════════════════════════════════════════
+   MOBILE — ≤ 768px
+════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .wsm-section-title {
+    font-size: clamp(3.6rem, 14vw, 6rem);
+  }
+
+  .wsm-showcase {
+    min-height: auto;
+    height: auto;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Mobile: gradient becomes bottom-heavy */
+  .wsm-left-grad {
+    background: linear-gradient(
+      to top,
+      rgba(6, 6, 6, 0.92) 0%,
+      rgba(6, 6, 6, 0.65) 32%,
+      rgba(6, 6, 6, 0.20) 58%,
+      transparent 78%
+    );
+  }
+
+  /* Content: full width, bottom-anchored */
+  .wsm-content-area {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 380px;
+    padding: 48px 28px 24px;
+    justify-content: flex-end;
+    padding-bottom: 24px;
+  }
+
+  .wsm-heading {
+    font-size: clamp(3.5rem, 13vw, 5rem);
+  }
+
+  .wsm-desc {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .wsm-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Cards area: unstack to horizontal scroll row on mobile */
+  .wsm-cards-area {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    padding: 0 24px 28px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  .wsm-cards-row {
+    padding: 0 24px 0 0;
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .wsm-cards-row::-webkit-scrollbar { display: none; }
+
+  /* Hide nav hint on mobile — cards are obviously swipeable */
+  .wsm-nav-hint { display: none; }
+
+  .wsm-thumb {
+    width: 125px;
+    height: 180px;
+    flex-shrink: 0;
+    border-radius: 16px;
+  }
+
+  .wsm-counter { display: none; }
+}
+
+@media (max-width: 480px) {
+  .wsm-thumb {
+    width: 110px;
+    height: 158px;
+  }
+}

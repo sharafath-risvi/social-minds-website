@@ -13,9 +13,10 @@ import { gsap } from 'gsap';
 // - data: panel content data object
 // - index: panel index (0-4)
 // - isActive: whether this panel is open
-// - onClick: callback to activate panel
+// - onMouseEnter: callback to activate panel
+// - onMouseLeave: callback when mouse leaves
 // ========================================
-export default function AccordionPanel({ data, index, isActive, onClick }) {
+export default function AccordionPanel({ data, index, isActive, onMouseEnter, onMouseLeave }) {
   const panelRef = useRef(null);
   const imageRef = useRef(null);
   const lightRef = useRef(null);
@@ -44,17 +45,17 @@ export default function AccordionPanel({ data, index, isActive, onClick }) {
       }
     };
 
-    const handleMouseLeave = () => {
+    const handleMouseLeaveLight = () => {
       if (lightRef.current) {
         gsap.to(lightRef.current, { opacity: 0, duration: 0.35 });
       }
     };
 
     panel.addEventListener('mousemove', handleMouseMove);
-    panel.addEventListener('mouseleave', handleMouseLeave);
+    panel.addEventListener('mouseleave', handleMouseLeaveLight);
     return () => {
       panel.removeEventListener('mousemove', handleMouseMove);
-      panel.removeEventListener('mouseleave', handleMouseLeave);
+      panel.removeEventListener('mouseleave', handleMouseLeaveLight);
     };
   }, []);
 
@@ -86,12 +87,10 @@ export default function AccordionPanel({ data, index, isActive, onClick }) {
     <div
       ref={panelRef}
       className={panelClass}
-      onClick={onClick}
-      role="button"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       aria-expanded={isActive}
       aria-label={`${data.caseLabel} — ${data.title}`}
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
       {/* ========================================
           IMAGE WRAPPER

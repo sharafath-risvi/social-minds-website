@@ -5,11 +5,12 @@
 // ========================================
 
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { useLenis } from './hooks/useLenis';
 import GlowCursor from './components/ui/GlowCursor';
+import IntroScreen from './components/ui/IntroScreen';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
@@ -125,11 +126,29 @@ function AppShell() {
   );
 }
 
+import { createContext } from 'react';
+
+export const IntroContext = createContext(false);
+
 export default function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <AppShell />
+      
+      <AnimatePresence>
+        {showIntro && (
+          <IntroScreen 
+            key="intro" 
+            onComplete={() => setShowIntro(false)} 
+          />
+        )}
+      </AnimatePresence>
+
+      <IntroContext.Provider value={showIntro}>
+        <AppShell />
+      </IntroContext.Provider>
     </BrowserRouter>
   );
 }

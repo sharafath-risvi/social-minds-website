@@ -135,45 +135,7 @@ const ACCORDION_DATA = [
   },
 ];
 
-// ========================================
-// BOTTOM STATS DATA
-// Floating glass cards at section bottom
-// ========================================
 
-const BOTTOM_STATS = [
-  {
-    icon: '🚀',
-    value: 500,
-    suffix: '+',
-    label: 'Brands Scaled',
-    floatDur: '7s',
-    floatDelay: '0s',
-  },
-  {
-    icon: '🎬',
-    value: 12000,
-    suffix: '+',
-    label: 'Reels Managed',
-    floatDur: '6s',
-    floatDelay: '0.8s',
-  },
-  {
-    icon: '📈',
-    value: 320,
-    suffix: '%',
-    label: 'Avg. Engagement Lift',
-    floatDur: '8s',
-    floatDelay: '1.5s',
-  },
-  {
-    icon: '👥',
-    value: 50,
-    suffix: 'M+',
-    label: 'Audience Growth',
-    floatDur: '5.5s',
-    floatDelay: '0.4s',
-  },
-];
 
 // ========================================
 // FLOATING PARTICLES COMPONENT
@@ -210,82 +172,25 @@ function FloatingParticles({ count = 12 }) {
 }
 
 // ========================================
-// ANIMATED BOTTOM STAT CARD
-// Counter + glassmorphism floating card
-// ========================================
-function BottomStatCard({ stat, index, inView }) {
-  const [count, setCount] = useState(0);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    if (!inView || hasAnimated.current) return;
-    hasAnimated.current = true;
-
-    const duration = 2000;
-    let start = null;
-
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * stat.value));
-      if (progress < 1) requestAnimationFrame(step);
-      else setCount(stat.value);
-    };
-
-    const delay = index * 150;
-    const timer = setTimeout(() => requestAnimationFrame(step), delay);
-    return () => clearTimeout(timer);
-  }, [inView, stat.value, index]);
-
-  // Format large numbers with commas
-  const formatCount = (n) => {
-    if (n >= 1000) return `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}K`;
-    return n.toString();
-  };
-
-  return (
-    <motion.div
-      className="sgs-bottom-stat-card"
-      style={{ '--float-dur': stat.floatDur, '--float-delay': stat.floatDelay }}
-      initial={{ opacity: 0, y: 40, scale: 0.92 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
-      role="listitem"
-    >
-      <span className="sgs-bottom-stat-icon" aria-hidden="true">{stat.icon}</span>
-      <div className="sgs-bottom-stat-number">
-        {formatCount(count)}
-        <span className="sgs-orange-accent">{stat.suffix}</span>
-      </div>
-      <div className="sgs-bottom-stat-label">{stat.label}</div>
-    </motion.div>
-  );
-}
-
-// ========================================
 // MAIN EXPORT — SocialGrowthShowcase
 // ========================================
 export default function SocialGrowthShowcase() {
-  // Active accordion panel state
-  // null = all panels collapsed (default: 0 = first open)
+  // Active accordion panel state (0-4)
   const [activePanel, setActivePanel] = useState(0);
 
-  // Section ref for scroll-triggered animations
+  // Section ref for scroll-triggered pinning
   const sectionRef = useRef(null);
+  const gridRef = useRef(null);
   const accordionRef = useRef(null);
-  const bottomRef = useRef(null);
 
   const inView = useInView(sectionRef, { once: true, margin: '-80px' });
-  const bottomInView = useInView(bottomRef, { once: true, margin: '-60px' });
 
   // ========================================
-  // GSAP SCROLL PARALLAX
-  // Accordion + story panel parallax motion
+  // ACCORDION ENTRANCE ANIMATION
   // ========================================
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Accordion subtle parallax
+      // Simple entrance animation for the accordion
       if (accordionRef.current) {
         gsap.fromTo(
           accordionRef.current,
@@ -295,11 +200,7 @@ export default function SocialGrowthShowcase() {
             opacity: 1,
             duration: 1.2,
             ease: 'power3.out',
-            scrollTrigger: {
-              trigger: accordionRef.current,
-              start: 'top 85%',
-              once: true,
-            },
+            delay: 0.2
           }
         );
       }
@@ -309,8 +210,8 @@ export default function SocialGrowthShowcase() {
   }, []);
 
   // ========================================
-  // AUTO-ROTATE accordion every 5s
-  // Pauses on hover or manual interaction
+  // AUTO-ROTATE accordion every 4.5s
+  // Pauses on hover
   // ========================================
   const autoRotateRef = useRef(null);
   const isPausedRef = useRef(false);
@@ -318,29 +219,19 @@ export default function SocialGrowthShowcase() {
   useEffect(() => {
     autoRotateRef.current = setInterval(() => {
       if (!isPausedRef.current) {
-        // Always rotate through 0–4 even if currently null
-        setActivePanel((prev) =>
-          prev === null ? 0 : (prev + 1) % ACCORDION_DATA.length
-        );
+        setActivePanel((prev) => (prev + 1) % ACCORDION_DATA.length);
       }
-    }, 5000);
+    }, 4500);
     return () => clearInterval(autoRotateRef.current);
   }, []);
 
-  // ========================================
-  // HANDLE PANEL CLICK — TOGGLE BEHAVIOR
-  // Clicking active panel collapses it (null)
-  // Clicking a different panel opens it
-  // ========================================
-  const handlePanelClick = (index) => {
-    setActivePanel((prev) => {
-      // Toggle: same panel clicked = collapse
-      if (prev === index) return null;
-      return index;
-    });
-    // Pause auto-rotate for 12s on manual interaction
+  const handleMouseEnter = (index) => {
+    setActivePanel(index);
     isPausedRef.current = true;
-    setTimeout(() => { isPausedRef.current = false; }, 12000);
+  };
+
+  const handleMouseLeave = () => {
+    isPausedRef.current = false;
   };
 
   // ========================================
@@ -409,7 +300,7 @@ export default function SocialGrowthShowcase() {
             MAIN CONTENT GRID
             Left: Accordion | Right: Story Content
             ============================================ */}
-        <div className="sgs-main-grid">
+        <div ref={gridRef} className="sgs-main-grid">
 
           {/* ── LEFT: Vertical Image Accordion ── */}
           <motion.div
@@ -426,47 +317,22 @@ export default function SocialGrowthShowcase() {
                 data={panel}
                 index={i}
                 isActive={activePanel === i}
-                onClick={() => handlePanelClick(i)}
+                onMouseEnter={() => handleMouseEnter(i)}
+                onMouseLeave={handleMouseLeave}
               />
             ))}
           </motion.div>
 
           {/* ── RIGHT: Dynamic Story Content ── */}
-          {/* Pass data safely: if null use first panel as placeholder */}
           <GrowthContent
-            data={activePanel !== null ? ACCORDION_DATA[activePanel] : ACCORDION_DATA[0]}
+            data={ACCORDION_DATA[activePanel] || ACCORDION_DATA[0]}
             activeIndex={activePanel}
-            onDotClick={handlePanelClick}
+            onDotClick={handleMouseEnter}
           />
 
         </div>
 
-        {/* ============================================
-            BOTTOM FLOATING STATS ROW
-            Animated glass cards with counters
-            ============================================ */}
-        <div ref={bottomRef} className="sgs-bottom-stats">
-          <motion.div
-            className="sgs-bottom-stats-label"
-            initial={{ opacity: 0 }}
-            animate={bottomInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            aria-label="Overall performance metrics"
-          >
-            ✦ &nbsp; Cumulative Impact Across All Clients &nbsp; ✦
-          </motion.div>
 
-          <div className="sgs-bottom-stats-grid" role="list" aria-label="Aggregate statistics">
-            {BOTTOM_STATS.map((stat, i) => (
-              <BottomStatCard
-                key={stat.label}
-                stat={stat}
-                index={i}
-                inView={bottomInView}
-              />
-            ))}
-          </div>
-        </div>
 
       </div>
     </section>
