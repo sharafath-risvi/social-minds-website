@@ -96,15 +96,7 @@ export default function WhySocialMinds() {
   // Derive the queue dynamically from the current scroll-driven activeId
   const queue = buildQueue(activeId);
 
-  /* ── Decode all hero <img> elements on mount (eliminate any remaining stutter) ── */
-  useEffect(() => {
-    const t = setTimeout(() => {
-      document
-        .querySelectorAll('img.wsm-hero-img')
-        .forEach(el => { if (el.decode) el.decode().catch(() => {}); });
-    }, 100);
-    return () => clearTimeout(t);
-  }, []);
+  // Removed synchronous image decode effect to prevent main thread blocking
 
   /* ── GSAP Scroll Pinning & Scrubbing ── */
   useEffect(() => {
@@ -114,11 +106,14 @@ export default function WhySocialMinds() {
         start: 'center center', // Wait until the image area is centered in viewport
         end: '+=2000', // Adjusted to balance with snap points
         pin: sectionRef.current, // Pin the entire section to prevent layout shifts
+        anticipatePin: 1, // Pre-calculates pin to completely eliminate entrance stutter
         scrub: 0.5, // Faster response time to scroll wheel
         onUpdate: (self) => {
           const totalItems = SERVICES.length;
           const newIndex = Math.min(totalItems - 1, Math.floor(self.progress * totalItems));
-          setActiveId((prev) => (prev === newIndex ? prev : newIndex));
+          requestAnimationFrame(() => {
+            setActiveId((prev) => (prev === newIndex ? prev : newIndex));
+          });
         }
       });
     }, sectionRef);
@@ -140,9 +135,9 @@ export default function WhySocialMinds() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="wsm-title-line">WHY CHOOSE</span>
+            <span className="wsm-title-line">WHY BRANDS CHOOSE</span>
             <span className="wsm-title-line">
-              SOCIAL{' '}<span className="wsm-title-accent">MINDS</span>
+              <span className="wsm-title-accent">OUR SERVICES</span>
             </span>
           </motion.h2>
           <motion.p
@@ -151,7 +146,7 @@ export default function WhySocialMinds() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
-            Every strategy, asset and campaign is engineered for measurable business growth.
+            From strategy and content creation to performance-driven campaigns, every service we offer is designed to help brands attract attention, build trust, and achieve measurable growth.
           </motion.p>
         </div>
 
@@ -178,7 +173,7 @@ export default function WhySocialMinds() {
                 key={svc.id}
                 src={svc.image}
                 alt=""
-                decoding="sync"
+                decoding="async"
                 fetchPriority="high"
                 className={`wsm-hero-img${svc.id === activeId ? ' is-active' : ''}`}
               />

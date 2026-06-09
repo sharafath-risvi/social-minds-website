@@ -109,188 +109,40 @@ function PhoneMockup() {
           <div style={{ position: 'absolute', right: '9px', top: '50%', transform: 'translateY(-50%)', width: '5px', height: '5px', borderRadius: '50%', background: '#32D74B', boxShadow: '0 0 6px rgba(50,215,75,0.8), 0 0 12px rgba(50,215,75,0.4)', animation: 'notchGreenPulse 2.8s ease-in-out infinite', zIndex: 22 }} />
         </div>
         {/* Screen content */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'hidden' }}>
-          {/* Status bar */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '36px 18px 0', marginBottom: '2px' }}>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: 'rgba(255,255,255,0.92)', letterSpacing: '0.02em' }}>9:41</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+          <video
+            src="/videos/socialmindsintro.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+          {/* Status bar overlaid on video */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '36px 18px 0', pointerEvents: 'none' }}>
+            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: '#fff', letterSpacing: '0.02em', textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>9:41</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.5))' }}>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1.5px', height: '10px' }}>
-                {[4, 6, 8, 10].map((h, i) => (<div key={i} style={{ width: '3px', height: `${h}px`, borderRadius: '1px', background: i < 3 ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)' }} />))}
+                {[4, 6, 8, 10].map((h, i) => (<div key={i} style={{ width: '3px', height: `${h}px`, borderRadius: '1px', background: i < 3 ? '#fff' : 'rgba(255,255,255,0.4)' }} />))}
               </div>
-              <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M6.5 8.5a1 1 0 1 1 0 .001z" fill="rgba(255,255,255,0.9)" /><path d="M4.2 6.8a3.2 3.2 0 0 1 4.6 0" stroke="rgba(255,255,255,0.9)" strokeWidth="1.2" strokeLinecap="round" fill="none"/><path d="M2 4.6a6 6 0 0 1 9 0" stroke="rgba(255,255,255,0.6)" strokeWidth="1.2" strokeLinecap="round" fill="none"/></svg>
+              <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M6.5 8.5a1 1 0 1 1 0 .001z" fill="#fff" /><path d="M4.2 6.8a3.2 3.2 0 0 1 4.6 0" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" fill="none"/><path d="M2 4.6a6 6 0 0 1 9 0" stroke="rgba(255,255,255,0.7)" strokeWidth="1.2" strokeLinecap="round" fill="none"/></svg>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
-                <div style={{ width: '22px', height: '11px', border: '1px solid rgba(255,255,255,0.55)', borderRadius: '3px', padding: '1.5px', position: 'relative' }}>
-                  <div style={{ width: '72%', height: '100%', borderRadius: '1.5px', background: 'rgba(255,255,255,0.88)' }} />
+                <div style={{ width: '22px', height: '11px', border: '1px solid rgba(255,255,255,0.7)', borderRadius: '3px', padding: '1.5px', position: 'relative' }}>
+                  <div style={{ width: '72%', height: '100%', borderRadius: '1.5px', background: '#fff' }} />
                 </div>
-                <div style={{ width: '2px', height: '5px', background: 'rgba(255,255,255,0.45)', borderRadius: '0 1px 1px 0' }} />
+                <div style={{ width: '2px', height: '5px', background: 'rgba(255,255,255,0.7)', borderRadius: '0 1px 1px 0' }} />
               </div>
             </div>
-          </div>
-          {/* App content */}
-          <div style={{ flex: 1, padding: '8px 14px 0', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '6px' }}>
-              <div>
-                <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.12em', fontFamily: "'Space Grotesk', sans-serif", textTransform: 'uppercase' }}>Dashboard</div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff', fontFamily: "'Space Grotesk', sans-serif", marginTop: '1px' }}>Growth OS</div>
-              </div>
-              <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'linear-gradient(135deg, #FF9C60, #FF7030)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', boxShadow: '0 0 14px rgba(255,156,96,0.5)' }}>⚡</div>
-            </div>
-            <div style={{ borderRadius: '18px', background: 'linear-gradient(135deg, rgba(255,156,96,0.12) 0%, rgba(255,112,48,0.06) 100%)', border: '1px solid rgba(255,156,96,0.2)', padding: '14px', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '80px', height: '80px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,156,96,0.15) 0%, transparent 70%)', filter: 'blur(10px)' }} />
-              <div style={{ fontSize: '8px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', fontFamily: "'Space Grotesk', sans-serif", textTransform: 'uppercase', marginBottom: '4px' }}>Total Reach</div>
-              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '34px', lineHeight: 1, background: 'linear-gradient(135deg, #FF9C60, #FFD4B8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>2.8M</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
-                <span style={{ fontSize: '9px', color: '#4ade80', fontFamily: "'Space Grotesk', sans-serif" }}>↑ 24.6%</span>
-                <span style={{ fontSize: '8px', color: 'rgba(255,255,255,0.25)', fontFamily: "'Space Grotesk', sans-serif" }}>this month</span>
-              </div>
-              <svg width="100%" height="28" viewBox="0 0 200 28" style={{ marginTop: '8px' }}>
-                <defs><linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#FF9C60" stopOpacity="0.4" /><stop offset="100%" stopColor="#FF9C60" stopOpacity="1" /></linearGradient></defs>
-                <polyline points="0,22 30,18 60,20 80,12 110,14 140,6 170,8 200,2" fill="none" stroke="url(#sparkGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="200" cy="2" r="3" fill="#FF9C60" />
-              </svg>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              {[{ label: 'Engagement', value: '18.6%', icon: '📈', color: '#60D4FF' }, { label: 'New Followers', value: '+4.2K', icon: '👥', color: '#A3FF60' }].map((s) => (
-                <div key={s.label} style={{ borderRadius: '14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', padding: '10px' }}>
-                  <div style={{ fontSize: '11px', marginBottom: '3px' }}>{s.icon}</div>
-                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '18px', color: s.color, lineHeight: 1 }}>{s.value}</div>
-                  <div style={{ fontSize: '7px', color: 'rgba(255,255,255,0.28)', fontFamily: "'Space Grotesk', sans-serif", textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '2px' }}>{s.label}</div>
-                </div>
-              ))}
-            </div>
-            <div>
-              <div style={{ fontSize: '8px', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.12em', fontFamily: "'Space Grotesk', sans-serif", textTransform: 'uppercase', marginBottom: '6px' }}>Top Reels</div>
-              <div style={{ display: 'flex', gap: '7px' }}>
-                {[{ bg: 'linear-gradient(135deg, #FF9C60, #FF4500)', views: '840K', emoji: '🔥' }, { bg: 'linear-gradient(135deg, #A855F7, #6366F1)', views: '1.2M', emoji: '✨' }, { bg: 'linear-gradient(135deg, #0EA5E9, #06B6D4)', views: '620K', emoji: '🚀' }].map((r, i) => (
-                  <div key={i} style={{ flex: 1, aspectRatio: '9/16', borderRadius: '10px', background: r.bg, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '6px 5px', overflow: 'hidden' }}>
-                    <div style={{ fontSize: '14px', textAlign: 'center' }}>{r.emoji}</div>
-                    <div style={{ background: 'rgba(0,0,0,0.5)', borderRadius: '4px', padding: '2px 4px', fontSize: '7px', color: '#fff', fontFamily: "'Space Grotesk', sans-serif", textAlign: 'center', fontWeight: 700 }}>{r.views}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div style={{ borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(255,156,96,0.2), rgba(255,156,96,0.08))', border: '1px solid rgba(255,156,96,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', flexShrink: 0 }}>📊</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: '9px', fontWeight: 600, color: '#fff', fontFamily: "'Space Grotesk', sans-serif", whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Brand Campaign Q2</div>
-                <div style={{ marginTop: '4px', height: '3px', borderRadius: '2px', background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
-                  <div style={{ width: '72%', height: '100%', borderRadius: '2px', background: 'linear-gradient(90deg, #FF9C60, #FFD4B8)' }} />
-                </div>
-              </div>
-              <div style={{ fontSize: '9px', color: '#FF9C60', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, flexShrink: 0 }}>72%</div>
-            </div>
-          </div>
-          <div style={{ height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '8px' }}>
-            <div style={{ width: '120px', height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.22)', boxShadow: '0 0 4px rgba(255,255,255,0.1)' }} />
           </div>
         </div>
-        <div style={{ position: 'absolute', inset: 0, borderRadius: '44px', background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.012) 3px, rgba(0,0,0,0.012) 4px)', pointerEvents: 'none', zIndex: 10 }} />
-        <div style={{ position: 'absolute', inset: 0, borderRadius: '44px', background: 'radial-gradient(ellipse at 50% 0%, transparent 60%, rgba(0,0,0,0.35) 100%)', pointerEvents: 'none', zIndex: 11 }} />
+        <div style={{ position: 'absolute', inset: 0, borderRadius: '40px', background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.012) 3px, rgba(0,0,0,0.012) 4px)', pointerEvents: 'none', zIndex: 10 }} />
+        <div style={{ position: 'absolute', inset: 0, borderRadius: '40px', background: 'radial-gradient(ellipse at 50% 0%, transparent 60%, rgba(0,0,0,0.35) 100%)', pointerEvents: 'none', zIndex: 11 }} />
       </div>
     </div>
   );
 }
 
-// ─── Left Panel — White theme ─────────────────────────────────────────────────
-function LeftPanel({ panelRef }) {
-  return (
-    <div
-      ref={panelRef}
-      style={{ position: 'absolute', left: 'clamp(28px, 5vw, 72px)', top: '50%', transform: 'translateY(-50%)', width: 'clamp(240px, 24vw, 340px)', zIndex: 14, opacity: 0, willChange: 'transform, opacity', display: 'flex', flexDirection: 'column', gap: '0px' }}
-      data-panel="left"
-    >
-      <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg, #FF9C60, #FF7030)', borderRadius: '1px', marginBottom: '22px', boxShadow: '0 0 10px rgba(255,156,96,0.4)' }} />
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', marginBottom: '20px' }}>
-        <motion.span animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 2, repeat: Infinity }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#FF9C60', display: 'inline-block', flexShrink: 0, boxShadow: '0 0 8px rgba(255,156,96,0.7)' }} />
-        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', color: '#FF7030', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700 }}>Premium Social Agency</span>
-      </div>
-      <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(32px, 3.4vw, 52px)', lineHeight: 1.0, color: '#0a0a0a', letterSpacing: '0.02em', marginBottom: '20px' }}>
-        Built for brands<br />that demand{' '}
-        <span style={{ color: '#FF7030' }}>attention.</span>
-      </div>
-      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(12px, 1.1vw, 14px)', color: 'rgba(10,10,10,0.50)', lineHeight: 1.75, marginBottom: '28px', letterSpacing: '0.01em', maxWidth: '300px' }}>
-        Strategy-first content systems engineered for growth. We don't just post — we architect digital presence that converts.
-      </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
-        {['Content Strategy', 'Reel Mastery', 'Brand Scaling'].map((tag) => (
-          <span key={tag} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', color: 'rgba(10,10,10,0.50)', padding: '5px 12px', background: 'rgba(10,10,10,0.04)', border: '1px solid rgba(10,10,10,0.10)', borderRadius: '100px', letterSpacing: '0.09em', textTransform: 'uppercase' }}>{tag}</span>
-        ))}
-      </div>
-      <div style={{ display: 'flex', gap: '32px' }}>
-        {[{ val: '50+', lbl: 'Brands Scaled' }, { val: '10M+', lbl: 'Views Generated' }, { val: '4.9★', lbl: 'Client Rating' }].map((s) => (
-          <div key={s.lbl}>
-            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(24px, 2.4vw, 36px)', color: '#FF7030', lineHeight: 1 }}>{s.val}</div>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '9px', color: 'rgba(10,10,10,0.35)', textTransform: 'uppercase', letterSpacing: '0.11em', marginTop: '4px' }}>{s.lbl}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Right Panel — White theme ────────────────────────────────────────────────
-function RightPanel({ panelRef }) {
-  const strips = [
-    { label: 'Total Reach',  value: '+2.8M',  unit: 'audience',     w: '100%' },
-    { label: 'Engagement',   value: '18.6%',  unit: 'avg rate',     w: '82%'  },
-    { label: 'Viral Reels',  value: '47',     unit: 'this quarter', w: '90%'  },
-    { label: 'Followers',    value: '+4.2K',  unit: 'per week',     w: '74%'  },
-    { label: 'Performance',  value: '9.8',    unit: 'score / 10',   w: '88%'  },
-  ];
-  const waveBars = [3,6,9,14,10,7,12,16,8,5,11,15,9,6,13,10,4,8,12,7];
-
-  return (
-    <div ref={panelRef} data-panel="right" style={{ position: 'absolute', right: 'clamp(20px, 5vw, 68px)', top: '50%', transform: 'translateY(-50%)', width: 'clamp(210px, 21vw, 280px)', zIndex: 14, opacity: 0, willChange: 'transform, opacity', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-        <motion.div animate={{ opacity: [1, 0.2, 1], scale: [1, 1.3, 1] }} transition={{ duration: 1.6, repeat: Infinity }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#FF9C60', boxShadow: '0 0 8px rgba(255,156,96,0.9)', flexShrink: 0 }} />
-        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '9px', color: '#FF7030', letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 700 }}>Live Social Signals</span>
-      </div>
-      <div style={{ position: 'relative', width: '100%', height: '28px', marginBottom: '6px' }}>
-        <div style={{ position: 'absolute', left: 0, top: '50%', width: '85%', height: '1px', background: 'linear-gradient(90deg, rgba(255,156,96,0.35), rgba(255,156,96,0.06))' }} />
-        <motion.div animate={{ left: ['0%', '80%', '0%'] }} transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', width: '5px', height: '5px', borderRadius: '50%', background: '#FF9C60', boxShadow: '0 0 8px rgba(255,156,96,0.9)' }} />
-        {[0, '40%', '80%'].map((l, i) => (<div key={i} style={{ position: 'absolute', left: l, top: '50%', transform: 'translateY(-50%)', width: '3px', height: '3px', borderRadius: '50%', background: 'rgba(255,156,96,0.4)' }} />))}
-      </div>
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: '4px', bottom: '4px', width: '1px', background: 'linear-gradient(180deg, rgba(255,156,96,0.4), rgba(255,156,96,0.08) 60%, transparent)' }} />
-        {strips.map((s) => (
-          <div key={s.label} style={{ width: s.w, display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 12px 9px 14px', background: 'rgba(10,10,10,0.03)', border: '1px solid rgba(10,10,10,0.07)', borderLeft: '2px solid rgba(255,156,96,0.5)', borderRadius: '0 10px 10px 0', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '30%', background: 'linear-gradient(90deg, rgba(255,156,96,0.05), transparent)', pointerEvents: 'none' }} />
-            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(15px, 1.5vw, 20px)', color: '#0a0a0a', letterSpacing: '0.04em', lineHeight: 1, flexShrink: 0 }}>{s.value}</div>
-            <div style={{ width: '1px', height: '18px', background: 'rgba(10,10,10,0.10)', flexShrink: 0 }} />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '9px', color: 'rgba(10,10,10,0.60)', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{s.label}</div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '8px', color: 'rgba(10,10,10,0.32)', letterSpacing: '0.05em', marginTop: '1px' }}>{s.unit}</div>
-            </div>
-            <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.8, repeat: Infinity }} style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#FF9C60', boxShadow: '0 0 5px rgba(255,156,96,0.7)', flexShrink: 0 }} />
-          </div>
-        ))}
-      </div>
-      <div style={{ position: 'relative', width: '100%', height: '28px', marginTop: '6px' }}>
-        <div style={{ position: 'absolute', left: 0, top: '50%', width: '70%', height: '1px', background: 'linear-gradient(90deg, rgba(255,156,96,0.25), transparent)' }} />
-        <motion.div animate={{ left: ['0%', '65%', '0%'] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,156,96,0.7)', boxShadow: '0 0 6px rgba(255,156,96,0.6)' }} />
-      </div>
-      <div style={{ width: '100%', marginTop: '4px', padding: '10px 12px', background: 'rgba(10,10,10,0.03)', border: '1px solid rgba(10,10,10,0.07)', borderRadius: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '8px', color: 'rgba(10,10,10,0.35)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Signal Activity</span>
-          <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.2, repeat: Infinity }} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '8px', color: '#22c55e', fontWeight: 700, letterSpacing: '0.1em' }}>● LIVE</motion.span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2.5px', height: '24px' }}>
-          {waveBars.map((h, i) => (
-            <motion.div key={i} animate={{ opacity: [0.3, 0.3 + (h / 20) * 0.7, 0.3] }} transition={{ duration: 1.8 + (i % 5) * 0.4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.06 }} style={{ flex: 1, height: `${h}px`, borderRadius: '1px', background: `rgba(255,156,96,${0.40 + (h / 20) * 0.55})`, minHeight: '3px', willChange: 'opacity' }} />
-          ))}
-        </div>
-      </div>
-      <div style={{ marginTop: '14px', display: 'flex', alignItems: 'center', gap: '8px', width: '100%' }}>
-        <motion.div animate={{ opacity: [1, 0.15, 1] }} transition={{ duration: 1.5, repeat: Infinity }} style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#22c55e', flexShrink: 0, boxShadow: '0 0 6px rgba(34,197,94,0.6)' }} />
-        <div style={{ flex: 1, height: '1px', background: 'rgba(10,10,10,0.08)' }} />
-        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '8px', color: 'rgba(10,10,10,0.30)', letterSpacing: '0.14em', textTransform: 'uppercase', flexShrink: 0 }}>Growth Engine Online</span>
-      </div>
-      <div style={{ position: 'absolute', right: '-8px', top: '50%', transform: 'translateY(-50%) rotate(90deg)', transformOrigin: 'center center', fontFamily: "'Bebas Neue', sans-serif", fontSize: '9px', color: 'rgba(10,10,10,0.04)', letterSpacing: '0.3em', textTransform: 'uppercase', whiteSpace: 'nowrap', pointerEvents: 'none', userSelect: 'none' }}>
-        Social Intelligence System
-      </div>
-    </div>
-  );
-}
+// ─── Side Panels Removed ──────────────────────────────────────────────────────
 
 // ─── Vertical Image Slice Composition ────────────────────────────────────────
 // No hover zoom — slices are static editorial composition panels
@@ -341,8 +193,9 @@ export default function HeroSection() {
   const phoneRef      = useRef(null);
   const bgBlurRef     = useRef(null);
   const ctaRef        = useRef(null);   // kept for GSAP (empty/hidden, still targeted)
-  const leftPanelRef  = useRef(null);
-  const rightPanelRef = useRef(null);
+  const topTextRef    = useRef(null);
+  const bottomTextRef = useRef(null);
+  const cardsRef      = useRef(null);   // wrapper for all 6 showcase cards
 
   const [particles] = useState(() => generateParticles(20));
 
@@ -370,7 +223,7 @@ export default function HeroSection() {
           invalidateOnRefresh: true,
           onComplete: () => {
             idleFloat = gsap.to(phoneRef.current, {
-              y: -18, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: -1,
+              y: 10, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: -1,
             });
           },
           onReverseComplete: () => {
@@ -394,10 +247,10 @@ export default function HeroSection() {
         opacity: 1, duration: 0.22, ease: 'none',
       }, 0);
 
-      // PHASE 2 (20–55%): phone rises
+      // PHASE 2 (18–52%): phone fades/scales in — ONLY the phone
       tl.fromTo(phoneRef.current,
-        { opacity: 0, scale: 0.6, y: 160 },
-        { opacity: 1, scale: 1,   y: -28, duration: 0.38, ease: 'none' },
+        { opacity: 0, scale: 0.55, y: 180 },
+        { opacity: 1, scale: 0.92, y: -15, duration: 0.34, ease: 'none' },
         0.18
       );
 
@@ -407,25 +260,33 @@ export default function HeroSection() {
         );
       }
 
-      // PHASE 3: phone holds
-      tl.to(phoneRef.current, { y: -28, duration: 0.1, ease: 'none' }, 0.55);
-
-      // PHASE 4: left panel slides in
-      tl.fromTo(leftPanelRef.current,
-        { opacity: 0, x: -60 },
-        { opacity: 1, x: 0, duration: 0.2, ease: 'none' },
-        0.60
+      // PHASE 3 (52–58%): phone holds, top heading slides up
+      tl.to(phoneRef.current, { y: -15, scale: 0.92, duration: 0.06, ease: 'none' }, 0.52);
+      tl.fromTo(topTextRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.1, ease: 'none' },
+        0.55
       );
 
-      // PHASE 5: right panel slides in
-      tl.fromTo(rightPanelRef.current,
-        { opacity: 0, x: 60 },
-        { opacity: 1, x: 0, duration: 0.2, ease: 'none' },
-        0.65
-      );
+      // PHASE 4 (62–82%): stagger the 6 cards from their sides
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll('[data-dir]');
+        cards.forEach((card, i) => {
+          const dir = card.getAttribute('data-dir');
+          const fromX = dir === 'left' ? -60 : 60;
+          tl.fromTo(card,
+            { opacity: 0, x: fromX },
+            { opacity: 1, x: 0, duration: 0.12, ease: 'none' },
+            0.64 + i * 0.04
+          );
+        });
+      }
+
+      // PHASE 5 (88–95%): hold — bottom content removed
+      tl.to({}, { duration: 0.1 }, 0.88);
 
       // PHASE 6: hold beat
-      tl.to({}, { duration: 0.1 }, 0.90);
+      tl.to({}, { duration: 0.1 }, 0.97);
     }, wrapperRef);
 
     // Mouse parallax
@@ -444,8 +305,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    // 400vh scroll canvas — unchanged
-    <div ref={wrapperRef} style={{ position: 'relative', height: '400vh', background: '#ffffff' }}>
+    <div ref={wrapperRef} style={{ position: 'relative', height: '550vh', background: '#ffffff' }}>
 
       {/* STICKY SHELL — unchanged */}
       <section
@@ -591,22 +451,155 @@ export default function HeroSection() {
         {/* ctaRef — empty div kept so GSAP timeline target is valid */}
         <div ref={ctaRef} style={{ position: 'absolute', pointerEvents: 'none', opacity: 0 }} />
 
-        {/* ── PHONE LAYER (100% unchanged) ── */}
-        <div ref={phoneRef} style={{
-          position: 'absolute', top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 15, opacity: 0, willChange: 'transform, opacity',
+        {/* ── PHONE SECTION CONTAINER ── */}
+        <div className="phone-section-container" style={{
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          width: '100%', height: '100vh',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '3vh',
+          zIndex: 14, pointerEvents: 'none'
         }}>
-          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '120%', height: '120%', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(255,156,96,0.14) 0%, transparent 65%)', zIndex: -1 }} />
-          <div style={{ position: 'absolute', top: 0, left: '10%', width: '40%', height: '100%', borderRadius: '44px', background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 40%)', pointerEvents: 'none', zIndex: 20 }} />
-          <PhoneMockup />
+
+          {/* ── TOP CONTENT ── */}
+          <div style={{ pointerEvents: 'auto', paddingTop: '8vh' }}>
+            <div ref={topTextRef} style={{ textAlign: 'center', opacity: 0, willChange: 'transform, opacity' }}>
+              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(36px, 5vw, 58px)', color: '#0a0a0a', lineHeight: 0.95, letterSpacing: '0.02em', marginBottom: '10px' }}>
+                Turn Attention Into <span style={{ color: '#FF7030' }}>Growth.</span>
+              </h2>
+              <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(13px, 1.2vw, 15px)', color: 'rgba(10,10,10,0.55)', lineHeight: 1.5, maxWidth: '900px', margin: '0 auto', whiteSpace: 'nowrap' }}>
+                Strategic content, powerful storytelling and performance-driven campaigns designed to turn viewers into loyal customers.
+              </p>
+            </div>
+          </div>
+
+          {/* ── PHONE LAYER ── */}
+          <div style={{ pointerEvents: 'auto', position: 'relative' }}>
+            <div ref={phoneRef} style={{
+              position: 'relative',
+              opacity: 0, willChange: 'transform, opacity',
+            }}>
+              {/* ── SHOWCASE ADS LAYER — all 6 cards, grouped for staggered animation ── */}
+              <div ref={cardsRef}>
+
+              {/* Card 1 (top-left) - 1.2M Reach — slides from left */}
+              <div data-dir="left" style={{
+                position: 'absolute', top: '10%', left: 'clamp(-280px, -42vw, -480px)', width: '180px', height: '110px',
+                background: '#111', borderRadius: '16px', padding: '18px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-8deg)',
+                border: '1px solid #333', zIndex: -2, opacity: 0
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#32D74B', boxShadow: '0 0 10px rgba(50,215,75,0.6)' }} />
+                  <div style={{ fontSize: '10px', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600 }}>Viral Campaign</div>
+                </div>
+                <div style={{ fontSize: '28px', color: '#fff', fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1 }}>1.2M REACH</div>
+                <div style={{ fontSize: '13px', color: '#FF7030', fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1, marginTop: '4px' }}>92% ENGAGEMENT</div>
+                <div style={{ marginTop: '12px', height: '3px', width: '100%', background: '#333', borderRadius: '2px', position: 'relative', overflow: 'hidden' }}>
+                   <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: '92%', background: '#FF7030', borderRadius: '2px' }} />
+                </div>
+              </div>
+
+              {/* Card 1.5 (far bottom-left) - Content Creation — slides from left */}
+              <div data-dir="left" style={{
+                position: 'absolute', bottom: '24%', left: 'clamp(-350px, -42vw, -450px)', width: '160px', height: '200px',
+                background: '#111', borderRadius: '12px', padding: '6px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-14deg)', zIndex: -3, opacity: 0
+              }}>
+                <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                  <img src="/hero/studio.webp" alt="Content Creation" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, #111 0%, rgba(17,17,17,0.1) 60%)' }} />
+                  <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px' }}>
+                     <div style={{ display: 'inline-block', border: '1px solid #FF7030', color: '#FF7030', fontSize: '7px', fontWeight: 800, padding: '2px 4px', borderRadius: '4px', marginBottom: '4px' }}>REELS STRATEGY</div>
+                     <div style={{ fontSize: '18px', color: '#fff', fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1.1 }}>CONTENT<br/>CREATION</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2 (bottom-left) - Brand Awareness — slides from left (first to appear) */}
+              <div data-dir="left" style={{
+                position: 'absolute', bottom: '15%', left: 'clamp(-200px, -26vw, -250px)', width: '220px', height: '280px',
+                background: '#fff', borderRadius: '16px', padding: '8px',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(-10deg)', zIndex: -2, opacity: 0
+              }}>
+                <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '10px', overflow: 'hidden' }}>
+                  <img src="/hero/strategy.webp" alt="Creative" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, #111 0%, transparent 60%)' }} />
+                  
+                  <div style={{ position: 'absolute', top: '12px', right: '12px', background: '#FF7030', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '9px', fontWeight: 800, letterSpacing: '0.05em' }}>
+                    SOCIAL MINDS
+                  </div>
+
+                  <div style={{ position: 'absolute', bottom: '16px', left: '16px', right: '16px' }}>
+                     <div style={{ display: 'inline-block', border: '1px solid rgba(255,255,255,0.4)', color: '#fff', fontSize: '8px', fontWeight: 700, padding: '2px 6px', borderRadius: '4px', marginBottom: '6px' }}>REELS CAMPAIGN</div>
+                     <div style={{ fontSize: '24px', color: '#fff', fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1.1 }}>BRAND<br/>AWARENESS</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3 (top-right) - 14,200 Leads — slides from right */}
+              <div data-dir="right" style={{
+                position: 'absolute', top: '10%', right: 'clamp(-320px, -46vw, -520px)', width: '160px', height: '115px',
+                background: '#fff', borderRadius: '16px', padding: '14px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.12)', transform: 'rotate(7deg)',
+                border: '1px solid rgba(0,0,0,0.05)', zIndex: -2, opacity: 0
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>ROAS</div>
+                  <div style={{ background: '#eaffea', color: '#16a34a', padding: '2px 6px', borderRadius: '100px', fontSize: '9px', fontWeight: 800 }}>+4.8x</div>
+                </div>
+                <div style={{ fontSize: '28px', color: '#111', fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1 }}>14,200</div>
+                <div style={{ fontSize: '10px', color: '#888', fontWeight: 600, marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Leads Generated</div>
+                <svg width="100%" height="24" viewBox="0 0 150 24">
+                  <path d="M0,24 C20,24 30,10 50,15 C70,20 80,0 100,5 C120,10 135,0 150,0" fill="none" stroke="#FF7030" strokeWidth="3" strokeLinecap="round"/>
+                </svg>
+              </div>
+
+              {/* Card 4.5 (far bottom-right) - Conversion — slides from right */}
+              <div data-dir="right" style={{
+                position: 'absolute', bottom: '22%', right: 'clamp(-350px, -42vw, -450px)', width: '160px', height: '200px',
+                background: '#fff', borderRadius: '12px', padding: '6px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(14deg)', zIndex: -3, opacity: 0
+              }}>
+                <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                  <img src="/hero/production.webp" alt="Performance Marketing" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(255,112,48,0.9) 0%, rgba(255,112,48,0.2) 60%)' }} />
+                  <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px', textAlign: 'center' }}>
+                     <div style={{ fontSize: '20px', color: '#fff', fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1, textShadow: '0 2px 8px rgba(0,0,0,0.2)' }}>CONVERSION</div>
+                     <div style={{ fontSize: '8px', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '2px', fontWeight: 700 }}>Campaigns</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 4 (bottom-right) - Brand Scaling — slides from right */}
+              <div data-dir="right" style={{
+                position: 'absolute', bottom: '15%', right: 'clamp(-200px, -26vw, -250px)', width: '220px', height: '280px',
+                background: '#fff', borderRadius: '16px', padding: '8px',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(10deg)', zIndex: -2, opacity: 0
+              }}>
+                <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '10px', overflow: 'hidden' }}>
+                  <img src="/hero/dashboard.webp" alt="Growth Strategy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, #111 0%, rgba(17,17,17,0.1) 60%)' }} />
+                  
+                  <div style={{ position: 'absolute', top: '12px', left: '12px', background: '#fff', color: '#111', padding: '4px 8px', borderRadius: '4px', fontSize: '9px', fontWeight: 800, letterSpacing: '0.05em' }}>
+                    Q3 GROWTH
+                  </div>
+
+                  <div style={{ position: 'absolute', bottom: '16px', left: '16px', right: '16px' }}>
+                     <div style={{ display: 'inline-block', background: '#FF7030', color: '#fff', fontSize: '8px', fontWeight: 700, padding: '2px 6px', borderRadius: '4px', marginBottom: '6px' }}>LEAD GENERATION</div>
+                     <div style={{ fontSize: '24px', color: '#fff', fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1.1 }}>BRAND<br/>SCALING</div>
+                  </div>
+                </div>
+              </div>
+
+              </div>{/* /cardsRef */}
+
+              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '120%', height: '120%', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(255,156,96,0.14) 0%, transparent 65%)', zIndex: -1 }} />
+              <div style={{ position: 'absolute', top: 0, left: '10%', width: '40%', height: '100%', borderRadius: '44px', background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 40%)', pointerEvents: 'none', zIndex: 20 }} />
+              <PhoneMockup />
+            </div>
+          </div>
+
+
         </div>
-
-        {/* ── LEFT PANEL (unchanged) ── */}
-        <LeftPanel panelRef={leftPanelRef} />
-
-        {/* ── RIGHT PANEL (unchanged) ── */}
-        <RightPanel panelRef={rightPanelRef} />
 
         {/* AMBIENT GLOW (unchanged) */}
         <div id="phone-ambient-glow" style={{

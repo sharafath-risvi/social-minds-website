@@ -29,7 +29,7 @@
 
 .wsm-section-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5rem, 10.5vw, 13rem);
+  font-size: clamp(3.5rem, 7.5vw, 9rem);
   line-height: 0.88;
   letter-spacing: 0.01em;
   color: #111111;
@@ -52,7 +52,7 @@
   font-size: clamp(15px, 1.5vw, 18px);
   line-height: 1.7;
   color: #666666;
-  max-width: 600px;
+  max-width: 850px;
   margin: 0 auto;
 }
 
@@ -110,7 +110,6 @@
   transition:
     opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: opacity, transform;
   /* Prevent display of alt text or broken-image icon */
   font-size: 0;
 }
@@ -525,7 +524,7 @@
 ════════════════════════════════════════ */
 @media (max-width: 768px) {
   .wsm-section-title {
-    font-size: clamp(3.6rem, 14vw, 6rem);
+    font-size: clamp(2.5rem, 10vw, 4.2rem);
   }
 
   .wsm-showcase {
