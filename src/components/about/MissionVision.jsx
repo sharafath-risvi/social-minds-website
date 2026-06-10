@@ -91,55 +91,59 @@ export default function MissionVision() {
         }} aria-hidden="true" />
 
         <div className="ab-mv-mission-inner">
-          {/* Eyebrow */}
-          <motion.div
-            className="ab-eyebrow"
-            initial={{ opacity: 0, y: 16 }}
-            animate={missionInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: SPRING }}
-          >
-            <span className="ab-eyebrow-dot" aria-hidden="true" />
-            Our Mission
-          </motion.div>
-
-          {/* Animated divider line — expands on scroll-in */}
-          <motion.div
-            className="ab-mv-line"
-            initial={{ width: 0 }}
-            animate={missionInView ? { width: 60 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: SPRING }}
-          />
-
-          {/* Mission heading */}
-          <div style={{ overflow: 'hidden' }}>
-            <motion.h2
-              className="ab-mv-heading"
-              initial={{ y: '100%' }}
-              animate={missionInView ? { y: 0 } : {}}
-              transition={{ duration: 0.9, delay: 0.1, ease: SPRING }}
+          <div className="ab-mv-col-left">
+            {/* Eyebrow */}
+            <motion.div
+              className="ab-eyebrow"
+              initial={{ opacity: 0, y: 16 }}
+              animate={missionInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: SPRING }}
             >
-              <span className="ab-mv-heading-white">Make Every</span>
-              <br />
-              <span className="ab-mv-heading-orange">Brand</span>
-              <br />
-              <span className="ab-mv-heading-outline">Unmissable.</span>
-            </motion.h2>
+              <span className="ab-eyebrow-dot" aria-hidden="true" />
+              Our Mission
+            </motion.div>
+
+            {/* Animated divider line — expands on scroll-in */}
+            <motion.div
+              className="ab-mv-line"
+              initial={{ width: 0 }}
+              animate={missionInView ? { width: 60 } : {}}
+              transition={{ duration: 0.8, delay: 0.2, ease: SPRING }}
+            />
+
+            {/* Mission heading */}
+            <div style={{ overflow: 'hidden' }}>
+              <motion.h2
+                className="ab-mv-heading"
+                initial={{ y: '100%' }}
+                animate={missionInView ? { y: 0 } : {}}
+                transition={{ duration: 0.9, delay: 0.1, ease: SPRING }}
+              >
+                <span className="ab-mv-heading-white">Make Every</span>
+                <br />
+                <span className="ab-mv-heading-orange">Brand</span>
+                <br />
+                <span className="ab-mv-heading-outline">Unmissable.</span>
+              </motion.h2>
+            </div>
           </div>
 
-          {/* Mission body */}
-          <motion.p
-            className="ab-mv-body"
-            initial={{ opacity: 0, y: 20 }}
-            animate={missionInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.35, ease: SPRING }}
-          >
-            We exist to democratize premium branding. Every brand — regardless
-            of size — deserves world-class social media strategy, creative
-            excellence, and data-driven growth that actually compounds.
-          </motion.p>
+          <div className="ab-mv-col-right">
+            {/* Mission body */}
+            <motion.p
+              className="ab-mv-body"
+              initial={{ opacity: 0, y: 20 }}
+              animate={missionInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.35, ease: SPRING }}
+            >
+              We exist to democratize premium branding. Every brand — regardless
+              of size — deserves world-class social media strategy, creative
+              excellence, and data-driven growth that actually compounds.
+            </motion.p>
 
-          {/* Mission pillars */}
-          <PillarList pillars={MISSION_PILLARS} dark={true} />
+            {/* Mission pillars */}
+            <PillarList pillars={MISSION_PILLARS} dark={true} />
+          </div>
         </div>
       </section>
 
@@ -161,60 +165,64 @@ export default function MissionVision() {
         </div>
 
         <div className="ab-mv-vision-inner">
-          {/* Eyebrow — dark on light bg */}
-          <motion.div
-            className="ab-eyebrow"
-            style={{ background: 'rgba(255,156,96,0.08)', borderColor: 'rgba(255,156,96,0.2)' }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={visionInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: SPRING }}
-          >
-            <span className="ab-eyebrow-dot" aria-hidden="true" />
-            Our Vision
-          </motion.div>
-
-          {/* Animated divider line */}
-          <motion.div
-            className="ab-mv-line"
-            style={{ background: 'linear-gradient(90deg, #080808, transparent)' }}
-            initial={{ width: 0 }}
-            animate={visionInView ? { width: 60 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: SPRING }}
-          />
-
-          {/* Vision heading */}
-          <div style={{ overflow: 'hidden' }}>
-            <motion.h2
-              className="ab-mv-heading"
-              initial={{ y: '100%' }}
-              animate={visionInView ? { y: 0 } : {}}
-              transition={{ duration: 0.9, delay: 0.1, ease: SPRING }}
+          <div className="ab-mv-col-left">
+            {/* Eyebrow — dark on light bg */}
+            <motion.div
+              className="ab-eyebrow"
+              style={{ background: 'rgba(255,156,96,0.08)', borderColor: 'rgba(255,156,96,0.2)' }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={visionInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: SPRING }}
             >
-              <span style={{ color: '#080808' }}>Redefine</span>
-              <br />
-              <span className="ab-mv-heading-orange">Social Media</span>
-              <br />
-              <span style={{ color: 'transparent', WebkitTextStroke: '1.5px rgba(0,0,0,0.15)' }}>
-                Marketing.
-              </span>
-            </motion.h2>
+              <span className="ab-eyebrow-dot" aria-hidden="true" />
+              Our Vision
+            </motion.div>
+
+            {/* Animated divider line */}
+            <motion.div
+              className="ab-mv-line"
+              style={{ background: 'linear-gradient(90deg, #080808, transparent)' }}
+              initial={{ width: 0 }}
+              animate={visionInView ? { width: 60 } : {}}
+              transition={{ duration: 0.8, delay: 0.2, ease: SPRING }}
+            />
+
+            {/* Vision heading */}
+            <div style={{ overflow: 'hidden' }}>
+              <motion.h2
+                className="ab-mv-heading"
+                initial={{ y: '100%' }}
+                animate={visionInView ? { y: 0 } : {}}
+                transition={{ duration: 0.9, delay: 0.1, ease: SPRING }}
+              >
+                <span style={{ color: '#080808' }}>Redefine</span>
+                <br />
+                <span className="ab-mv-heading-orange">Social Media</span>
+                <br />
+                <span style={{ color: 'transparent', WebkitTextStroke: '1.5px rgba(0,0,0,0.85)' }}>
+                  Marketing.
+                </span>
+              </motion.h2>
+            </div>
           </div>
 
-          {/* Vision body */}
-          <motion.p
-            className="ab-mv-body"
-            style={{ color: 'rgba(0,0,0,0.5)' }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={visionInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.35, ease: SPRING }}
-          >
-            We&apos;re building a new standard for what social media marketing
-            looks like in India. One where aesthetic quality, strategic depth,
-            and measurable results are non-negotiable — for every client.
-          </motion.p>
+          <div className="ab-mv-col-right">
+            {/* Vision body */}
+            <motion.p
+              className="ab-mv-body"
+              style={{ color: 'rgba(0,0,0,0.5)' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={visionInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.35, ease: SPRING }}
+            >
+              We&apos;re building a new standard for what social media marketing
+              looks like in India. One where aesthetic quality, strategic depth,
+              and measurable results are non-negotiable — for every client.
+            </motion.p>
 
-          {/* Vision pillars */}
-          <PillarList pillars={VISION_PILLARS} dark={false} />
+            {/* Vision pillars */}
+            <PillarList pillars={VISION_PILLARS} dark={false} />
+          </div>
         </div>
       </section>
 

@@ -9,6 +9,25 @@ import { Link } from 'react-router-dom';
 import { services } from '../data/services';
 import FinalCTA from '../components/sections/FinalCTA';
 import ProcessTimeline from '../components/sections/ProcessTimeline';
+import HeroDashboardVisual from '../components/services/HeroDashboardVisual';
+import SocialMediaVisual from '../components/services/SocialMediaVisual';
+import PerformanceVisual from '../components/services/PerformanceVisual';
+import ContentVisual from '../components/services/ContentVisual';
+import BrandingVisual from '../components/services/BrandingVisual';
+import WebDevVisual from '../components/services/WebDevVisual';
+import SEOVisual from '../components/services/SEOVisual';
+
+const getVisualComponent = (id, theme) => {
+  switch (id) {
+    case 'social-media-marketing': return <SocialMediaVisual theme={theme} />;
+    case 'performance-marketing': return <PerformanceVisual theme={theme} />;
+    case 'branding': return <BrandingVisual theme={theme} />;
+    case 'content-strategy': return <SEOVisual theme={theme} />; // Map SEO to Content Strategy as it fits keywords
+    case 'personal-branding': return <WebDevVisual theme={theme} />; // Map WebDev to Personal Branding (personal sites)
+    case 'reel-growth': return <ContentVisual theme={theme} />; // Map Content Production to Reel Growth
+    default: return <SocialMediaVisual theme={theme} />;
+  }
+};
 
 function AnimatedSection({ children, delay = 0, style = {} }) {
   const ref = useRef(null);
@@ -42,60 +61,101 @@ export default function Services() {
     <main>
       {/* ── HERO ── */}
       <section style={{
-        background: '#000',
-        minHeight: '75vh',
+        background: '#FFFFFF',
         display: 'flex',
         alignItems: 'center',
-        padding: 'clamp(8rem, 15vw, 12rem) 24px clamp(5rem, 8vw, 6rem)',
+        padding: 'clamp(6rem, 8vw, 8rem) 24px clamp(4rem, 6vw, 5rem)', // Reduced height/padding
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <div className="grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.3 }} />
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '30%',
-          transform: 'translate(-50%, -50%)',
-          width: '600px',
-          height: '400px',
-          background: 'radial-gradient(ellipse, rgba(255, 156, 96, 0.08) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-          pointerEvents: 'none',
-        }} />
-
-        <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 10, width: '100%' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}
-          >
-            <div style={{ width: '32px', height: '1px', background: '#FF9C60' }} />
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', letterSpacing: '0.2em', color: '#FF9C60', fontWeight: 700 }}>
-              WHAT WE OFFER
-            </span>
+        
+        {/* Editorial Collage Background */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
+          <div style={{ position: 'absolute', inset: 0, background: '#FFFFFF' }} />
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+          
+          {/* Floating Image Panel 1: Camera / Production */}
+          <motion.div initial={{ opacity: 0, y: 40, rotate: -2 }} animate={{ opacity: 1, y: 0, rotate: -6 }} transition={{ duration: 1.2 }}
+            style={{ position: 'absolute', top: '-10%', left: '-5%', width: '35vw', height: '45vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)' }}>
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Camera Production" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(30%) contrast(1.1)' }} />
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.4 }}
-            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3.5rem, 10vw, 11rem)', lineHeight: 0.9, marginBottom: '32px' }}
-          >
-            <span style={{ color: '#FFFFFF' }}>SERVICES</span><br />
-            <span style={{ color: '#FFFFFF' }}>BUILT FOR</span><br />
-            <span className="gradient-text-orange glow-text-orange">MARKET</span><br />
-            <span style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)', color: 'transparent' }}>DOMINATION</span>
-          </motion.h1>
+          {/* Floating Image Panel 2: Studio Setup */}
+          <motion.div initial={{ opacity: 0, x: 40, rotate: 2 }} animate={{ opacity: 1, x: 0, rotate: 4 }} transition={{ duration: 1.4 }}
+            style={{ position: 'absolute', top: '15%', right: '-8%', width: '40vw', height: '50vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)' }}>
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Strategy" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(20%) contrast(1.1)' }} />
+          </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(15px, 1.5vw, 18px)', color: 'rgba(255,255,255,0.45)', maxWidth: '500px', lineHeight: 1.7 }}
-          >
-            Six precision-engineered services designed to make your brand the most talked-about name in your industry.
-          </motion.p>
+          {/* Floating Image Panel 3: Creative Moodboard */}
+          <motion.div initial={{ opacity: 0, y: -20, rotate: -4 }} animate={{ opacity: 1, y: 0, rotate: -2 }} transition={{ duration: 1.6 }}
+            style={{ position: 'absolute', bottom: '-15%', left: '20%', width: '40vw', height: '40vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)' }}>
+            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Creative Workspace" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(10%) contrast(1.1)' }} />
+          </motion.div>
+
+          {/* Light overlay to ensure text is perfectly readable, but incredibly transparent so visuals shine through 30-40% */}
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.5) 100%)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)' }} />
+        </div>
+
+        <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10, width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }} // Reduced margin
+            >
+              <div style={{ width: '40px', height: '1px', background: '#FF9C60' }} />
+              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', letterSpacing: '0.2em', color: '#FF9C60', fontWeight: 700 }}>
+                WHAT WE OFFER
+              </span>
+              <div style={{ width: '40px', height: '1px', background: '#FF9C60' }} />
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.4 }}
+              style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3.8rem, 9.5vw, 10.2rem)', lineHeight: 0.9, marginBottom: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }} // Reduced margin
+            >
+              <span style={{ color: '#0A0A0A' }}>SERVICES BUILT FOR</span>
+              <span style={{ color: '#FF9C60' }}>MARKET</span>
+              <span style={{ WebkitTextStroke: '3px #0A0A0A', color: 'transparent', letterSpacing: '0.02em', textShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>DOMINATION</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(16px, 1.8vw, 20px)', color: '#222222', maxWidth: '600px', lineHeight: 1.7, marginBottom: '36px' }} // Reduced margin and darkened text for contrast
+            >
+              Six precision-engineered services designed to make your brand the most talked-about name in your industry.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+            >
+              <Link
+                to="/contact"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '18px 48px',
+                  background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
+                  borderRadius: '100px',
+                  textDecoration: 'none',
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  color: '#000',
+                  letterSpacing: '0.06em',
+                  boxShadow: '0 12px 24px rgba(255, 156, 96, 0.3)',
+                }}
+              >
+                Start Scaling ↗
+              </Link>
+            </motion.div>
         </div>
       </section>
 
@@ -209,62 +269,9 @@ export default function Services() {
                 </div>
               </AnimatedSection>
 
-              {/* Visual card */}
+              {/* Dynamic Interactive Visual Component */}
               <AnimatedSection delay={0.2} style={{ order: i % 2 === 0 ? 1 : 0 }}>
-                <div style={{ position: 'relative' }}>
-                  <div style={{
-                    background: i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.04)',
-                    border: `1px solid ${i % 2 === 0 ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'}`,
-                    borderRadius: '28px',
-                    padding: '48px 40px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}>
-                    {/* Large icon watermark */}
-                    <div style={{
-                      fontFamily: "'Bebas Neue', sans-serif",
-                      fontSize: '200px',
-                      color: 'rgba(255, 156, 96, 0.04)',
-                      lineHeight: 1,
-                      position: 'absolute',
-                      bottom: '-20px',
-                      right: '20px',
-                      userSelect: 'none',
-                      pointerEvents: 'none',
-                    }}>
-                      {service.number}
-                    </div>
-
-                    {/* Content */}
-                    <div style={{ position: 'relative', zIndex: 1 }}>
-                      <div style={{ fontSize: '60px', marginBottom: '24px' }}>{service.icon}</div>
-                      <p style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '11px',
-                        letterSpacing: '0.15em',
-                        color: '#FF9C60',
-                        fontWeight: 700,
-                        marginBottom: '8px',
-                      }}>
-                        WHAT YOU GET
-                      </p>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                        {service.features.map((f) => (
-                          <div key={f} style={{
-                            padding: '12px 14px',
-                            background: i % 2 === 0 ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
-                            borderRadius: '10px',
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: '12px',
-                            color: i % 2 === 0 ? 'rgba(255,255,255,0.5)' : '#666',
-                          }}>
-                            {f}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {getVisualComponent(service.id, i % 2 === 0 ? 'dark' : 'light')}
               </AnimatedSection>
             </div>
           </div>
@@ -274,40 +281,7 @@ export default function Services() {
       {/* ── PROCESS ── */}
       <ProcessTimeline />
 
-      {/* ── PRICING PREVIEW ── */}
-      <section style={{ background: '#F5F5F3', padding: 'clamp(5rem, 10vw, 8rem) 24px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <AnimatedSection>
-            <SectionTag label="INVESTMENT" />
-            <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 5rem)', color: '#0A0A0A', lineHeight: 0.92, marginBottom: '24px' }}>
-              READY TO INVEST<br />
-              IN YOUR BRAND?
-            </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#838383', lineHeight: 1.7, marginBottom: '40px' }}>
-              Starting at ₹15,000/month. No lock-in contracts. 30-day money-back guarantee.
-            </p>
-            <Link
-              to="/pricing"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '16px 40px',
-                background: '#0A0A0A',
-                borderRadius: '100px',
-                textDecoration: 'none',
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '15px',
-                fontWeight: 700,
-                color: '#FFFFFF',
-                letterSpacing: '0.06em',
-              }}
-            >
-              View Pricing Plans ↗
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
+
 
       {/* ── FINAL CTA ── */}
       <FinalCTA />

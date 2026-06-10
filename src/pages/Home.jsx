@@ -9,6 +9,7 @@ import VerticalParallaxStory from '../components/sections/VerticalParallaxStory'
 import SocialGrowthShowcase from '../components/sections/SocialGrowthShowcase/SocialGrowthShowcase';
 import ContentStrategySection from '../components/sections/ContentStrategySection';
 import WhySocialMinds from '../components/sections/WhySocialMinds';
+import WhyChooseSocialMinds from '../components/sections/WhyChooseSocialMinds';
 import Testimonials from '../components/sections/Testimonials';
 import OurProcessExperience from '../components/sections/OurProcessExperience';
 import FinalCTA from '../components/sections/FinalCTA';
@@ -24,6 +25,9 @@ export default function Home() {
 
       {/* 4. Why Social Minds Section */}
       <WhySocialMinds />
+
+      {/* 5. Why Choose Social Minds Section */}
+      <WhyChooseSocialMinds />
 
       {/* 6. Content Intelligence Section */}
       <ContentStrategySection />

@@ -24,8 +24,6 @@ import AboutStory from '../components/about/AboutStory';
 import MissionVision from '../components/about/MissionVision';
 import FounderExperience from '../components/about/FounderExperience';
 import JourneyTimeline from '../components/about/JourneyTimeline';
-import CreativeProcess from '../components/about/CreativeProcess';
-import WhyBrandsTrustUs from '../components/about/WhyBrandsTrustUs';
 import SocialMindsCulture from '../components/about/SocialMindsCulture';
 import AboutFinalCTA from '../components/about/AboutFinalCTA';
 
@@ -46,12 +44,6 @@ export default function About() {
 
       {/* ── 05 TIMELINE — White horizontal drag-scroll milestone story ── */}
       <JourneyTimeline />
-
-      {/* ── 06 PROCESS — Dark 4-step flow with animated hover bars ── */}
-      <CreativeProcess />
-
-      {/* ── 07 TRUST — White metrics + 6 reason cards ── */}
-      <WhyBrandsTrustUs />
 
       {/* ── 08 CULTURE — Dark cinematic 3-image mosaic + stats ── */}
       <SocialMindsCulture />

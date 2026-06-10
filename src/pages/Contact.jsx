@@ -327,7 +327,7 @@ export default function Contact() {
 
   // ══════════════════════════════════════════════════════════════════════
   return (
-    <main style={{ background: '#FDFAF7', overflowX: 'hidden' }}>
+    <main style={{ background: '#FFFFFF', overflowX: 'hidden' }}>
 
       {/* ══════════════════════════════════════════════════════════════
           SECTION 1 — HERO (scroll-lag optimised)
@@ -343,39 +343,13 @@ export default function Contact() {
           minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',
-          padding: 'clamp(7rem,12vw,11rem) clamp(1.5rem,6vw,5rem) clamp(5rem,8vw,8rem)',
+          padding: 'clamp(5rem,10vw,8rem) clamp(1.5rem,6vw,5rem) clamp(3rem,6vw,5rem)',
           overflow: 'hidden',
-          background: 'linear-gradient(135deg, #FDFAF7 0%, #FFF5ED 45%, #FDFAF7 100%)',
+          background: '#FFFFFF',
           /* Isolate hero layer so scroll does not repaint everything */
           isolation: 'isolate',
         }}
       >
-        {/* Ambient orbs — GPU-only CSS animation (no backdrop-filter here) */}
-        <div className="cp-orb-a" style={{
-          position: 'absolute', top: '8%', right: '6%',
-          width: 'clamp(280px,38vw,560px)', height: 'clamp(280px,38vw,560px)',
-          background: 'radial-gradient(circle, rgba(255,156,96,0.16) 0%, rgba(255,112,48,0.05) 55%, transparent 70%)',
-          borderRadius: '50%', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0,
-        }} />
-        <div className="cp-orb-b" style={{
-          position: 'absolute', bottom: '5%', left: '3%',
-          width: 'clamp(180px,28vw,420px)', height: 'clamp(180px,28vw,420px)',
-          background: 'radial-gradient(circle, rgba(255,200,140,0.13) 0%, transparent 70%)',
-          borderRadius: '50%', filter: 'blur(50px)', pointerEvents: 'none', zIndex: 0,
-        }} />
-        <div className="cp-orb-c" style={{
-          position: 'absolute', top: '42%', left: '28%',
-          width: '260px', height: '260px',
-          background: 'radial-gradient(circle, rgba(255,156,96,0.06) 0%, transparent 70%)',
-          borderRadius: '50%', filter: 'blur(70px)', pointerEvents: 'none', zIndex: 0,
-        }} />
-
-        {/* Subtle dot grid (static, cheap) */}
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, opacity: 0.045,
-          backgroundImage: 'radial-gradient(rgba(255,112,48,1) 1px, transparent 1px)',
-          backgroundSize: '36px 36px',
-        }} />
 
         {/* Accent lines (static) */}
         <div style={{
@@ -388,9 +362,6 @@ export default function Contact() {
           background: 'linear-gradient(90deg, transparent, rgba(255,156,96,0.35), transparent)',
           transform: 'rotate(18deg)', pointerEvents: 'none', zIndex: 0,
         }} />
-
-        {/* Particles */}
-        <FloatingParticles count={16} />
 
         {/* ── Hero content (no Framer Motion parallax/scroll transform) ── */}
         <div style={{ position: 'relative', zIndex: 5, width: '100%', maxWidth: '1400px', margin: '0 auto' }}>
@@ -548,15 +519,9 @@ export default function Contact() {
                 border: '1px solid rgba(255,255,255,0.98)',
                 borderRadius: '28px',
                 padding: 'clamp(1.8rem,2.8vw,2.4rem)',
-                boxShadow: '0 24px 70px rgba(255,112,48,0.1), 0 6px 24px rgba(0,0,0,0.05)',
+                boxShadow: '0 24px 70px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.05)',
                 position: 'relative', overflow: 'hidden',
               }}>
-                {/* Subtle inner gradient */}
-                <div style={{
-                  position: 'absolute', top: 0, right: 0, width: '55%', height: '55%',
-                  background: 'radial-gradient(circle at top right, rgba(255,156,96,0.12), transparent 70%)',
-                  pointerEvents: 'none',
-                }} />
                 {/* Orange top bar */}
                 <div style={{
                   position: 'absolute', top: 0, left: 0, right: 0, height: '3px',
@@ -653,31 +618,11 @@ export default function Contact() {
         id="connect-form"
         style={{
           position: 'relative',
-          padding: 'clamp(5rem,10vw,9rem) clamp(1.5rem,6vw,5rem)',
-          background: 'linear-gradient(160deg, #FDFAF7 0%, #FFF6EE 40%, #FDFAF7 100%)',
+          padding: 'clamp(3rem,6vw,5rem) clamp(1.5rem,6vw,5rem)',
+          background: '#FFFFFF',
           overflow: 'hidden',
         }}
       >
-        {/* Background décor */}
-        <div style={{
-          position: 'absolute', top: '-10%', right: '-8%',
-          width: '600px', height: '600px',
-          background: 'radial-gradient(circle, rgba(255,156,96,0.09) 0%, transparent 65%)',
-          borderRadius: '50%', filter: 'blur(70px)', pointerEvents: 'none', zIndex: 0,
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '-5%', left: '-5%',
-          width: '450px', height: '450px',
-          background: 'radial-gradient(circle, rgba(255,200,140,0.07) 0%, transparent 65%)',
-          borderRadius: '50%', filter: 'blur(60px)', pointerEvents: 'none', zIndex: 0,
-        }} />
-        {/* Dot grid */}
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, opacity: 0.035,
-          backgroundImage: 'radial-gradient(rgba(255,112,48,1) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
-        }} />
-
         <div style={{ maxWidth: '1300px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
 
           {/* Section label + heading */}
@@ -803,7 +748,7 @@ export default function Contact() {
                 border: '1px solid rgba(255,255,255,0.98)',
                 borderRadius: '32px',
                 padding: 'clamp(2.4rem,4.5vw,3.8rem)',
-                boxShadow: '0 32px 80px rgba(0,0,0,0.07), 0 8px 28px rgba(255,112,48,0.06)',
+                boxShadow: '0 32px 80px rgba(0,0,0,0.08), 0 8px 28px rgba(0,0,0,0.04)',
                 position: 'relative', overflow: 'hidden',
               }}>
                 {/* Top gradient stripe */}
@@ -811,12 +756,6 @@ export default function Contact() {
                   position: 'absolute', top: 0, left: 0, right: 0, height: '4px',
                   background: 'linear-gradient(90deg, #FF9C60, #FF7030, #CC4F00)',
                   borderRadius: '32px 32px 0 0',
-                }} />
-                {/* Corner glow */}
-                <div style={{
-                  position: 'absolute', top: 0, right: 0, width: '260px', height: '260px',
-                  background: 'radial-gradient(circle at top right, rgba(255,156,96,0.09), transparent 60%)',
-                  pointerEvents: 'none',
                 }} />
 
                 {/* Form header */}
@@ -983,21 +922,13 @@ export default function Contact() {
           ══════════════════════════════════════════════════════════════ */}
       <section style={{
         position: 'relative',
-        padding: 'clamp(5rem,10vw,9rem) clamp(1.5rem,6vw,5rem)',
+        padding: 'clamp(3rem,6vw,5rem) clamp(1.5rem,6vw,5rem)',
         /* Static gradient — no filter:blur here avoids scroll repaint */
-        background: 'linear-gradient(160deg, #FFF7F2 0%, #FDFAF7 60%, #FFF6EC 100%)',
+        background: '#FFFFFF',
         overflow: 'hidden',
         /* CSS containment: browser skips layout/paint of children during scroll */
         contain: 'layout style paint',
       }}>
-        {/* Static decorative accent — NO filter:blur (avoids compositing cost) */}
-        <div style={{
-          position: 'absolute', top: 0, right: 0,
-          width: '40%', height: '50%',
-          background: 'radial-gradient(ellipse at top right, rgba(255,156,96,0.07) 0%, transparent 65%)',
-          pointerEvents: 'none',
-        }} />
-
         <div style={{ maxWidth: '1300px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
 
           {/* Section header */}
@@ -1249,32 +1180,13 @@ export default function Contact() {
           ══════════════════════════════════════════════════════════════ */}
       <section style={{
         position: 'relative',
-        padding: 'clamp(6rem,12vw,10rem) clamp(1.5rem,6vw,5rem)',
-        background: 'linear-gradient(135deg, #FFF5E8 0%, #FFECD6 30%, #FFF0E0 65%, #FDFAF7 100%)',
+        padding: 'clamp(4rem,8vw,6rem) clamp(1.5rem,6vw,5rem)',
+        background: '#FFFFFF',
         overflow: 'hidden',
         textAlign: 'center',
       }}>
-        {/* Ambient */}
-        <div style={{
-          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-          width: '900px', height: '700px',
-          background: 'radial-gradient(ellipse, rgba(255,156,96,0.13) 0%, rgba(255,200,140,0.07) 40%, transparent 70%)',
-          filter: 'blur(60px)', pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', top: '10%', right: '4%', width: '280px', height: '280px',
-          background: 'radial-gradient(circle, rgba(255,112,48,0.11) 0%, transparent 70%)',
-          filter: 'blur(50px)', pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '10%', left: '4%', width: '240px', height: '240px',
-          background: 'radial-gradient(circle, rgba(255,156,96,0.09) 0%, transparent 70%)',
-          filter: 'blur(50px)', pointerEvents: 'none',
-        }} />
         <div style={{ position: 'absolute', top: '22%', left: '7%', width: '110px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255,112,48,0.38))', transform: 'rotate(-14deg)' }} />
         <div style={{ position: 'absolute', bottom: '24%', right: '7%', width: '110px', height: '1px', background: 'linear-gradient(90deg, rgba(255,112,48,0.38), transparent)', transform: 'rotate(-14deg)' }} />
-
-        <FloatingParticles count={14} />
 
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '920px', margin: '0 auto' }}>
           <FadeUp>
