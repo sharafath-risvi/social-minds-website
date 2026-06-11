@@ -87,6 +87,7 @@ const ChevronRight = () => (
 
 export default function WhySocialMinds() {
   const [activeId, setActiveId] = useState(0);
+  const activeIdRef = useRef(0);
 
   const sectionRef = useRef(null);
   const showcaseRef = useRef(null);
@@ -107,13 +108,16 @@ export default function WhySocialMinds() {
         end: '+=2000', // Adjusted to balance with snap points
         pin: sectionRef.current, // Pin the entire section to prevent layout shifts
         anticipatePin: 1, // Pre-calculates pin to completely eliminate entrance stutter
-        scrub: 0.5, // Faster response time to scroll wheel
+        // Removed scrub: 0.5; it spins up GSAP's ticker unnecessarily since we only track progress without tweens
         onUpdate: (self) => {
           const totalItems = SERVICES.length;
           const newIndex = Math.min(totalItems - 1, Math.floor(self.progress * totalItems));
-          requestAnimationFrame(() => {
-            setActiveId((prev) => (prev === newIndex ? prev : newIndex));
-          });
+          if (newIndex !== activeIdRef.current) {
+            activeIdRef.current = newIndex;
+            requestAnimationFrame(() => {
+              setActiveId(newIndex);
+            });
+          }
         }
       });
     }, sectionRef);

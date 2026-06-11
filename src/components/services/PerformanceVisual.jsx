@@ -65,14 +65,11 @@ export default function PerformanceVisual({ theme }) {
              <stop offset="100%" stopColor={isDark ? '#FFF' : '#000'} stopOpacity="0.08" />
           </linearGradient>
 
-          {/* Glowing particle dots moving along paths */}
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
+          {/* Faked glow using radial gradient for much better scroll performance */}
+          <radialGradient id="glowGrad">
+            <stop offset="0%" stopColor={accentColor} stopOpacity="0.8" />
+            <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
+          </radialGradient>
 
           {/* Flow Direction Arrow Markers */}
           <marker id="arrowHead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
@@ -115,22 +112,26 @@ export default function PerformanceVisual({ theme }) {
           const n2 = nodes[conn[1]];
           return (
             <g key={`dataflow-${i}`}>
-              <motion.circle cx="0" cy="0" r="3.5" fill={accentColor} filter="url(#glow)">
+              {/* Fake glow layer (much faster than SVG filter) */}
+              <circle cx="0" cy="0" r="8" fill="url(#glowGrad)">
                 <animateMotion dur={`${3 + (i % 3)}s`} repeatCount="indefinite" path={`M ${n1.x}% ${n1.y}% L ${n2.x}% ${n2.y}%`} calcMode="linear" />
-              </motion.circle>
+              </circle>
+              {/* Core particle */}
+              <circle cx="0" cy="0" r="2.5" fill={accentColor}>
+                <animateMotion dur={`${3 + (i % 3)}s`} repeatCount="indefinite" path={`M ${n1.x}% ${n1.y}% L ${n2.x}% ${n2.y}%`} calcMode="linear" />
+              </circle>
               {/* Secondary trailing particle for "data packet" effect */}
-              <motion.circle cx="0" cy="0" r="1.5" fill={isDark ? '#FFF' : '#000'} opacity="0.5">
+              <circle cx="0" cy="0" r="1.5" fill={isDark ? '#FFF' : '#000'} opacity="0.5">
                 <animateMotion dur={`${3 + (i % 3)}s`} begin="0.2s" repeatCount="indefinite" path={`M ${n1.x}% ${n1.y}% L ${n2.x}% ${n2.y}%`} calcMode="linear" />
-              </motion.circle>
+              </circle>
             </g>
           );
         })}
         
         {/* Subtle glowing intersections at the exact center of the mesh where diagonals cross */}
-        <motion.circle cx="50%" cy="50%" r="24" fill={accentColor} opacity="0.06" filter="url(#glow)" 
-           animate={{ scale: [1, 1.4, 1], opacity: [0.03, 0.1, 0.03] }} transition={{ duration: 4, repeat: Infinity }} />
-        <motion.circle cx="50%" cy="50%" r="8" fill={isDark ? '#FFF' : '#000'} opacity="0.05" 
-           animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+        <motion.circle cx="50%" cy="50%" r="24" fill="url(#glowGrad)" opacity="0.15" 
+           animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 4, repeat: Infinity }} />
+        <motion.circle cx="50%" cy="50%" r="8" fill={isDark ? '#FFF' : '#000'} opacity="0.05" />
       </svg>
 
       {/* Distributed Network Nodes (Tags) - Scaled Down */}
@@ -142,18 +143,13 @@ export default function PerformanceVisual({ theme }) {
             whileInView={{ opacity: 1, scale: 1, x: '-50%', y: '-50%' }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 + (i * 0.1), type: 'spring', bounce: 0.4 }}
-            animate={{
-              y: [`calc(-50% - ${i % 2 === 0 ? 4 : -4}px)`, `calc(-50% + ${i % 2 === 0 ? 4 : -4}px)`]
-            }}
-            transition={{ y: { duration: 4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.2 } }}
             style={{
               position: 'absolute',
               left: `${node.x}%`,
               top: `${node.y}%`,
-              background: cardBg,
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
+              background: isDark ? 'rgba(15,15,15,0.95)' : 'rgba(255,255,255,0.95)',
               border: `1px solid ${cardBorder}`,
+              willChange: 'transform',
               boxShadow: shadow,
               borderRadius: '100px',
               padding: '8px 14px', // Reduced padding to make cards smaller
@@ -169,9 +165,9 @@ export default function PerformanceVisual({ theme }) {
              {/* Premium glowing connection node dot */}
              <div style={{ position: 'relative', width: '6px', height: '6px' }}>
                 <motion.div 
-                  animate={{ scale: [1, 1.6, 1], opacity: [0.4, 0.9, 0.4] }} 
-                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                  style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: accentColor, filter: 'blur(2px)' }} 
+                  animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.6, 0.2] }} 
+                  transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+                  style={{ position: 'absolute', inset: '-2px', borderRadius: '50%', background: accentColor, opacity: 0.4 }} 
                 />
                 <div style={{ position: 'absolute', inset: '1px', borderRadius: '50%', background: accentColor }} />
              </div>

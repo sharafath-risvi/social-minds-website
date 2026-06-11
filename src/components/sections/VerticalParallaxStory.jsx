@@ -557,7 +557,7 @@ export default function VerticalParallaxStory() {
       <div style={{
         position: 'relative',
         zIndex: 2,
-        padding: 'clamp(4rem, 8vw, 7rem) clamp(24px, 5vw, 80px) clamp(1.5rem, 3vw, 2.5rem)',
+        padding: 'clamp(2rem, 4vw, 4rem) clamp(24px, 5vw, 80px) clamp(1.5rem, 3vw, 2.5rem)',
         maxWidth: '1400px',
         margin: '0 auto',
         textAlign: 'center',

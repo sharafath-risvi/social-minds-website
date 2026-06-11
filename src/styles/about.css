@@ -50,154 +50,58 @@
   animation: ab-pulse 2s ease-in-out infinite;
 }
 
-/* ================================================================
-   SECTION 01 — ABOUT HERO
-================================================================ */
+/* Removed old split layout styles to ensure clean sticky scroll positioning */
+
+/* =========================================================================
+   HERO SCROLL-ZOOM SECTION
+========================================================================= */
+
 .ab-hero {
   position: relative;
-  min-height: 100vh;
-  background: #080808;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-/* Full-bleed background image with parallax */
-.ab-hero-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('/about/agency.png');
-  background-size: cover;
-  background-position: center;
-  /* Parallax handled via JS inline transform */
-  will-change: transform;
-}
-
-/* Multi-layer dark overlay — cinematic depth */
-.ab-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.85) 100%),
-    linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 60%);
-  z-index: 2;
-}
-
-/* Ambient orange glow — hero atmosphere */
-.ab-hero-glow {
-  position: absolute;
-  top: 20%;
-  right: 10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(ellipse at center, rgba(255,156,96,0.08) 0%, transparent 70%);
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 3;
-}
-
-.ab-hero-content {
-  position: relative;
-  z-index: 10;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 clamp(24px, 5vw, 80px);
+  background-color: #ffffff;
   width: 100%;
 }
 
-/* Giant hero headline */
-.ab-hero-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem, 9vw, 11rem);
-  line-height: 0.88;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  margin-bottom: 32px;
+.ab-hero-scroll-container {
+  /* Provides scrolling room for the animation */
+  height: 300vh;
+  position: relative;
+  width: 100%;
 }
 
-.ab-hero-title-orange {
-  color: #ff9c60;
-}
-
-.ab-hero-title-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255,255,255,0.18);
-}
-
-.ab-hero-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(14px, 1.5vw, 18px);
-  color: rgba(255,255,255,0.45);
-  max-width: 520px;
-  line-height: 1.8;
-  margin-bottom: 48px;
-  letter-spacing: 0.01em;
-}
-
-/* Floating metric badges */
-.ab-hero-metrics {
+.ab-hero-sticky-viewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.ab-hero-metric {
-  padding: 12px 20px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.ab-hero-metric-val {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  color: #ff9c60;
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-
-.ab-hero-metric-label {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: #838383;
-  text-transform: uppercase;
-  margin-top: 3px;
-}
-
-/* Scroll indicator */
-.ab-hero-scroll {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
+  overflow: hidden; /* Hide the phone as it scales out of bounds */
+  background: #ffffff;
 }
 
-.ab-hero-scroll-line {
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(180deg, rgba(255,156,96,0.6), transparent);
-  animation: ab-scroll-drop 1.5s ease-in-out infinite;
+.ab-hero-zoom-target {
+  position: relative;
+  /* Will-change ensures smooth hardware-accelerated scaling */
+  will-change: transform;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.ab-hero-scroll-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: rgba(255,255,255,0.3);
-  text-transform: uppercase;
-  writing-mode: horizontal-tb;
+.ab-hero-phone-wrap {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
 }
+
+@media (max-width: 768px) {
+  .ab-hero-phone-wrap {
+    transform: scale(0.65);
+  }
+}
+
 
 /* ================================================================
    SECTION 02 — ABOUT STORY (asymmetric split)

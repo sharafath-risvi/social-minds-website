@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 // ========================================
 // MAIN IPHONE MOCKUP FRAME
 // ========================================
-export default function IPhoneMockup({ children, glowColor = '#FF9C60', scale = 1, size = 'lg' }) {
+export default function IPhoneMockup({ children, glowColor = '#FF9C60', scale = 1, size = 'lg', lightMode = false, hideScreenGlare = false }) {
   const sizes = {
     sm: { width: 240, height: 490, border: 36, screen: 30 },
     md: { width: 300, height: 620, border: 42, screen: 34 },
@@ -32,7 +32,7 @@ export default function IPhoneMockup({ children, glowColor = '#FF9C60', scale = 
         style={{
           width: `${s.width + 120}px`,
           height: `${s.height + 80}px`,
-          background: `radial-gradient(ellipse at 50% 60%, ${glowColor}35 0%, transparent 65%)`,
+          background: `radial-gradient(ellipse at 50% 60%, ${glowColor}${lightMode ? '15' : '35'} 0%, transparent 65%)`,
           filter: 'blur(40px)',
           borderRadius: '60%',
           zIndex: 0,
@@ -44,7 +44,7 @@ export default function IPhoneMockup({ children, glowColor = '#FF9C60', scale = 
         style={{
           width: `${s.width + 80}px`,
           height: `${s.height + 60}px`,
-          background: 'radial-gradient(ellipse at 40% 40%, rgba(160,80,255,0.15) 0%, transparent 60%)',
+          background: `radial-gradient(ellipse at 40% 40%, rgba(160,80,255,${lightMode ? '0.05' : '0.15'}) 0%, transparent 60%)`,
           filter: 'blur(50px)',
           borderRadius: '60%',
           zIndex: 0,
@@ -59,7 +59,7 @@ export default function IPhoneMockup({ children, glowColor = '#FF9C60', scale = 
           height: `${s.height + 4}px`,
           background: 'transparent',
           borderRadius: `${s.border + 8}px`,
-          boxShadow: `0 0 0 1px ${glowColor}18, 0 40px 100px rgba(0,0,0,0.9)`,
+          boxShadow: `0 0 0 1px ${glowColor}18, ${lightMode ? '0 20px 40px rgba(0,0,0,0.1)' : '0 40px 100px rgba(0,0,0,0.9)'}`,
           zIndex: 1,
         }}
       />
@@ -79,8 +79,8 @@ export default function IPhoneMockup({ children, glowColor = '#FF9C60', scale = 
             0 0 0 3px rgba(255,255,255,0.04),
             inset 0 1px 0 rgba(255,255,255,0.1),
             inset 0 -1px 0 rgba(0,0,0,0.5),
-            0 60px 120px rgba(0,0,0,0.95),
-            0 0 60px ${glowColor}15
+            ${lightMode ? '0 30px 60px rgba(0,0,0,0.15)' : '0 60px 120px rgba(0,0,0,0.95)'},
+            0 0 60px ${glowColor}${lightMode ? '08' : '15'}
           `,
         }}
       >
@@ -159,23 +159,27 @@ export default function IPhoneMockup({ children, glowColor = '#FF9C60', scale = 
             {children}
           </div>
 
-          {/* Screen Reflection */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(140deg, rgba(255,255,255,0.05) 0%, transparent 35%, transparent 65%, rgba(255,255,255,0.02) 100%)',
-            pointerEvents: 'none',
-            borderRadius: `${s.screen}px`,
-            zIndex: 15,
-          }} />
+          {!hideScreenGlare && (
+            <>
+              {/* Screen Reflection */}
+              <div style={{
+                position: 'absolute', inset: 0,
+                background: 'linear-gradient(140deg, rgba(255,255,255,0.05) 0%, transparent 35%, transparent 65%, rgba(255,255,255,0.02) 100%)',
+                pointerEvents: 'none',
+                borderRadius: `${s.screen}px`,
+                zIndex: 15,
+              }} />
 
-          {/* Screen edge inner glow */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            boxShadow: `inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.04)`,
-            borderRadius: `${s.screen}px`,
-            pointerEvents: 'none',
-            zIndex: 14,
-          }} />
+              {/* Screen edge inner glow */}
+              <div style={{
+                position: 'absolute', inset: 0,
+                boxShadow: `inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.04)`,
+                borderRadius: `${s.screen}px`,
+                pointerEvents: 'none',
+                zIndex: 14,
+              }} />
+            </>
+          )}
         </div>
 
         {/* Frame specular highlight */}
@@ -523,6 +527,103 @@ export function FeedContent() {
         <span style={{ color: '#fff', fontSize: '11px', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>9:41</span>
         <span style={{ color: '#fff', fontSize: '13px', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>Instagram</span>
         <div style={{ width: '40px' }} />
+      </div>
+    </div>
+  );
+}
+
+// ========================================
+// WHITE FEED CONTENT — Clean White UI (SaaS/Marketing Tool style)
+// ========================================
+export function WhiteFeedContent() {
+  const posts = [
+    { title: 'Summer Collection Teaser', type: 'Reel', status: 'Scheduled', time: 'Tomorrow, 10:00 AM', color: '#FF4080' },
+    { title: 'Behind the Scenes: Studio', type: 'Carousel', status: 'Draft', time: 'In Progress', color: '#40D0FF' },
+    { title: 'Founder Q&A Session', type: 'Story', status: 'Review', time: 'Pending Approval', color: '#40FF80' },
+  ];
+
+  return (
+    <div style={{
+      width: '100%', height: '100%',
+      background: '#FAFAFA',
+      overflowY: 'hidden',
+      position: 'relative',
+    }}>
+      {/* Header */}
+      <div style={{
+        padding: '54px 16px 16px',
+        background: '#ffffff',
+        borderBottom: '1px solid #EAEAEA',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ color: '#0A0A0A', fontSize: '18px', fontWeight: 800, fontFamily: "'Space Grotesk', sans-serif" }}>Workspace</span>
+          <span style={{ color: '#888', fontSize: '11px', fontWeight: 500, fontFamily: "'Inter', sans-serif" }}>Social Minds Agency</span>
+        </div>
+        <div style={{ width: '32px', height: '32px', borderRadius: '10px', background: '#F0F0F0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+      </div>
+
+      {/* Content Area */}
+      <div style={{ padding: '16px', overflowY: 'hidden', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        
+        {/* Campaign Planning Card */}
+        <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: '16px', border: '1px solid #EAEAEA', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+            <span style={{ color: '#0A0A0A', fontSize: '13px', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>Active Campaign</span>
+            <span style={{ color: '#FF9C60', fontSize: '10px', fontWeight: 600, background: 'rgba(255,156,96,0.1)', padding: '4px 8px', borderRadius: '100px' }}>Q3 Strategy</span>
+          </div>
+          
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ flex: 1, height: '60px', borderRadius: '8px', background: 'linear-gradient(135deg, #FF9C60 0%, #FF7030 100%)', position: 'relative', overflow: 'hidden' }}>
+               <div style={{ position: 'absolute', bottom: '6px', left: '8px', color: '#FFF', fontSize: '10px', fontWeight: 700 }}>Brand Identity</div>
+            </div>
+            <div style={{ flex: 1, height: '60px', borderRadius: '8px', background: '#111', position: 'relative', overflow: 'hidden' }}>
+               <div style={{ position: 'absolute', bottom: '6px', left: '8px', color: '#FFF', fontSize: '10px', fontWeight: 700 }}>Market Domination</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Content Calendar / Timeline */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ color: '#0A0A0A', fontSize: '14px', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>Content Calendar</span>
+          <span style={{ color: '#888', fontSize: '11px', fontWeight: 500 }}>This Week</span>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {posts.map((post, i) => (
+            <div key={i} style={{ display: 'flex', gap: '12px', padding: '12px', background: '#FFFFFF', borderRadius: '14px', border: '1px solid #EAEAEA', alignItems: 'center' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: `${post.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: post.color }} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <span style={{ color: '#0A0A0A', fontSize: '13px', fontWeight: 600, fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em' }}>{post.title}</span>
+                <span style={{ color: '#888', fontSize: '11px', marginTop: '2px' }}>{post.time}</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                <span style={{ color: '#0A0A0A', fontSize: '10px', fontWeight: 600, padding: '4px 8px', background: '#F5F5F5', borderRadius: '6px' }}>{post.type}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      {/* Status bar */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0,
+        height: '44px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 22px 0 18px',
+        zIndex: 10,
+      }}>
+        <span style={{ color: '#0A0A0A', fontSize: '12px', fontWeight: 700, fontFamily: "'Inter', sans-serif" }}>9:41</span>
+        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+          <div style={{ width: '14px', height: '10px', background: '#0A0A0A', borderRadius: '2px' }} />
+          <div style={{ width: '12px', height: '10px', background: '#0A0A0A', borderRadius: '2px' }} />
+          <div style={{ width: '20px', height: '10px', background: '#0A0A0A', borderRadius: '2px' }} />
+        </div>
       </div>
     </div>
   );

@@ -69,6 +69,8 @@
   overflow: hidden;
   background: #111; /* Shown while images load */
   isolation: isolate;
+  transform: translateZ(0); /* Force hardware layer */
+  will-change: transform;
 }
 
 /* ════════════════════════════════════════
@@ -112,6 +114,7 @@
     transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   /* Prevent display of alt text or broken-image icon */
   font-size: 0;
+  will-change: transform, opacity;
 }
 
 .wsm-hero-img.is-active {
