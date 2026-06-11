@@ -38,7 +38,7 @@ function AnimatedSection({ children, delay = 0, style = {} }) {
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-      style={style}
+      style={{ ...style, willChange: 'transform, opacity', transform: 'translateZ(0)' }}
     >
       {children}
     </motion.div>
@@ -76,19 +76,19 @@ export default function Services() {
           
           {/* Floating Image Panel 1: Camera / Production */}
           <motion.div initial={{ opacity: 0, y: 40, rotate: -2 }} animate={{ opacity: 1, y: 0, rotate: -6 }} transition={{ duration: 1.2 }}
-            style={{ position: 'absolute', top: '-10%', left: '-5%', width: '35vw', height: '45vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)' }}>
+            style={{ position: 'absolute', top: '-10%', left: '-5%', width: '35vw', height: '45vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
             <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Camera Production" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(30%) contrast(1.1)' }} />
           </motion.div>
 
           {/* Floating Image Panel 2: Studio Setup */}
           <motion.div initial={{ opacity: 0, x: 40, rotate: 2 }} animate={{ opacity: 1, x: 0, rotate: 4 }} transition={{ duration: 1.4 }}
-            style={{ position: 'absolute', top: '15%', right: '-8%', width: '40vw', height: '50vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)' }}>
+            style={{ position: 'absolute', top: '15%', right: '-8%', width: '40vw', height: '50vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
             <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Strategy" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(20%) contrast(1.1)' }} />
           </motion.div>
 
           {/* Floating Image Panel 3: Creative Moodboard */}
           <motion.div initial={{ opacity: 0, y: -20, rotate: -4 }} animate={{ opacity: 1, y: 0, rotate: -2 }} transition={{ duration: 1.6 }}
-            style={{ position: 'absolute', bottom: '-15%', left: '20%', width: '40vw', height: '40vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)' }}>
+            style={{ position: 'absolute', bottom: '-15%', left: '20%', width: '40vw', height: '40vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
             <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Creative Workspace" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(10%) contrast(1.1)' }} />
           </motion.div>
 

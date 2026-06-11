@@ -74,7 +74,7 @@ export default function JourneyTimeline() {
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "center center",
+        start: "center 40%",
         end: () => `+=${getScrollAmount() + (window.innerHeight * 0.5)}`,
         pin: true,
         animation: tween,
@@ -123,7 +123,7 @@ export default function JourneyTimeline() {
             role="region"
             aria-label="Timeline items"
           >
-            <div className="ab-timeline-track" ref={trackRef}>
+            <div className="ab-timeline-track" ref={trackRef} style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
               {/* Central connecting lines */}
               <div className="ab-timeline-line" aria-hidden="true" />
               <div className="ab-timeline-line-fill" aria-hidden="true" />
@@ -139,6 +139,7 @@ export default function JourneyTimeline() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.65, delay: i * 0.1, ease: SPRING }}
+                  style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                 >
                   {/* Central Marker */}
                   <div className="ab-tl-marker" />
@@ -153,6 +154,7 @@ export default function JourneyTimeline() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: SPRING }}
+                        style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                       >
                         <img src={item.img} alt={item.title} className="ab-tl-img" draggable={false} />
                       </motion.div>
@@ -163,6 +165,7 @@ export default function JourneyTimeline() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: SPRING }}
+                        style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                       >
                         <div className="ab-tl-year">{item.year}</div>
                         <h3 className="ab-tl-title">{item.title}</h3>
@@ -181,6 +184,7 @@ export default function JourneyTimeline() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: SPRING }}
+                        style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                       >
                         <img src={item.img} alt={item.title} className="ab-tl-img" draggable={false} />
                       </motion.div>
@@ -191,6 +195,7 @@ export default function JourneyTimeline() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: SPRING }}
+                        style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                       >
                         <div className="ab-tl-year">{item.year}</div>
                         <h3 className="ab-tl-title">{item.title}</h3>

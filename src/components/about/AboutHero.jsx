@@ -45,8 +45,10 @@ export default function AboutHero() {
             opacity: textOpacity,
             visibility: textVisibility,
             pointerEvents: useTransform(scrollYProgress, (v) => v > 0.1 ? "none" : "auto"),
-            maxWidth: '380px',
+            maxWidth: '420px',
             zIndex: 10,
+            willChange: 'transform, opacity',
+            transform: 'translateZ(0)',
           }}
         >
           <div className="ab-eyebrow" style={{ marginBottom: '28px' }}>
@@ -55,7 +57,7 @@ export default function AboutHero() {
           </div>
           <h1 style={{ 
             fontFamily: "'Bebas Neue', sans-serif", 
-            fontSize: 'clamp(3.6rem, 6.2vw, 5.7rem)', 
+            fontSize: 'clamp(3.8rem, 6.5vw, 6rem)', 
             lineHeight: 0.95, 
             marginBottom: '28px',
             display: 'flex',
@@ -67,7 +69,7 @@ export default function AboutHero() {
           </h1>
           <p style={{ 
             fontFamily: "'Inter', sans-serif", 
-            fontSize: '15px', 
+            fontSize: '16px', 
             color: '#555', 
             lineHeight: 1.6,
             fontWeight: 400
@@ -79,7 +81,7 @@ export default function AboutHero() {
 
         <motion.div 
           className="ab-hero-zoom-target"
-          style={{ scale: phoneScale, opacity: phoneOpacity }}
+          style={{ scale: phoneScale, opacity: phoneOpacity, willChange: 'transform, opacity', transform: 'translateZ(0)' }}
         >
           <div className="ab-hero-phone-wrap">
             <IPhoneMockup size="lg" glowColor="transparent" lightMode={true} scale={0.88} hideScreenGlare={true}>
@@ -220,15 +222,18 @@ export default function AboutHero() {
             zIndex: 10,
             width: 'clamp(300px, 35vw, 450px)',
             height: '600px',
+            willChange: 'transform, opacity',
+            transform: 'translateZ(0)',
           }}
         >
-          {/* Instagram Card (Top Right, closer to phone) */}
+          {/* Instagram Card (Top Right) */}
           <div style={{ 
-            position: 'absolute', top: '10%', right: 'clamp(140px, 15vw, 240px)',
+            position: 'absolute', top: '8%', right: 'clamp(40px, 6vw, 100px)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 
             boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(255,255,255,0.5)', 
-            display: 'flex', alignItems: 'center', gap: '15px', width: 'max-content'
+            display: 'flex', alignItems: 'center', gap: '15px', width: 'max-content',
+            transform: 'translateZ(0)'
           }}>
             <div style={{ width: '44px', height: '44px', borderRadius: '11px', background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -239,9 +244,9 @@ export default function AboutHero() {
             </div>
           </div>
           
-          {/* WhatsApp Card (Middle Right, larger) */}
+          {/* WhatsApp Card (Slightly lower, slightly left) */}
           <div style={{ 
-            position: 'absolute', top: '42%', right: 'clamp(60px, 8vw, 140px)', transform: 'scale(1.08)',
+            position: 'absolute', top: '26%', right: 'clamp(140px, 15vw, 240px)', transform: 'scale(1.08) translateZ(0)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 
             boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(255,255,255,0.5)', 
@@ -256,13 +261,14 @@ export default function AboutHero() {
             </div>
           </div>
 
-          {/* Facebook Card (Bottom Right, farther) */}
+          {/* Facebook Card (Center right) */}
           <div style={{ 
-            position: 'absolute', top: '75%', right: 'clamp(20px, 4vw, 60px)',
+            position: 'absolute', top: '44%', right: 'clamp(40px, 6vw, 100px)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 
             boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(255,255,255,0.5)', 
-            display: 'flex', alignItems: 'center', gap: '15px', width: 'max-content'
+            display: 'flex', alignItems: 'center', gap: '15px', width: 'max-content',
+            transform: 'translateZ(0)'
           }}>
             <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#1877F2', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
@@ -270,6 +276,46 @@ export default function AboutHero() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
               <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 700, color: '#0A0A0A' }}>Brand Awareness</span>
               <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 500, color: '#666' }}>Community Building</span>
+            </div>
+          </div>
+
+          {/* YouTube Card (Lower, slightly left) */}
+          <div style={{ 
+            position: 'absolute', top: '62%', right: 'clamp(140px, 15vw, 240px)', transform: 'scale(1.05) translateZ(0)',
+            background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+            borderRadius: '18px', padding: '18px 22px 18px 18px', 
+            boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(255,255,255,0.5)', 
+            display: 'flex', alignItems: 'center', gap: '15px', width: 'max-content'
+          }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#FF0000', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 700, color: '#0A0A0A' }}>Video Marketing</span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 500, color: '#666' }}>YouTube Growth & Reach</span>
+            </div>
+          </div>
+
+          {/* Google Business Card (Bottom right) */}
+          <div style={{ 
+            position: 'absolute', top: '80%', right: 'clamp(40px, 6vw, 100px)',
+            background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+            borderRadius: '18px', padding: '18px 22px 18px 18px', 
+            boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(255,255,255,0.5)', 
+            display: 'flex', alignItems: 'center', gap: '15px', width: 'max-content',
+            transform: 'translateZ(0)'
+          }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+              <svg viewBox="0 0 24 24" width="22" height="22">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+              </svg>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 700, color: '#0A0A0A' }}>Local Visibility</span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 500, color: '#666' }}>Maps & Local SEO</span>
             </div>
           </div>
         </motion.div>

@@ -201,6 +201,7 @@ export default function WhySocialMinds() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -14 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
               >
                 {/* Service tag */}
                 <span className="wsm-service-tag">
@@ -280,7 +281,7 @@ export default function WhySocialMinds() {
                         x: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] },
                         scale: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] },
                       }}
-                      style={{ cursor: 'default' }}
+                      style={{ cursor: 'default', willChange: 'transform, opacity', transform: 'translateZ(0)' }}
                     >
                       <div
                         className="wsm-thumb-img"
@@ -324,6 +325,7 @@ export default function WhySocialMinds() {
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.3 }}
                 className="wsm-counter-current"
+                style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
               >
                 {String(activeId + 1).padStart(2, '0')}
               </motion.span>

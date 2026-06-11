@@ -124,6 +124,8 @@ function CinematicImagePanel({ chapter, scrollY }) {
             y: imgY,
             scale: imgScale,
             filter: 'brightness(0.88) contrast(1.06) saturate(0.92)',
+            willChange: 'transform',
+            transform: 'translateZ(0)',
           }}
         />
         {/* Cinematic dark vignette overlay */}
@@ -490,7 +492,7 @@ function ChapterRow({ chapter, index }) {
 
         {/* Image Panel */}
         <motion.div
-          style={{ order: isFlipped ? 1 : 2, y: panelY }}
+          style={{ order: isFlipped ? 1 : 2, y: panelY, willChange: 'transform', transform: 'translateZ(0)' }}
           initial={{ opacity: 0, scale: 0.94 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.0, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
@@ -597,6 +599,8 @@ export default function VerticalParallaxStory() {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
+            willChange: 'transform',
+            transform: 'translateZ(0)',
           }}>
             Magic Happen.
           </span>

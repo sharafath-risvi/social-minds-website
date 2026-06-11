@@ -51,7 +51,7 @@ export default function WhyChooseSocialMinds() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="tag-orange-dark"
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: '20px', willChange: 'transform, opacity', transform: 'translateZ(0)' }}
         >
           <span style={{ fontSize: '7px' }}>●</span>
           WHY CHOOSE US
@@ -70,7 +70,9 @@ export default function WhyChooseSocialMinds() {
               lineHeight: '0.9',
               marginBottom: '40px',
               letterSpacing: '0.01em',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              willChange: 'transform',
+              transform: 'translateZ(0)'
             }}
           >
             WHY CHOOSE<br />
@@ -94,7 +96,9 @@ export default function WhyChooseSocialMinds() {
             color: 'rgba(0,0,0,0.45)',
             maxWidth: '520px',
             margin: '0 auto',
-            lineHeight: 1.85
+            lineHeight: 1.85,
+            willChange: 'transform, opacity',
+            transform: 'translateZ(0)'
           }}
         >
           We combine strategy, creativity, and performance marketing to help brands attract attention, build trust, and achieve measurable business growth.
@@ -126,6 +130,7 @@ export default function WhyChooseSocialMinds() {
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 className={`w-full md:w-[45%] flex ${!isImageLeft ? 'md:justify-end' : 'md:justify-start'}`}
+                style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
               >
                 <div className="w-full max-w-[520px] flex flex-col items-start text-left -mt-6 md:-mt-8">
                   {/* Eyebrow + number row */}
@@ -224,7 +229,7 @@ export default function WhyChooseSocialMinds() {
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 className="w-full md:w-[45%] flex justify-center md:justify-end items-center"
-                style={{ justifyContent: isImageLeft ? 'flex-start' : 'flex-end' }}
+                style={{ justifyContent: isImageLeft ? 'flex-start' : 'flex-end', willChange: 'transform, opacity', transform: 'translateZ(0)' }}
               >
                 <div className="relative overflow-hidden w-full max-w-[500px] lg:max-w-[600px] flex justify-center items-center">
                   <motion.div
@@ -244,7 +249,11 @@ export default function WhyChooseSocialMinds() {
                       color: 'transparent',
                       width: '100%',
                       textAlign: 'center',
-                      userSelect: 'none'
+                      userSelect: 'none',
+                      willChange: 'transform',
+                      transform: 'translateZ(0)',
+                      WebkitFontSmoothing: 'antialiased',
+                      backfaceVisibility: 'hidden'
                     }}
                   >
                     {topic.id}

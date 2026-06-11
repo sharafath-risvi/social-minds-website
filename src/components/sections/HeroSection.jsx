@@ -219,7 +219,7 @@ export default function HeroSection() {
           trigger: wrapperRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 1,
+          scrub: 0.5, // Reduced scrub for a snappier, more responsive tracking without lag
           invalidateOnRefresh: true,
           onComplete: () => {
             idleFloat = gsap.to(phoneRef.current, {
@@ -232,43 +232,43 @@ export default function HeroSection() {
         },
       });
 
-      // PHASE 1 (0–25%): two-col hero fades back
+      // PHASE 1: two-col hero fades back faster
       tl.to(textRef.current, {
         scale: 1.03, opacity: 0, y: -40,
-        duration: 0.25, ease: 'none',
+        duration: 0.20, ease: 'none',
       }, 0);
 
       tl.to(ctaRef.current, {
         opacity: 0, y: -24,
-        duration: 0.2, ease: 'none',
+        duration: 0.15, ease: 'none',
       }, 0);
 
       tl.to(bgBlurRef.current, {
-        opacity: 1, duration: 0.22, ease: 'none',
+        opacity: 1, duration: 0.20, ease: 'none',
       }, 0);
 
-      // PHASE 2 (18–52%): phone fades/scales in — ONLY the phone
+      // PHASE 2: phone fades/scales in — Starts significantly earlier (0.05 instead of 0.18)
       tl.fromTo(phoneRef.current,
         { opacity: 0, scale: 0.55, y: 180 },
-        { opacity: 1, scale: 0.92, y: -15, duration: 0.34, ease: 'none' },
-        0.18
+        { opacity: 1, scale: 0.92, y: -15, duration: 0.40, ease: 'none' },
+        0.05
       );
 
       if (ambientGlow) {
         tl.fromTo(ambientGlow,
-          { opacity: 0 }, { opacity: 1, duration: 0.28, ease: 'none' }, 0.24
+          { opacity: 0 }, { opacity: 1, duration: 0.28, ease: 'none' }, 0.15
         );
       }
 
-      // PHASE 3 (52–58%): phone holds, top heading slides up
-      tl.to(phoneRef.current, { y: -15, scale: 0.92, duration: 0.06, ease: 'none' }, 0.52);
+      // PHASE 3: phone holds, top heading slides up
+      tl.to(phoneRef.current, { y: -15, scale: 0.92, duration: 0.06, ease: 'none' }, 0.45);
       tl.fromTo(topTextRef.current,
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.1, ease: 'none' },
-        0.55
+        0.48
       );
 
-      // PHASE 4 (62–82%): stagger the 6 cards from their sides
+      // PHASE 4: stagger the 6 cards from their sides
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll('[data-dir]');
         cards.forEach((card, i) => {
@@ -277,16 +277,16 @@ export default function HeroSection() {
           tl.fromTo(card,
             { opacity: 0, x: fromX },
             { opacity: 1, x: 0, duration: 0.12, ease: 'none' },
-            0.64 + i * 0.04
+            0.55 + i * 0.04
           );
         });
       }
 
-      // PHASE 5 (88–95%): hold — bottom content removed
-      tl.to({}, { duration: 0.1 }, 0.88);
+      // PHASE 5: hold
+      tl.to({}, { duration: 0.1 }, 0.85);
 
       // PHASE 6: hold beat
-      tl.to({}, { duration: 0.1 }, 0.97);
+      tl.to({}, { duration: 0.05 }, 0.95);
     }, wrapperRef);
 
     // Mouse parallax
@@ -305,7 +305,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div ref={wrapperRef} style={{ position: 'relative', height: '550vh', background: '#ffffff' }}>
+    <div ref={wrapperRef} style={{ position: 'relative', height: '400vh', background: '#ffffff' }}>
 
       {/* STICKY SHELL — unchanged */}
       <section
@@ -364,7 +364,7 @@ export default function HeroSection() {
         <div
           ref={textRef}
           className="hero-twocol"
-          style={{ willChange: 'transform, opacity', transformOrigin: 'center center' }}
+          style={{ willChange: 'transform, opacity', transformOrigin: 'center center', transform: 'translateZ(0)' }}
         >
           <div className="hero-twocol-inner">
 
@@ -461,7 +461,7 @@ export default function HeroSection() {
 
           {/* ── TOP CONTENT ── */}
           <div style={{ pointerEvents: 'auto', paddingTop: '8vh' }}>
-            <div ref={topTextRef} style={{ textAlign: 'center', opacity: 0, willChange: 'transform, opacity' }}>
+            <div ref={topTextRef} style={{ textAlign: 'center', opacity: 0, willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
               <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(36px, 5vw, 58px)', color: '#0a0a0a', lineHeight: 0.95, letterSpacing: '0.02em', marginBottom: '10px' }}>
                 Turn Attention Into <span style={{ color: '#FF7030' }}>Growth.</span>
               </h2>
@@ -475,7 +475,7 @@ export default function HeroSection() {
           <div style={{ pointerEvents: 'auto', position: 'relative' }}>
             <div ref={phoneRef} style={{
               position: 'relative',
-              opacity: 0, willChange: 'transform, opacity',
+              opacity: 0, willChange: 'transform, opacity', transform: 'translateZ(0)'
             }}>
               {/* ── SHOWCASE ADS LAYER — all 6 cards, grouped for staggered animation ── */}
               <div ref={cardsRef}>
@@ -484,8 +484,8 @@ export default function HeroSection() {
               <div data-dir="left" style={{
                 position: 'absolute', top: '10%', left: 'clamp(-280px, -42vw, -480px)', width: '180px', height: '110px',
                 background: '#111', borderRadius: '16px', padding: '18px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-8deg)',
-                border: '1px solid #333', zIndex: -2, opacity: 0
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-8deg) translateZ(0)',
+                border: '1px solid #333', zIndex: -2, opacity: 0, willChange: 'transform, opacity'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#32D74B', boxShadow: '0 0 10px rgba(50,215,75,0.6)' }} />
@@ -502,7 +502,7 @@ export default function HeroSection() {
               <div data-dir="left" style={{
                 position: 'absolute', bottom: '24%', left: 'clamp(-350px, -42vw, -450px)', width: '160px', height: '200px',
                 background: '#111', borderRadius: '12px', padding: '6px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-14deg)', zIndex: -3, opacity: 0
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-14deg) translateZ(0)', zIndex: -3, opacity: 0, willChange: 'transform, opacity'
               }}>
                 <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
                   <img src="/hero/studio.webp" alt="Content Creation" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
@@ -518,7 +518,7 @@ export default function HeroSection() {
               <div data-dir="left" style={{
                 position: 'absolute', bottom: '15%', left: 'clamp(-200px, -26vw, -250px)', width: '220px', height: '280px',
                 background: '#fff', borderRadius: '16px', padding: '8px',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(-10deg)', zIndex: -2, opacity: 0
+                boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(-10deg) translateZ(0)', zIndex: -2, opacity: 0, willChange: 'transform, opacity'
               }}>
                 <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '10px', overflow: 'hidden' }}>
                   <img src="/hero/strategy.webp" alt="Creative" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -539,8 +539,8 @@ export default function HeroSection() {
               <div data-dir="right" style={{
                 position: 'absolute', top: '10%', right: 'clamp(-320px, -46vw, -520px)', width: '160px', height: '115px',
                 background: '#fff', borderRadius: '16px', padding: '14px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.12)', transform: 'rotate(7deg)',
-                border: '1px solid rgba(0,0,0,0.05)', zIndex: -2, opacity: 0
+                boxShadow: '0 20px 40px rgba(0,0,0,0.12)', transform: 'rotate(7deg) translateZ(0)',
+                border: '1px solid rgba(0,0,0,0.05)', zIndex: -2, opacity: 0, willChange: 'transform, opacity'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                   <div style={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>ROAS</div>
@@ -557,7 +557,7 @@ export default function HeroSection() {
               <div data-dir="right" style={{
                 position: 'absolute', bottom: '22%', right: 'clamp(-350px, -42vw, -450px)', width: '160px', height: '200px',
                 background: '#fff', borderRadius: '12px', padding: '6px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(14deg)', zIndex: -3, opacity: 0
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(14deg) translateZ(0)', zIndex: -3, opacity: 0, willChange: 'transform, opacity'
               }}>
                 <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '8px', overflow: 'hidden' }}>
                   <img src="/hero/production.webp" alt="Performance Marketing" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -573,7 +573,7 @@ export default function HeroSection() {
               <div data-dir="right" style={{
                 position: 'absolute', bottom: '15%', right: 'clamp(-200px, -26vw, -250px)', width: '220px', height: '280px',
                 background: '#fff', borderRadius: '16px', padding: '8px',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(10deg)', zIndex: -2, opacity: 0
+                boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(10deg) translateZ(0)', zIndex: -2, opacity: 0, willChange: 'transform, opacity'
               }}>
                 <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '10px', overflow: 'hidden' }}>
                   <img src="/hero/dashboard.webp" alt="Growth Strategy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
