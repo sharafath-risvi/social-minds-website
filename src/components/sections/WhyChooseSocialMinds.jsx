@@ -42,7 +42,7 @@ const TOPICS = [
 
 export default function WhyChooseSocialMinds() {
   return (
-    <section className="bg-white pt-24 pb-[350px] md:pt-32 md:pb-[500px] lg:pb-[700px] overflow-hidden w-full relative -mt-[2px] z-10">
+    <section className="bg-white pt-24 pb-[350px] md:pt-32 md:pb-[500px] lg:pb-[700px] overflow-hidden w-full relative">
       {/* HEADER SECTION */}
       <div style={{ textAlign: 'center', padding: '0 clamp(24px, 4vw, 60px)', marginBottom: '80px', position: 'relative', zIndex: 2 }}>
         <motion.div

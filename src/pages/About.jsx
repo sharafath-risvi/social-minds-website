@@ -20,6 +20,7 @@ import '../styles/about.css';
 
 // ── Section components
 import AboutHero from '../components/about/AboutHero';
+import ImmersiveJourney from '../components/about/ImmersiveJourney';
 import AboutStory from '../components/about/AboutStory';
 import MissionVision from '../components/about/MissionVision';
 import FounderExperience from '../components/about/FounderExperience';
@@ -32,6 +33,9 @@ export default function About() {
     <main>
       {/* ── 01 HERO — Cinematic full-screen with parallax + floating metrics ── */}
       <AboutHero />
+
+      {/* ── 01.5 IMMERSIVE JOURNEY — 6-scene premium scroll storytelling ── */}
+      <ImmersiveJourney />
 
       {/* ── 02 STORY — White asymmetric editorial split + agency narrative ── */}
       <AboutStory />
