@@ -83,7 +83,7 @@ export default function AboutHero() {
           className="ab-hero-zoom-target"
           style={{ scale: phoneScale, opacity: phoneOpacity, willChange: 'transform, opacity', transform: 'translateZ(0)' }}
         >
-          <div className="ab-hero-phone-wrap">
+          <div className="ab-hero-phone-wrap" style={{ marginTop: '30px' }}>
             <IPhoneMockup size="lg" glowColor="transparent" lightMode={true} scale={0.88} hideScreenGlare={true}>
               <div style={{
                 width: '100%',

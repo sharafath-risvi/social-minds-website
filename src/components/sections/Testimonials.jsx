@@ -1,193 +1,161 @@
-// ========================================
-// TESTIMONIALS v2.0 — WHITE SECTION
-// Infinite horizontal scrolling carousel
-// Rich client cards with avatar, stars, quote
-// Moving dual-row layout
-// ========================================
-
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 // ========================================
-// TESTIMONIALS DATA
+// VIDEO TESTIMONIALS DATA
 // ========================================
-const testimonials = [
+const videoTestimonials = [
   {
     name: 'Rohan Mehta',
     role: 'Founder, FashionBrand.in',
-    avatar: 'RM',
-    avatarColor: '#FF9C60',
-    quote: 'Social Minds took us from 2K to 148K followers in 90 days. The reels they produce are on another level — every single one goes viral. They don\'t just create content, they create a movement.',
-    stars: 5,
+    thumbnail: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600',
     result: '6,050% growth',
-    platform: '📸 Instagram',
   },
   {
     name: 'Priya Sharma',
     role: 'CEO, TechStartup Co.',
-    avatar: 'PS',
-    avatarColor: '#60D4FF',
-    quote: 'The analytics reports alone are worth the investment. They track every metric that matters and optimize weekly. Our LinkedIn engagement went from 0.9% to 8.4% in 60 days. Incredible team.',
-    stars: 5,
+    thumbnail: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600',
     result: '+5,150% followers',
-    platform: '💼 LinkedIn',
   },
   {
     name: 'Arjun Kapoor',
     role: 'Director, FoodBrand PVT',
-    avatar: 'AK',
-    avatarColor: '#A3FF60',
-    quote: 'I was skeptical at first. But within the first month, one reel hit 2.1M views. We had to expand our kitchen capacity because we couldn\'t handle the orders. Social Minds literally scaled our business.',
-    stars: 5,
+    thumbnail: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600',
     result: '2.1M reel views',
-    platform: '🎬 YouTube',
   },
   {
     name: 'Sneha Gupta',
     role: 'Personal Brand Coach',
-    avatar: 'SG',
-    avatarColor: '#FF6B9D',
-    quote: 'As a personal brand, I needed someone who understood my voice. Social Minds nailed it from day one. They built my entire content strategy and now I get 200+ DMs per week from potential clients.',
-    stars: 5,
+    thumbnail: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600',
     result: '200+ weekly DMs',
-    platform: '📸 Instagram',
   },
   {
     name: 'Vivek Nair',
     role: 'Co-founder, EduTech App',
-    avatar: 'VN',
-    avatarColor: '#C084FC',
-    quote: 'The ROI is unmatched. We spent ₹2L on their service and generated ₹18L in revenue from organic content alone. Their growth strategy is seriously next-level. Best investment of our startup journey.',
-    stars: 5,
+    thumbnail: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600',
     result: '9x ROI',
-    platform: '🎵 TikTok',
   },
   {
     name: 'Ananya Das',
     role: 'Fashion Influencer',
-    avatar: 'AD',
-    avatarColor: '#FFD700',
-    quote: 'Before Social Minds, I was stuck at 8K followers for 2 years. Now I\'m at 384K in 4 months. They decoded the Instagram algorithm in ways I never could. The growth is real and organic.',
-    stars: 5,
+    thumbnail: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
     result: '0 → 384K followers',
-    platform: '📸 Instagram',
   },
 ];
 
 // ========================================
-// SINGLE TESTIMONIAL CARD
+// VIDEO TESTIMONIAL CARD
 // ========================================
-function TestimonialCard({ t, i }) {
+function VideoTestimonialCard({ t, i }) {
   return (
-    <div
+    <motion.div
+      whileHover="hover"
       style={{
         flexShrink: 0,
-        width: 'clamp(300px, 35vw, 420px)',
-        background: '#fff',
-        border: '1px solid rgba(0,0,0,0.07)',
-        borderRadius: '24px',
-        padding: '32px 28px',
+        width: 'clamp(280px, 25vw, 340px)',
+        height: 'clamp(420px, 40vw, 520px)', // Vertical video format
         position: 'relative',
+        borderRadius: '24px',
         overflow: 'hidden',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+        cursor: 'pointer',
+        background: '#111',
       }}
     >
-      {/* Quote mark */}
+      {/* Thumbnail */}
+      <motion.div
+        variants={{ hover: { scale: 1.05 } }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: `url(${t.thumbnail})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+
+      {/* Dark overlay for readability */}
       <div style={{
-        position: 'absolute', top: '20px', right: '28px',
-        fontFamily: "'Bebas Neue', sans-serif",
-        fontSize: '80px',
-        color: 'rgba(0,0,0,0.05)',
-        lineHeight: 1,
-        userSelect: 'none',
-      }}>"</div>
-
-      {/* Stars */}
-      <div style={{ display: 'flex', gap: '3px', marginBottom: '16px' }}>
-        {Array(t.stars).fill(null).map((_, si) => (
-          <span key={si} style={{ color: '#FF9C60', fontSize: '14px' }}>★</span>
-        ))}
-      </div>
-
-      {/* Quote */}
-      <p style={{
-        fontFamily: "'Inter', sans-serif",
-        fontSize: '14px',
-        color: 'rgba(0,0,0,0.6)',
-        lineHeight: 1.75,
-        marginBottom: '24px',
-        position: 'relative',
-        zIndex: 2,
-      }}>
-        "{t.quote}"
-      </p>
-
-      {/* Divider */}
-      <div style={{
-        height: '1px',
-        background: 'linear-gradient(90deg, rgba(0,0,0,0.08), transparent)',
-        marginBottom: '20px',
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.1) 100%)',
       }} />
 
-      {/* Author */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
-        {/* Avatar */}
-        <div style={{
-          width: '44px', height: '44px',
+      {/* Play Button Overlay */}
+      <motion.div
+        variants={{
+          hover: { scale: 1.1, backgroundColor: '#FF7030', borderColor: '#FF7030' }
+        }}
+        transition={{ duration: 0.3 }}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '64px',
+          height: '64px',
           borderRadius: '50%',
-          background: `linear-gradient(135deg, ${t.avatarColor}, ${t.avatarColor}AA)`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: 'rgba(255, 255, 255, 0.15)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          border: '1px solid rgba(255,255,255,0.4)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+          zIndex: 2,
+        }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ marginLeft: '4px' }}>
+          <path d="M6 4L20 12L6 20V4Z" fill="white" />
+        </svg>
+      </motion.div>
+
+      {/* Content Bottom */}
+      <div style={{
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        right: '0',
+        padding: '28px 24px',
+        zIndex: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+      }}>
+        {/* Result Badge */}
+        <div style={{
+          display: 'inline-flex',
+          padding: '6px 14px',
+          background: 'rgba(255, 156, 96, 0.95)',
+          borderRadius: '100px',
           fontFamily: "'Space Grotesk', sans-serif",
           fontSize: '12px',
           fontWeight: 700,
-          color: '#fff',
-          flexShrink: 0,
-          boxShadow: `0 4px 16px ${t.avatarColor}40`,
+          color: '#000',
+          marginBottom: '16px',
+          alignSelf: 'flex-start',
         }}>
-          {t.avatar}
+          {t.result}
         </div>
+
         <div>
           <div style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '14px',
+            fontSize: '18px',
             fontWeight: 700,
-            color: '#0D0D0D',
+            color: '#FFFFFF',
+            marginBottom: '4px',
           }}>{t.name}</div>
           <div style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '12px',
-            color: 'rgba(0,0,0,0.4)',
+            fontSize: '13px',
+            color: 'rgba(255,255,255,0.7)',
           }}>{t.role}</div>
         </div>
       </div>
-
-      {/* Result + Platform */}
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        <span style={{
-          padding: '5px 12px',
-          background: 'rgba(255,156,96,0.08)',
-          border: '1px solid rgba(255,156,96,0.2)',
-          borderRadius: '100px',
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: '11px',
-          fontWeight: 600,
-          color: '#FF7030',
-        }}>
-          {t.result}
-        </span>
-        <span style={{
-          padding: '5px 12px',
-          background: 'rgba(0,0,0,0.04)',
-          border: '1px solid rgba(0,0,0,0.08)',
-          borderRadius: '100px',
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: '11px',
-          color: 'rgba(0,0,0,0.4)',
-        }}>
-          {t.platform}
-        </span>
-      </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -198,8 +166,8 @@ export default function Testimonials() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
-  const row1 = testimonials.slice(0, 3);
-  const row2 = testimonials.slice(3, 6);
+  const row1 = videoTestimonials.slice(0, 3);
+  const row2 = videoTestimonials.slice(3, 6);
 
   return (
     <section
@@ -228,7 +196,7 @@ export default function Testimonials() {
           style={{ marginBottom: '20px' }}
         >
           <span style={{ fontSize: '7px' }}>●</span>
-          WHAT BRANDS SAY
+          CLIENT SUCCESS
         </motion.div>
 
         {/* Subtle eyebrow */}
@@ -286,53 +254,27 @@ export default function Testimonials() {
             margin: '0 auto',
           }}
         >
-          Real clients. Real results. Real transformations.
+          Watch how we've transformed businesses and scaled brands with performance-driven marketing.
         </motion.p>
       </div>
 
       {/* ── ROW 1 — Left to Right ── */}
-      <div style={{ overflow: 'hidden', marginBottom: '20px', position: 'relative', zIndex: 2 }}>
-        <div className="animate-marquee-slow" style={{ display: 'flex', gap: '20px', width: 'max-content', padding: '8px 0' }}>
-          {[...row1, ...row1, ...row1].map((t, i) => (
-            <TestimonialCard key={`r1-${i}`} t={t} i={i} />
+      <div style={{ overflow: 'hidden', marginBottom: '24px', position: 'relative', zIndex: 2 }}>
+        <div className="animate-marquee-slow" style={{ display: 'flex', gap: '24px', width: 'max-content', padding: '8px 0' }}>
+          {[...row1, ...row1, ...row1, ...row1].map((t, i) => (
+            <VideoTestimonialCard key={`r1-${i}`} t={t} i={i} />
           ))}
         </div>
       </div>
 
       {/* ── ROW 2 — Right to Left ── */}
       <div style={{ overflow: 'hidden', position: 'relative', zIndex: 2 }}>
-        <div className="animate-marquee-reverse" style={{ display: 'flex', gap: '20px', width: 'max-content', padding: '8px 0' }}>
-          {[...row2, ...row2, ...row2].map((t, i) => (
-            <TestimonialCard key={`r2-${i}`} t={t} i={i} />
+        <div className="animate-marquee-reverse" style={{ display: 'flex', gap: '24px', width: 'max-content', padding: '8px 0' }}>
+          {[...row2, ...row2, ...row2, ...row2].map((t, i) => (
+            <VideoTestimonialCard key={`r2-${i}`} t={t} i={i} />
           ))}
         </div>
       </div>
-
-      {/* ── RATING SUMMARY ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, delay: 0.6 }}
-        style={{
-          textAlign: 'center',
-          marginTop: '60px',
-          position: 'relative', zIndex: 2,
-        }}
-      >
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <div style={{ display: 'flex', gap: '4px' }}>
-            {Array(5).fill(null).map((_, i) => (
-              <span key={i} style={{ color: '#FF9C60', fontSize: '20px' }}>★</span>
-            ))}
-          </div>
-          <div>
-            <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '32px', color: '#0D0D0D', letterSpacing: '0.03em' }}>4.8 / 5</span>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '13px', color: 'rgba(0,0,0,0.4)', marginLeft: '12px' }}>
-              from 50+ client reviews
-            </span>
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }

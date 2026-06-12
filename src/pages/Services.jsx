@@ -3,8 +3,8 @@
 // Apple-style premium service showcase
 // ========================================
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, useInView, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { services } from '../data/services';
 import FinalCTA from '../components/sections/FinalCTA';
@@ -57,106 +57,167 @@ function SectionTag({ label, dark = false }) {
 }
 
 export default function Services() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    mouseX.set(clientX / innerWidth - 0.5);
+    mouseY.set(clientY / innerHeight - 0.5);
+  };
+
   return (
     <main>
-      {/* ── HERO ── */}
-      <section style={{
-        background: '#FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        padding: 'clamp(6rem, 8vw, 8rem) 24px clamp(4rem, 6vw, 5rem)', // Reduced height/padding
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        
-        {/* Editorial Collage Background */}
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
-          <div style={{ position: 'absolute', inset: 0, background: '#FFFFFF' }} />
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+      {/* ── HERO SECTION ── */}
+      <section 
+        style={{
+          background: '#FFFFFF',
+          minHeight: '100vh', 
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '120px 24px',
+          overflow: 'hidden'
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
+      >
+        {/* Background ambient glow */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '1000px',
+          height: '800px',
+          background: 'radial-gradient(circle, rgba(255, 156, 96, 0.04) 0%, transparent 60%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* ========================================================= */}
+        {/* HERO TEXT CONTENT */}
+        {/* ========================================================= */}
+        <motion.div style={{
+          position: 'relative',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          zIndex: 20,
+        }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}
+          >
+            <div style={{ width: '40px', height: '1px', background: '#FF9C60' }} />
+            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', letterSpacing: '0.2em', color: '#FF9C60', fontWeight: 700 }}>
+              OUR SERVICES
+            </span>
+            <div style={{ width: '40px', height: '1px', background: '#FF9C60' }} />
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            style={{ 
+              fontFamily: "'Bebas Neue', sans-serif", 
+              fontSize: 'clamp(4rem, 8vw, 8.5rem)', 
+              lineHeight: 0.95, 
+              marginBottom: '20px' 
+            }}
+          >
+            <span style={{ color: '#0A0A0A', display: 'block' }}>ENGINEERED FOR</span>
+            <span style={{ color: '#FF9C60', display: 'inline-block', marginRight: '16px' }}>DIGITAL</span>
+            <span style={{ WebkitTextStroke: '2px #0A0A0A', color: 'transparent' }}>DOMINATION</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            style={{ 
+              fontFamily: "'Inter', sans-serif", 
+              fontSize: '18px', 
+              color: '#555', 
+              maxWidth: '680px', 
+              lineHeight: 1.7, 
+              marginBottom: '40px' 
+            }}
+          >
+            We design custom growth engines. From scroll-stopping content creation and social media management to branding, performance marketing, and high-quality lead generation.
+          </motion.p>
           
-          {/* Floating Image Panel 1: Camera / Production */}
-          <motion.div initial={{ opacity: 0, y: 40, rotate: -2 }} animate={{ opacity: 1, y: 0, rotate: -6 }} transition={{ duration: 1.2 }}
-            style={{ position: 'absolute', top: '-10%', left: '-5%', width: '35vw', height: '45vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
-            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Camera Production" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(30%) contrast(1.1)' }} />
-          </motion.div>
-
-          {/* Floating Image Panel 2: Studio Setup */}
-          <motion.div initial={{ opacity: 0, x: 40, rotate: 2 }} animate={{ opacity: 1, x: 0, rotate: 4 }} transition={{ duration: 1.4 }}
-            style={{ position: 'absolute', top: '15%', right: '-8%', width: '40vw', height: '50vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
-            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Strategy" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(20%) contrast(1.1)' }} />
-          </motion.div>
-
-          {/* Floating Image Panel 3: Creative Moodboard */}
-          <motion.div initial={{ opacity: 0, y: -20, rotate: -4 }} animate={{ opacity: 1, y: 0, rotate: -2 }} transition={{ duration: 1.6 }}
-            style={{ position: 'absolute', bottom: '-15%', left: '20%', width: '40vw', height: '40vh', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
-            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Creative Workspace" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(10%) contrast(1.1)' }} />
-          </motion.div>
-
-          {/* Light overlay to ensure text is perfectly readable, but incredibly transparent so visuals shine through 30-40% */}
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.5) 100%)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)' }} />
-        </div>
-
-        <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10, width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }} // Reduced margin
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            style={{ display: 'flex', gap: '16px', alignItems: 'center' }}
+          >
+            <Link
+              to="/contact"
+              style={{
+                padding: '16px 40px',
+                background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
+                borderRadius: '100px',
+                textDecoration: 'none',
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: '15px',
+                fontWeight: 700,
+                color: '#000',
+                letterSpacing: '0.06em',
+                boxShadow: '0 12px 24px rgba(255, 156, 96, 0.3)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 16px 32px rgba(255, 156, 96, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 12px 24px rgba(255, 156, 96, 0.3)';
+              }}
             >
-              <div style={{ width: '40px', height: '1px', background: '#FF9C60' }} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', letterSpacing: '0.2em', color: '#FF9C60', fontWeight: 700 }}>
-                WHAT WE OFFER
-              </span>
-              <div style={{ width: '40px', height: '1px', background: '#FF9C60' }} />
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.4 }}
-              style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3.8rem, 9.5vw, 10.2rem)', lineHeight: 0.9, marginBottom: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }} // Reduced margin
-            >
-              <span style={{ color: '#0A0A0A' }}>SERVICES BUILT FOR</span>
-              <span style={{ color: '#FF9C60' }}>MARKET</span>
-              <span style={{ WebkitTextStroke: '3px #0A0A0A', color: 'transparent', letterSpacing: '0.02em', textShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>DOMINATION</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(16px, 1.8vw, 20px)', color: '#222222', maxWidth: '600px', lineHeight: 1.7, marginBottom: '36px' }} // Reduced margin and darkened text for contrast
-            >
-              Six precision-engineered services designed to make your brand the most talked-about name in your industry.
-            </motion.p>
+              Start Scaling ↗
+            </Link>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
+            <button
+              onClick={() => {
+                window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+              }}
+              style={{
+                padding: '16px 40px',
+                background: 'transparent',
+                border: '1px solid rgba(0,0,0,0.1)',
+                borderRadius: '100px',
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: '15px',
+                fontWeight: 700,
+                color: '#0A0A0A',
+                letterSpacing: '0.06em',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(0,0,0,0.03)';
+                e.currentTarget.style.borderColor = 'rgba(0,0,0,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.borderColor = 'rgba(0,0,0,0.1)';
+              }}
             >
-              <Link
-                to="/contact"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '18px 48px',
-                  background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                  borderRadius: '100px',
-                  textDecoration: 'none',
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '16px',
-                  fontWeight: 700,
-                  color: '#000',
-                  letterSpacing: '0.06em',
-                  boxShadow: '0 12px 24px rgba(255, 156, 96, 0.3)',
-                }}
-              >
-                Start Scaling ↗
-              </Link>
-            </motion.div>
-        </div>
+              View Our Work
+            </button>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ── SERVICE DEEP DIVES ── */}

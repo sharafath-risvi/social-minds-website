@@ -11,6 +11,7 @@ const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Services', path: '/services' },
+  { label: 'Pricing', path: '/pricing' },
   { label: 'Blog', path: '/blog' },
   { label: 'Contact', path: '/contact' },
 ];
@@ -20,6 +21,7 @@ export default function Navbar() {
   const [isHidden, setIsHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const [hoveredPath, setHoveredPath] = useState(location.pathname);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -62,6 +64,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setHoveredPath(location.pathname);
   }, [location.pathname]);
 
   // Detect white sections for dark nav text
@@ -93,85 +96,72 @@ export default function Navbar() {
             padding: '14px 28px',
             borderRadius: '100px',
             background: scrolled
-              ? 'rgba(10, 10, 10, 0.85)'
-              : 'rgba(10, 10, 10, 0.4)',
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)',
-            border: scrolled
-              ? '1px solid rgba(255, 156, 96, 0.15)'
-              : '1px solid rgba(255, 255, 255, 0.08)',
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(247, 247, 247, 0.9))'
+              : 'linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(247, 247, 247, 0.5))',
+            backdropFilter: scrolled ? 'blur(20px)' : 'blur(12px)',
+            WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'blur(12px)',
+            border: '1px solid rgba(0, 0, 0, 0.05)',
             boxShadow: scrolled
-              ? '0 8px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 156, 96, 0.05)'
-              : 'none',
+              ? '0 15px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8)'
+              : '0 10px 30px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
+            transform: scrolled ? 'translateY(0)' : 'translateY(4px)',
             transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           }}
         >
           {/* Logo */}
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '32px',
-              height: '32px',
-              background: 'linear-gradient(135deg, #FF9C60, #FF5E00)',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '16px',
-              fontWeight: 900,
-              color: '#000',
-              fontFamily: "'Bebas Neue', sans-serif",
-              boxShadow: '0 0 16px rgba(255, 156, 96, 0.4)',
-            }}>
-              S
-            </div>
-            <span style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: '20px',
-              letterSpacing: '0.1em',
-              color: '#FFFFFF',
-            }}>
-              SOCIAL MINDS
-            </span>
+          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <img 
+              src="/socialmindslogowithoutbg.png" 
+              alt="Social Minds" 
+              style={{ height: 'clamp(50px, 5vw, 50px)', width: 'auto', objectFit: 'contain' }} 
+            />
           </Link>
 
           {/* Desktop Navigation */}
           <div
             className="hidden md:flex"
-            style={{ alignItems: 'center', gap: '4px' }}
+            style={{ alignItems: 'center', gap: '4px', position: 'relative' }}
+            onMouseLeave={() => setHoveredPath(location.pathname)}
           >
             {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
+              const isHovered = hoveredPath === link.path;
               return (
                 <Link
                   key={link.path}
                   to={link.path}
+                  onMouseEnter={() => setHoveredPath(link.path)}
                   style={{
                     textDecoration: 'none',
                     padding: '8px 16px',
                     borderRadius: '100px',
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontSize: '13px',
-                    fontWeight: isActive ? 600 : 400,
-                    color: isActive ? '#FF9C60' : 'rgba(255,255,255,0.7)',
-                    background: isActive ? 'rgba(255, 156, 96, 0.1)' : 'transparent',
-                    border: isActive ? '1px solid rgba(255, 156, 96, 0.2)' : '1px solid transparent',
+                    fontWeight: isHovered ? 600 : 400,
+                    color: isHovered ? '#FF9C60' : '#222',
                     letterSpacing: '0.05em',
-                    transition: 'all 0.2s ease',
+                    transition: 'color 0.2s ease, font-weight 0.2s ease',
                     position: 'relative',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = '#FFFFFF';
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
-                      e.currentTarget.style.background = 'transparent';
-                    }
+                    zIndex: 1,
                   }}
                 >
+                  {isHovered && (
+                    <motion.div
+                      layoutId="navbar-highlight"
+                      transition={{ 
+                        type: "tween", 
+                        ease: "easeInOut",
+                        duration: 0.6 
+                      }}
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'rgba(255, 156, 96, 0.1)',
+                        border: '1px solid rgba(255, 156, 96, 0.2)',
+                        borderRadius: '100px',
+                        zIndex: -1,
+                      }}
+                    />
+                  )}
                   {link.label}
                 </Link>
               );
@@ -213,8 +203,8 @@ export default function Navbar() {
               className="flex md:hidden"
               onClick={() => setMenuOpen(!menuOpen)}
               style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(0,0,0,0.04)',
+                border: '1px solid rgba(0,0,0,0.05)',
                 borderRadius: '10px',
                 width: '40px',
                 height: '40px',
@@ -257,13 +247,13 @@ export default function Navbar() {
               left: '16px',
               right: '16px',
               zIndex: 999,
-              background: 'rgba(10, 10, 10, 0.95)',
+              background: 'rgba(255, 255, 255, 0.95)',
               backdropFilter: 'blur(30px)',
               WebkitBackdropFilter: 'blur(30px)',
-              border: '1px solid rgba(255, 156, 96, 0.15)',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
               borderRadius: '24px',
               padding: '20px',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.8)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
             }}
           >
             {navLinks.map((link, i) => {
@@ -284,8 +274,8 @@ export default function Navbar() {
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: '16px',
                       fontWeight: isActive ? 600 : 400,
-                      color: isActive ? '#FF9C60' : 'rgba(255,255,255,0.8)',
-                      borderBottom: '1px solid rgba(255,255,255,0.05)',
+                      color: isActive ? '#FF9C60' : '#222',
+                      borderBottom: '1px solid rgba(0,0,0,0.05)',
                     }}
                   >
                     {link.label}

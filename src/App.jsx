@@ -17,6 +17,7 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
+import Pricing from './pages/Pricing';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 
@@ -35,18 +36,11 @@ const pageTransition = {
   duration: 0.5,
 };
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-}
 
 function AnimatedRoutes() {
   const location = useLocation();
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
       <motion.div
         key={location.pathname}
         initial="initial"
@@ -59,6 +53,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           {/* Fallback */}
@@ -133,7 +128,6 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
       
       <AnimatePresence>
         {showIntro && (

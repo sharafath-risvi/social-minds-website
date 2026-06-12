@@ -1,6 +1,6 @@
 // ========================================
 // FOOTER COMPONENT
-// Premium dark footer with social links and brand identity
+// Premium modern white footer with glassmorphism touches
 // ========================================
 
 import { Link } from 'react-router-dom';
@@ -14,164 +14,176 @@ const footerLinks = {
     { label: 'Contact', path: '/contact' },
   ],
   Services: [
-    { label: 'Social Media Marketing', path: '/services' },
-    { label: 'Branding', path: '/services' },
-    { label: 'Personal Branding', path: '/services' },
-    { label: 'Reel Growth', path: '/services' },
-    { label: 'Content Strategy', path: '/services' },
-  ],
-  Connect: [
-    { label: 'Instagram', path: '#', external: true },
-    { label: 'LinkedIn', path: '#', external: true },
-    { label: 'WhatsApp', path: 'https://wa.me/917000000000', external: true },
-    { label: 'Twitter / X', path: '#', external: true },
+    { label: 'Social Media Marketing', path: '/services#social-media-marketing' },
+    { label: 'Branding', path: '/services#branding' },
+    { label: 'Personal Branding', path: '/services#personal-branding' },
+    { label: 'Reel Growth', path: '/services#reel-growth' },
+    { label: 'Content Strategy', path: '/services#content-strategy' },
   ],
 };
+
+const socialLinks = [
+  { label: 'Instagram', path: 'https://www.instagram.com/social.minds.chennai', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg> },
+  { label: 'Facebook', path: 'https://www.facebook.com/profile.php?id=61584545852599', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg> },
+  { label: 'WhatsApp', path: 'https://wa.me/917200323181', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> },
+  { label: 'Phone', path: 'tel:7200323181', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> },
+];
 
 export default function Footer() {
   return (
     <footer
       style={{
-        background: '#000',
-        borderTop: '1px solid rgba(255, 156, 96, 0.1)',
-        padding: '80px 24px 40px',
+        background: 'linear-gradient(to bottom, #FFFFFF 0%, #F8F8F8 100%)',
+        borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+        padding: '70px 24px 30px',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Background glow */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '600px',
-        height: '200px',
-        background: 'radial-gradient(ellipse, rgba(255, 156, 96, 0.06) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
-      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Top Section */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
             gap: '60px',
-            marginBottom: '80px',
+            marginBottom: '60px',
           }}
         >
           {/* Brand */}
-          <div style={{ gridColumn: 'span 1' }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-                <div style={{
-                  width: '36px',
-                  height: '36px',
-                  background: 'linear-gradient(135deg, #FF9C60, #FF5E00)',
-                  borderRadius: '10px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '18px',
-                  fontFamily: "'Bebas Neue', sans-serif",
-                  color: '#000',
-                  fontWeight: 900,
-                  boxShadow: '0 0 20px rgba(255, 156, 96, 0.4)',
-                }}>
-                  S
-                </div>
-                <span style={{
-                  fontFamily: "'Bebas Neue', sans-serif",
-                  fontSize: '22px',
-                  letterSpacing: '0.1em',
-                  color: '#FFFFFF',
-                }}>
-                  SOCIAL MINDS
-                </span>
-              </div>
+          <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '340px' }}>
+            <Link to="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
+              <img 
+                src="/socialmindslogowithoutbg.png" 
+                alt="Social Minds" 
+                style={{ height: 'clamp(40px, 5vw, 48px)', width: 'auto', objectFit: 'contain' }} 
+              />
             </Link>
             <p style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: '14px',
-              color: 'rgba(255,255,255,0.4)',
-              lineHeight: 1.7,
-              marginBottom: '24px',
-              maxWidth: '240px',
+              color: 'rgba(0,0,0,0.5)',
+              lineHeight: 1.6,
             }}>
-              We mind your business digitally. Premium social media agency for brands that demand excellence.
+              We mind your business digitally. A premium social media agency for brands that demand excellence and scalable growth.
             </p>
-            <div style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '12px',
-              color: '#FF9C60',
-              letterSpacing: '0.15em',
-              borderLeft: '2px solid #FF9C60',
-              paddingLeft: '12px',
-            }}>
-              WE MIND YOUR BUSINESS DIGITALLY
-            </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                color: 'rgba(255,255,255,0.3)',
-                marginBottom: '20px',
-                textTransform: 'uppercase',
-              }}>
-                {category}
-              </h4>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {links.map((link) => (
-                  <li key={link.label}>
-                    {link.external ? (
-                      <a
-                        href={link.path}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          textDecoration: 'none',
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '14px',
-                          color: 'rgba(255,255,255,0.5)',
-                          transition: 'color 0.2s ease',
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.color = '#FF9C60'}
-                        onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
-                      >
-                        {link.label} ↗
-                      </a>
-                    ) : (
+          {/* Links & Connect Section */}
+          <div style={{
+            display: 'flex',
+            gap: '80px',
+            flexWrap: 'wrap',
+            flex: '2 1 600px',
+            justifyContent: 'flex-end',
+          }}>
+            {/* Company & Services */}
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category} style={{ minWidth: '120px' }}>
+                <h4 style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  letterSpacing: '0.15em',
+                  color: '#222222',
+                  marginBottom: '20px',
+                  textTransform: 'uppercase',
+                }}>
+                  {category}
+                </h4>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', padding: 0, margin: 0 }}>
+                  {links.map((link) => (
+                    <li key={link.label}>
                       <Link
                         to={link.path}
                         style={{
                           textDecoration: 'none',
                           fontFamily: "'Inter', sans-serif",
                           fontSize: '14px',
-                          color: 'rgba(255,255,255,0.5)',
-                          transition: 'color 0.2s ease',
+                          color: '#555555',
+                          transition: 'all 0.2s ease',
+                          display: 'inline-block',
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.color = '#FF9C60'}
-                        onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#FF9C60';
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = '#555555';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                        }}
                       >
                         {link.label}
                       </Link>
-                    )}
-                  </li>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+
+            {/* Connect Section */}
+            <div style={{ minWidth: '140px' }}>
+              <h4 style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: '12px',
+                fontWeight: 700,
+                letterSpacing: '0.15em',
+                color: '#222222',
+                marginBottom: '20px',
+                textTransform: 'uppercase',
+              }}>
+                Connect
+              </h4>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', maxWidth: '100px' }}>
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '10px',
+                      background: '#FFFFFF',
+                      border: '1px solid rgba(0,0,0,0.05)',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+                      color: '#555555',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#FF9C60';
+                      e.currentTarget.style.transform = 'translateY(-3px)';
+                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(255,156,96,0.15)';
+                      e.currentTarget.style.borderColor = 'rgba(255,156,96,0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#555555';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.03)';
+                      e.currentTarget.style.borderColor = 'rgba(0,0,0,0.05)';
+                    }}
+                  >
+                    {social.icon}
+                  </a>
                 ))}
-              </ul>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
 
         {/* Divider */}
-        <div className="section-divider" style={{ marginBottom: '32px' }} />
+        <div style={{ 
+          height: '1px', 
+          background: 'linear-gradient(to right, transparent, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.05) 90%, transparent)',
+          marginBottom: '32px' 
+        }} />
 
         {/* Bottom bar */}
         <div
@@ -181,20 +193,41 @@ export default function Footer() {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '16px',
+            padding: '0 24px',
           }}
         >
           <p style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '13px',
-            color: 'rgba(255,255,255,0.25)',
+            color: '#888888',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            flexWrap: 'wrap',
           }}>
-            © 2025 Social Minds. All rights reserved.
+            © 2026 Social Minds. All rights reserved. <span style={{ opacity: 0.5 }}>|</span> Developed by 
+            <a 
+              href="https://thajiratechworks.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{
+                color: '#888888',
+                textDecoration: 'none',
+                fontWeight: 600,
+                transition: 'color 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#FF9C60'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#888888'}
+            >
+              Thajira Techworks
+            </a>
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontSize: '12px',
-              color: 'rgba(255,255,255,0.2)',
+              color: '#aaaaaa',
+              letterSpacing: '0.05em',
             }}>
               CRAFTED WITH
             </span>
@@ -208,7 +241,8 @@ export default function Footer() {
             <span style={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontSize: '12px',
-              color: 'rgba(255,255,255,0.2)',
+              color: '#aaaaaa',
+              letterSpacing: '0.05em',
             }}>
               FOR BRANDS THAT DARE
             </span>

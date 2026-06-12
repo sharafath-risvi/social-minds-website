@@ -42,9 +42,9 @@ const TOPICS = [
 
 export default function WhyChooseSocialMinds() {
   return (
-    <section className="bg-white pt-24 pb-[350px] md:pt-32 md:pb-[500px] lg:pb-[700px] overflow-hidden w-full relative">
+    <section className="bg-white pt-32 pb-[350px] md:pt-48 md:pb-[500px] lg:pt-56 lg:pb-[700px] overflow-hidden w-full relative">
       {/* HEADER SECTION */}
-      <div style={{ textAlign: 'center', padding: '0 clamp(24px, 4vw, 60px)', marginBottom: '80px', position: 'relative', zIndex: 2 }}>
+      <div style={{ textAlign: 'center', padding: '0 clamp(24px, 4vw, 60px)', marginBottom: '120px', position: 'relative', zIndex: 2 }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export default function WhyChooseSocialMinds() {
       </div>
 
       {/* ROWS SECTION */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col gap-16 md:gap-24 lg:gap-32">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col gap-20 md:gap-32 lg:gap-40">
         {TOPICS.map((topic, index) => {
           const isEven = index % 2 === 1; // 0-indexed, so 1,3,5 are "even" in layout meaning right aligned content, wait...
           // User: 
@@ -120,7 +120,7 @@ export default function WhyChooseSocialMinds() {
           return (
             <div
               key={topic.id}
-              className={`w-full py-24 md:py-40 lg:py-56 flex flex-col-reverse md:flex-row items-center justify-between gap-16 lg:gap-32 group ${isImageLeft ? 'md:flex-row-reverse' : ''
+              className={`w-full py-32 md:py-48 lg:py-64 flex flex-col-reverse md:flex-row items-center justify-between gap-16 lg:gap-32 group ${isImageLeft ? 'md:flex-row-reverse' : ''
                 }`}
             >
               {/* CONTENT SIDE */}
