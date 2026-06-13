@@ -22,25 +22,55 @@ const videoTestimonials = [
     role: 'Director, FoodBrand PVT',
     thumbnail: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600',
     result: '2.1M reel views',
+  }
+];
+
+// ========================================
+// WRITTEN TESTIMONIALS DATA
+// ========================================
+const writtenReviews = [
+  {
+    name: 'Karan Patel',
+    company: 'TechFlow Solutions',
+    rating: 5,
+    text: '"Social Minds completely revamped our digital presence. Within 3 months, our inbound leads doubled, and our brand authority skyrocketed. They truly understand modern performance marketing."',
   },
   {
-    name: 'Sneha Gupta',
-    role: 'Personal Brand Coach',
-    thumbnail: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600',
-    result: '200+ weekly DMs',
+    name: 'Simran Kaur',
+    company: 'Glow Cosmetics',
+    rating: 5,
+    text: '"The team’s creative strategy and data-driven approach are unmatched. They didn’t just run ads; they built a community around our brand. Absolutely exceptional experience!"',
   },
   {
-    name: 'Vivek Nair',
-    role: 'Co-founder, EduTech App',
-    thumbnail: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600',
-    result: '9x ROI',
+    name: 'Rahul Desai',
+    company: 'Urban Fit Apparel',
+    rating: 5,
+    text: '"Working with Social Minds has been the best ROI decision we made this year. Their execution is flawless, and the transparent communication keeps us always in the loop."',
   },
   {
-    name: 'Ananya Das',
-    role: 'Fashion Influencer',
-    thumbnail: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
-    result: '0 → 384K followers',
+    name: 'Emily Chen',
+    company: 'NextGen SaaS',
+    rating: 5,
+    text: '"We struggled with lead generation for months. Social Minds stepped in, optimized our funnels, and our conversion rate jumped by 400%. The results speak for themselves."',
   },
+  {
+    name: 'David Okafor',
+    company: 'Apex Fitness',
+    rating: 5,
+    text: '"What sets them apart is their speed and attention to detail. Every campaign feels custom-tailored, and they are constantly A/B testing to ensure we get the lowest CPA possible."',
+  },
+  {
+    name: 'Sophia Martinez',
+    company: 'Luxe Interiors',
+    rating: 5,
+    text: '"They have a brilliant eye for aesthetics. Not only did our ad performance improve, but our entire brand perception became significantly more premium. Highly recommended."',
+  },
+  {
+    name: 'Michael Chang',
+    company: 'FinTech Innovators',
+    rating: 5,
+    text: '"Their ability to take complex B2B concepts and turn them into highly engaging, viral content is incredible. Our LinkedIn presence has never been stronger."',
+  }
 ];
 
 // ========================================
@@ -160,14 +190,92 @@ function VideoTestimonialCard({ t, i }) {
 }
 
 // ========================================
+// WRITTEN REVIEW CARD
+// ========================================
+function ReviewCard({ review }) {
+  return (
+    <motion.div
+      whileHover={{ y: -8, boxShadow: '0 30px 60px rgba(0,0,0,0.08)' }}
+      style={{
+        flexShrink: 0,
+        width: 'clamp(280px, 25vw, 340px)',
+        height: 'clamp(420px, 40vw, 520px)',
+        background: '#FFF',
+        padding: '40px',
+        borderRadius: '24px',
+        border: '1px solid #EAEAEA',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+        transition: 'all 0.4s ease',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+      }}
+    >
+      {/* 5 Stars */}
+      <div style={{ display: 'flex', gap: '6px' }}>
+        {[...Array(review.rating)].map((_, i) => (
+          <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill="#FF7030" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        ))}
+      </div>
+      
+      <p style={{
+        fontFamily: "'Inter', sans-serif",
+        fontSize: '16px',
+        lineHeight: 1.7,
+        color: '#555',
+        flexGrow: 1,
+        fontStyle: 'italic',
+      }}>
+        {review.text}
+      </p>
+
+      <div>
+        <div style={{
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: '18px',
+          fontWeight: 700,
+          color: '#111',
+          marginBottom: '4px',
+        }}>
+          {review.name}
+        </div>
+        <div style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '14px',
+          color: '#888',
+        }}>
+          {review.company}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ========================================
 // MAIN COMPONENT
 // ========================================
 export default function Testimonials() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
-  const row1 = videoTestimonials.slice(0, 3);
-  const row2 = videoTestimonials.slice(3, 6);
+  // Mix Video & Written Testimonials for a unified marquee (Written dominant)
+  const row1Data = [
+    { type: 'written', data: writtenReviews[0] },
+    { type: 'written', data: writtenReviews[1] },
+    { type: 'video', data: videoTestimonials[0] },
+    { type: 'written', data: writtenReviews[2] },
+    { type: 'written', data: writtenReviews[3] },
+  ];
+
+  const row2Data = [
+    { type: 'written', data: writtenReviews[4] },
+    { type: 'video', data: videoTestimonials[1] },
+    { type: 'written', data: writtenReviews[5] },
+    { type: 'written', data: writtenReviews[6] },
+    { type: 'video', data: videoTestimonials[2] },
+  ];
 
   return (
     <section
@@ -261,8 +369,8 @@ export default function Testimonials() {
       {/* ── ROW 1 — Left to Right ── */}
       <div style={{ overflow: 'hidden', marginBottom: '24px', position: 'relative', zIndex: 2 }}>
         <div className="animate-marquee-slow" style={{ display: 'flex', gap: '24px', width: 'max-content', padding: '8px 0' }}>
-          {[...row1, ...row1, ...row1, ...row1].map((t, i) => (
-            <VideoTestimonialCard key={`r1-${i}`} t={t} i={i} />
+          {[...row1Data, ...row1Data, ...row1Data, ...row1Data].map((item, i) => (
+            item.type === 'video' ? <VideoTestimonialCard key={`r1-v-${i}`} t={item.data} /> : <ReviewCard key={`r1-w-${i}`} review={item.data} />
           ))}
         </div>
       </div>
@@ -270,8 +378,8 @@ export default function Testimonials() {
       {/* ── ROW 2 — Right to Left ── */}
       <div style={{ overflow: 'hidden', position: 'relative', zIndex: 2 }}>
         <div className="animate-marquee-reverse" style={{ display: 'flex', gap: '24px', width: 'max-content', padding: '8px 0' }}>
-          {[...row2, ...row2, ...row2, ...row2].map((t, i) => (
-            <VideoTestimonialCard key={`r2-${i}`} t={t} i={i} />
+          {[...row2Data, ...row2Data, ...row2Data, ...row2Data].map((item, i) => (
+            item.type === 'video' ? <VideoTestimonialCard key={`r2-v-${i}`} t={item.data} /> : <ReviewCard key={`r2-w-${i}`} review={item.data} />
           ))}
         </div>
       </div>

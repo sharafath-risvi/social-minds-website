@@ -208,9 +208,9 @@ export default function FinalCTA() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, delay: 0.68 }}
-            style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '72px' }}
+            style={{ display: 'flex', gap: 'clamp(8px, 2vw, 16px)', justifyContent: 'center', flexWrap: 'nowrap', marginBottom: '72px' }}
           >
-            <Link to="/contact" className="btn-primary" style={{ fontSize: '17px', padding: '20px 52px' }}>
+            <Link to="/contact" className="btn-primary" style={{ fontSize: 'clamp(11px, 2vw, 17px)', padding: 'clamp(12px, 2vw, 20px) clamp(16px, 3vw, 52px)', whiteSpace: 'nowrap' }}>
               Start Growing Now ↗
             </Link>
             <a
@@ -218,7 +218,7 @@ export default function FinalCTA() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-ghost"
-              style={{ fontSize: '17px', padding: '20px 52px' }}
+              style={{ fontSize: 'clamp(11px, 2vw, 17px)', padding: 'clamp(12px, 2vw, 20px) clamp(16px, 3vw, 52px)', whiteSpace: 'nowrap' }}
             >
               💬 WhatsApp Us
             </a>

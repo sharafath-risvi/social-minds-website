@@ -62,7 +62,7 @@ function FloatingParticles({ count = 16 }) {
 }
 
 // ─── Premium input field ─────────────────────────────────────────────────────
-function PremiumInput({ label, type = 'text', placeholder, value, onChange, multiline = false, icon }) {
+function PremiumInput({ label, type = 'text', placeholder, value, onChange, multiline = false, icon, error }) {
   const [focused, setFocused] = useState(false);
   const Tag = multiline ? 'textarea' : 'input';
 
@@ -129,6 +129,11 @@ function PremiumInput({ label, type = 'text', placeholder, value, onChange, mult
           />
         )}
       </div>
+      {error && (
+        <span style={{ color: '#EF4444', fontSize: '11px', marginTop: '2px', fontFamily: "'Inter', sans-serif" }}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }
@@ -223,19 +228,63 @@ const stats = [
 // ═══════════════════════════════════════════════════════════════════
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '', email: '', brand: '', service: '', message: '',
+    name: '', email: '', phone: '', brand: '', service: '', message: '',
   });
+  const [formErrors, setFormErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   // Map scroll-lock fix: overlay blocks iframe scroll capture until user clicks
   const [mapUnlocked, setMapUnlocked] = useState(false);
 
+  const validateForm = () => {
+    const errors = {};
+    const nameRegex = /^[A-Za-z\s]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/;
+    
+    if (!formData.name) {
+      errors.name = 'Full Name is required';
+    } else if (!nameRegex.test(formData.name)) {
+      errors.name = 'Name can only contain letters and spaces';
+    }
+
+    if (!formData.email) {
+      errors.email = 'Email Address is required';
+    } else if (!emailRegex.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.phone) {
+      errors.phone = 'Phone Number is required';
+    } else if (!phoneRegex.test(formData.phone)) {
+      errors.phone = 'Phone number must be exactly 10 digits';
+    }
+
+    if (!formData.brand) {
+      errors.brand = 'Brand / Company is required';
+    }
+
+    if (!formData.service) {
+      errors.service = 'Please select a service';
+    }
+
+    if (!formData.message || formData.message.length < 10) {
+      errors.message = 'Message must be at least 10 characters long';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setSubmitLoading(true);
     setTimeout(() => {
       setSubmitLoading(false);
       setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', brand: '', service: '', message: '' });
       setTimeout(() => setSubmitted(false), 6000);
     }, 1600);
   };
@@ -797,26 +846,48 @@ export default function Contact() {
                     {/* Row 1 */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '18px' }}>
                       <PremiumInput
-                        icon="👤" label="Your Name"
+                        icon="👤" label="Your Name*"
                         placeholder="John Doe"
                         value={formData.name}
-                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        onChange={e => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (formErrors.name) setFormErrors({ ...formErrors, name: '' });
+                        }}
+                        error={formErrors.name}
                       />
                       <PremiumInput
-                        icon="✉️" label="Email Address"
+                        icon="✉️" label="Email Address*"
                         type="email" placeholder="john@company.com"
                         value={formData.email}
-                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        onChange={e => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (formErrors.email) setFormErrors({ ...formErrors, email: '' });
+                        }}
+                        error={formErrors.email}
+                      />
+                      <PremiumInput
+                        icon="📱" label="Phone Number*"
+                        type="tel" placeholder="9876543210"
+                        value={formData.phone}
+                        onChange={e => {
+                          setFormData({ ...formData, phone: e.target.value });
+                          if (formErrors.phone) setFormErrors({ ...formErrors, phone: '' });
+                        }}
+                        error={formErrors.phone}
                       />
                     </div>
 
                     {/* Row 2 */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '18px' }}>
                       <PremiumInput
-                        icon="🏢" label="Brand / Company"
+                        icon="🏢" label="Brand / Company*"
                         placeholder="Your brand name"
                         value={formData.brand}
-                        onChange={e => setFormData({ ...formData, brand: e.target.value })}
+                        onChange={e => {
+                          setFormData({ ...formData, brand: e.target.value });
+                          if (formErrors.brand) setFormErrors({ ...formErrors, brand: '' });
+                        }}
+                        error={formErrors.brand}
                       />
                       {/* Service select */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
@@ -827,12 +898,15 @@ export default function Contact() {
                           display: 'flex', alignItems: 'center', gap: '6px',
                         }}>
                           <span style={{ fontSize: '12px' }}>🎯</span>
-                          Service Needed
+                          Service Needed*
                         </label>
                         <select
                           className="cp-select"
                           value={formData.service}
-                          onChange={e => setFormData({ ...formData, service: e.target.value })}
+                          onChange={e => {
+                            setFormData({ ...formData, service: e.target.value });
+                            if (formErrors.service) setFormErrors({ ...formErrors, service: '' });
+                          }}
                           style={{
                             background: '#FFFFFF',
                             border: '1.5px solid rgba(0,0,0,0.09)',
@@ -857,16 +931,25 @@ export default function Contact() {
                           <option value="performance">Performance Marketing</option>
                           <option value="full">Full Brand Package</option>
                         </select>
+                        {formErrors.service && (
+                          <span style={{ color: '#EF4444', fontSize: '11px', marginTop: '-4px', fontFamily: "'Inter', sans-serif" }}>
+                            {formErrors.service}
+                          </span>
+                        )}
                       </div>
                     </div>
 
                     {/* Message */}
                     <PremiumInput
-                      icon="💬" label="Your Message"
+                      icon="💬" label="Your Message*"
                       placeholder="Tell us about your brand, goals, and what you're looking to achieve..."
                       value={formData.message}
-                      onChange={e => setFormData({ ...formData, message: e.target.value })}
+                      onChange={e => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (formErrors.message) setFormErrors({ ...formErrors, message: '' });
+                      }}
                       multiline
+                      error={formErrors.message}
                     />
 
                     {/* Submit button */}

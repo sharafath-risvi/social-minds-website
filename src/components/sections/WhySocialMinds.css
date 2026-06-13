@@ -549,48 +549,61 @@
     );
   }
 
-  /* Content: full width, bottom-anchored */
   .wsm-content-area {
     position: relative;
     width: 100%;
     height: auto;
-    min-height: 380px;
-    padding: 48px 28px 24px;
-    justify-content: flex-end;
-    padding-bottom: 24px;
+    min-height: auto;
+    padding: 48px 24px 32px;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  .wsm-content-block {
+    align-items: center;
   }
 
   .wsm-heading {
     font-size: clamp(3.5rem, 13vw, 5rem);
+    align-items: center;
   }
 
   .wsm-desc {
     font-size: 14px;
     max-width: 100%;
+    margin-bottom: 24px;
   }
 
   .wsm-cta {
-    width: 100%;
+    width: auto;
+    padding: 10px 20px;
+    font-size: 10px;
     justify-content: center;
   }
 
-  /* Cards area: unstack to horizontal scroll row on mobile */
+  .wsm-pips {
+    display: none;
+  }
+
+  /* Cards area: stack vertically so nav dots are below the horizontal scroll row */
   .wsm-cards-area {
     position: relative;
     bottom: auto;
     right: auto;
-    width: calc(100% + 48px);
-    margin-left: -24px;
-    padding: 0 24px 28px;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 0;
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 32px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     flex-wrap: nowrap;
   }
 
   .wsm-cards-row {
-    padding: 0 24px 0 0;
+    width: 100%;
+    padding: 0 24px;
     overflow-x: auto;
     overflow-y: visible;
     scrollbar-width: none;
@@ -599,10 +612,18 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 12px;
   }
 
   .wsm-cards-row::-webkit-scrollbar { display: none; }
+
+  /* Ensure nav bar centers under cards */
+  .wsm-nav-bar {
+    align-self: center;
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
 
   /* Hide nav hint on mobile — cards are obviously swipeable */
   .wsm-nav-hint { display: none; }

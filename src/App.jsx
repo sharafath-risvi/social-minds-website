@@ -20,6 +20,7 @@ import Services from './pages/Services';
 import Pricing from './pages/Pricing';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
+import Careers from './pages/Careers';
 
 // ========================================
 // PAGE TRANSITION WRAPPER
@@ -56,6 +57,7 @@ function AnimatedRoutes() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/careers" element={<Careers />} />
           {/* Fallback */}
           <Route path="*" element={<Home />} />
         </Routes>

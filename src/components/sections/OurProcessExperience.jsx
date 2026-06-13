@@ -335,7 +335,7 @@ function PerformanceCard({ icon, label, value, active, delay = 0 }) {
 // Hover → pauses auto-rotation + shows overlay + updates active step
 // HoverEnd → resumes auto-rotation with a fresh 4.5s window
 // ============================================================
-function CinematicGrid({ activeIndex, onHover, onHoverEnd, inView }) {
+function CinematicGrid({ activeIndex, onHover, onHoverEnd, onClick, inView }) {
   return (
     <motion.div
       className="ope-center"
@@ -359,6 +359,8 @@ function CinematicGrid({ activeIndex, onHover, onHoverEnd, inView }) {
           onHoverStart={() => onHover(item.stepIndex)}
           // ── Hover end → resume rotation after a fresh 4.5s delay
           onHoverEnd={onHoverEnd}
+          // ── Tap/Click on mobile/desktop → switch step and resume rotation
+          onClick={() => onClick(item.stepIndex)}
         >
           {/* ── Cinematic background image ── */}
           <img
@@ -704,6 +706,7 @@ export default function OurProcessExperience() {
           activeIndex={activeIndex}
           onHover={handleImageHover}
           onHoverEnd={handleImageHoverEnd}
+          onClick={handleDotClick}
           inView={inView}
         />
 

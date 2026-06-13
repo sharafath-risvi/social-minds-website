@@ -486,13 +486,14 @@ function ChapterRow({ chapter, index }) {
       }}>
 
         {/* Content */}
-        <div style={{ order: isFlipped ? 2 : 1 }}>
+        <div className={`order-1 ${isFlipped ? 'md:order-2' : 'md:order-1'}`}>
           <ContentBlock chapter={chapter} inView={inView} />
         </div>
 
         {/* Image Panel */}
         <motion.div
-          style={{ order: isFlipped ? 1 : 2, y: panelY, willChange: 'transform', transform: 'translateZ(0)' }}
+          className={`order-2 ${isFlipped ? 'md:order-1' : 'md:order-2'}`}
+          style={{ y: panelY, willChange: 'transform', transform: 'translateZ(0)' }}
           initial={{ opacity: 0, scale: 0.94 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1.0, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
@@ -559,7 +560,7 @@ export default function VerticalParallaxStory() {
       <div style={{
         position: 'relative',
         zIndex: 2,
-        padding: 'clamp(2rem, 4vw, 4rem) clamp(24px, 5vw, 80px) clamp(1.5rem, 3vw, 2.5rem)',
+        padding: 'clamp(5rem, 8vw, 8rem) clamp(24px, 5vw, 80px) clamp(1.5rem, 3vw, 2.5rem)',
         maxWidth: '1400px',
         margin: '0 auto',
         textAlign: 'center',
@@ -631,7 +632,8 @@ export default function VerticalParallaxStory() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}
+          style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}
+          className="flex-wrap md:flex-nowrap"
         >
           {['Strategy First', 'Cinematic Content', 'Growth Driven'].map((tag, i) => (
             <div key={tag} style={{

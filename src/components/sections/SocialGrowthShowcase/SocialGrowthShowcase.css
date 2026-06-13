@@ -789,6 +789,11 @@
     display: none;
   }
 
+  .sgs-story-panel {
+    height: auto;
+    min-height: auto;
+  }
+
   .sgs-bottom-stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -820,6 +825,8 @@
 
   .sgs-story-panel {
     padding: 0;
+    height: auto;
+    min-height: auto;
   }
 
   .sgs-stats-grid {

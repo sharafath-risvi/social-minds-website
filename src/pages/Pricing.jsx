@@ -83,13 +83,11 @@ export default function Pricing() {
             }}
           >
             {pricingPlans.filter(plan => plan.id !== 'essential').map((plan, index) => {
-              const isProfessional = plan.id === 'professional';
-              const isPremiumBlack = plan.id === 'essential';
+              const isPremiumBlack = plan.id === 'professional';
 
               let buttonText = plan.buttonText;
-              if (plan.id === 'essential') buttonText = 'Get Started';
               if (plan.id === 'advanced') buttonText = 'Get Started';
-              if (isProfessional) buttonText = 'Book Consultation';
+              if (plan.id === 'professional') buttonText = 'Book Consultation';
               if (plan.id === 'elite') buttonText = 'Scale My Brand';
 
               return (
@@ -101,10 +99,9 @@ export default function Pricing() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{
                     y: -10,
-                    boxShadow: isProfessional 
-                      ? '0 30px 60px rgba(255, 156, 96, 0.4)' 
-                      : isPremiumBlack 
-                        ? '0 30px 60px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 156, 96, 0.2)' 
+                    scale: isPremiumBlack ? 1.02 : 1,
+                    boxShadow: isPremiumBlack 
+                        ? '0 30px 60px rgba(0,0,0,0.4), 0 0 0 2px #FF7030' 
                         : '0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF7030',
                   }}
                   style={{
@@ -112,37 +109,19 @@ export default function Pricing() {
                     color: isPremiumBlack ? '#FFF' : '#000',
                     borderRadius: '24px',
                     padding: '32px',
-                    boxShadow: isProfessional 
-                      ? '0 20px 40px rgba(255, 156, 96, 0.25)' 
-                      : '0 10px 30px rgba(0, 0, 0, 0.05)',
-                    border: isProfessional 
-                      ? '2px solid #FF7030' 
-                      : isPremiumBlack 
-                        ? '1px solid rgba(255, 156, 96, 0.3)' 
-                        : '1px solid #EAEAEA',
+                    boxShadow: isPremiumBlack ? '0 20px 40px rgba(0, 0, 0, 0.25)' : '0 10px 30px rgba(0, 0, 0, 0.05)',
+                    border: isPremiumBlack ? '1px solid rgba(255, 156, 96, 0.3)' : '1px solid #EAEAEA',
                     position: 'relative',
                     display: 'flex',
                     flexDirection: 'column',
-                    transform: isProfessional ? 'scale(1.02)' : 'scale(1)',
+                    transform: 'scale(1)',
                     transition: 'all 0.4s ease',
                     overflow: 'hidden',
-                    height: '100%'
+                    height: '100%',
+                    width: '100%',
+                    boxSizing: 'border-box'
                   }}
                 >
-                  {/* Optional Glow Background for Premium Black */}
-                  {isPremiumBlack && (
-                    <div style={{
-                      position: 'absolute',
-                      top: '-50px',
-                      right: '-50px',
-                      width: '150px',
-                      height: '150px',
-                      background: '#FF7030',
-                      filter: 'blur(80px)',
-                      opacity: 0.5,
-                      pointerEvents: 'none'
-                    }} />
-                  )}
 
                   <h3 style={{
                     fontFamily: "'Bebas Neue', sans-serif",
@@ -176,11 +155,11 @@ export default function Pricing() {
 
                   <div style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '14px',
-                    color: '#FF7030',
+                    fontSize: '15px',
+                    color: isPremiumBlack ? '#FFF' : '#333',
                     fontWeight: 600,
                     marginBottom: '20px',
-                    background: isPremiumBlack ? 'rgba(255, 156, 96, 0.1)' : 'rgba(255, 156, 96, 0.1)',
+                    background: isPremiumBlack ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
                     padding: '6px 12px',
                     borderRadius: '8px',
                     display: 'inline-block',
@@ -232,22 +211,22 @@ export default function Pricing() {
                       fontSize: '16px',
                       fontWeight: 700,
                       textDecoration: 'none',
-                      color: isPremiumBlack ? '#000' : (isProfessional ? '#FFF' : '#000'),
+                      color: isPremiumBlack ? '#000' : '#000',
                       background: isPremiumBlack 
                         ? 'linear-gradient(135deg, #FF9C60, #FF7030)' 
-                        : (isProfessional ? '#000' : '#F5F5F5'),
-                      border: isPremiumBlack || isProfessional ? 'none' : '1px solid #DDD',
-                      boxShadow: isPremiumBlack || isProfessional ? '0 8px 20px rgba(255, 156, 96, 0.3)' : 'none',
+                        : '#F5F5F5',
+                      border: isPremiumBlack ? 'none' : '1px solid #DDD',
+                      boxShadow: isPremiumBlack ? '0 8px 20px rgba(255, 156, 96, 0.3)' : 'none',
                       transition: 'all 0.3s ease',
                     }}
                     onMouseEnter={(e) => {
-                      if (!isPremiumBlack && !isProfessional) {
+                      if (!isPremiumBlack) {
                         e.currentTarget.style.background = '#000';
                         e.currentTarget.style.color = '#FFF';
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (!isPremiumBlack && !isProfessional) {
+                      if (!isPremiumBlack) {
                         e.currentTarget.style.background = '#F5F5F5';
                         e.currentTarget.style.color = '#000';
                       }
@@ -260,192 +239,7 @@ export default function Pricing() {
             })}
           </div>
 
-          {/* SECOND ROW (1 Card - Essential) */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <div style={{ width: '100%', maxWidth: '450px' }}>
-              {pricingPlans.filter(plan => plan.id === 'essential').map((plan, index) => {
-                const isProfessional = plan.id === 'professional';
-                const isPremiumBlack = plan.id === 'essential';
 
-                let buttonText = plan.buttonText;
-                if (plan.id === 'essential') buttonText = 'Get Started';
-                if (plan.id === 'advanced') buttonText = 'Get Started';
-                if (isProfessional) buttonText = 'Book Consultation';
-                if (plan.id === 'elite') buttonText = 'Scale My Brand';
-
-                return (
-                  <motion.div
-                    key={plan.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0 }}
-                    whileHover={{
-                      y: -10,
-                      boxShadow: isProfessional 
-                        ? '0 30px 60px rgba(255, 156, 96, 0.4)' 
-                        : isPremiumBlack 
-                          ? '0 30px 60px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 156, 96, 0.2)' 
-                          : '0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF7030',
-                    }}
-                    style={{
-                      background: isPremiumBlack ? 'linear-gradient(180deg, #111 0%, #222 100%)' : '#FFFFFF',
-                      color: isPremiumBlack ? '#FFF' : '#000',
-                      borderRadius: '24px',
-                      padding: '32px',
-                      boxShadow: isProfessional 
-                        ? '0 20px 40px rgba(255, 156, 96, 0.25)' 
-                        : '0 10px 30px rgba(0, 0, 0, 0.05)',
-                      border: isProfessional 
-                        ? '2px solid #FF7030' 
-                        : isPremiumBlack 
-                          ? '1px solid rgba(255, 156, 96, 0.3)' 
-                          : '1px solid #EAEAEA',
-                      position: 'relative',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      transform: isProfessional ? 'scale(1.02)' : 'scale(1)',
-                      transition: 'all 0.4s ease',
-                      overflow: 'hidden',
-                      height: '100%'
-                    }}
-                  >
-                    {/* Optional Glow Background for Premium Black */}
-                    {isPremiumBlack && (
-                      <div style={{
-                        position: 'absolute',
-                        top: '-50px',
-                        right: '-50px',
-                        width: '150px',
-                        height: '150px',
-                        background: '#FF7030',
-                        filter: 'blur(80px)',
-                        opacity: 0.5,
-                        pointerEvents: 'none'
-                      }} />
-                    )}
-
-                    <h3 style={{
-                      fontFamily: "'Bebas Neue', sans-serif",
-                      fontSize: '32px',
-                      letterSpacing: '0.05em',
-                      marginBottom: '4px',
-                      marginTop: '0',
-                      color: isPremiumBlack ? '#FFF' : '#000',
-                    }}>
-                      {plan.name}
-                    </h3>
-                    
-                    <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                      <span style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '48px',
-                        fontWeight: 700,
-                        color: isPremiumBlack ? '#FFF' : '#000',
-                      }}>
-                        {plan.price}
-                      </span>
-                      <span style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '16px',
-                        color: isPremiumBlack ? '#AAA' : '#666',
-                        fontWeight: 500
-                      }}>
-                        {plan.period}
-                      </span>
-                    </div>
-
-                    <div style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '14px',
-                      color: '#FF7030',
-                      fontWeight: 600,
-                      marginBottom: '20px',
-                      background: isPremiumBlack ? 'rgba(255, 156, 96, 0.1)' : 'rgba(255, 156, 96, 0.1)',
-                      padding: '6px 12px',
-                      borderRadius: '8px',
-                      display: 'inline-block',
-                      alignSelf: 'flex-start'
-                    }}>
-                      {plan.subtitle}
-                    </div>
-
-                    <hr style={{ borderColor: isPremiumBlack ? 'rgba(255,255,255,0.1)' : '#EAEAEA', marginBottom: '20px' }} />
-
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, flex: 1 }}>
-                      {plan.features.map((feature, i) => (
-                        <li key={i} style={{
-                          display: 'flex',
-                          alignItems: 'flex-start',
-                          gap: '12px',
-                          marginBottom: '12px',
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '15px',
-                          color: isPremiumBlack 
-                            ? (feature.included ? '#FFF' : '#555') 
-                            : (feature.included ? '#333' : '#999'),
-                        }}>
-                          <span style={{ 
-                            marginTop: '2px', 
-                            fontSize: '14px',
-                            color: feature.included ? '#10B981' : '#F87171' 
-                          }}>
-                            {feature.included ? '✓' : '✕'}
-                          </span>
-                          <span style={{ textDecoration: feature.included ? 'none' : 'line-through' }}>
-                            {feature.text}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <motion.a
-                      href="/contact"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      style={{
-                        display: 'block',
-                        textAlign: 'center',
-                        marginTop: '24px',
-                        padding: '14px 24px',
-                        borderRadius: '100px',
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '16px',
-                        fontWeight: 700,
-                        textDecoration: 'none',
-                        color: isPremiumBlack ? '#000' : (isProfessional ? '#FFF' : '#000'),
-                        background: isPremiumBlack 
-                          ? 'linear-gradient(135deg, #FF9C60, #FF7030)' 
-                          : (isProfessional ? '#000' : '#F5F5F5'),
-                        border: isPremiumBlack || isProfessional ? 'none' : '1px solid #DDD',
-                        boxShadow: isPremiumBlack || isProfessional ? '0 8px 20px rgba(255, 156, 96, 0.3)' : 'none',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!isPremiumBlack && !isProfessional) {
-                          e.currentTarget.style.background = '#000';
-                          e.currentTarget.style.color = '#FFF';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isPremiumBlack && !isProfessional) {
-                          e.currentTarget.style.background = '#F5F5F5';
-                          e.currentTarget.style.color = '#000';
-                        }
-                      }}
-                    >
-                      {buttonText}
-                    </motion.a>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
         </div>
 
         {/* BOTTOM CONTENT: TRUST SECTION */}

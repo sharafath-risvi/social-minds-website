@@ -106,7 +106,7 @@ export default function WhyChooseSocialMinds() {
       </div>
 
       {/* ROWS SECTION */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col gap-20 md:gap-32 lg:gap-40">
+      <div className="max-w-[1440px] mx-auto px-10 md:px-12 flex flex-col gap-20 md:gap-32 lg:gap-40">
         {TOPICS.map((topic, index) => {
           const isEven = index % 2 === 1; // 0-indexed, so 1,3,5 are "even" in layout meaning right aligned content, wait...
           // User: 
@@ -120,7 +120,7 @@ export default function WhyChooseSocialMinds() {
           return (
             <div
               key={topic.id}
-              className={`w-full py-32 md:py-48 lg:py-64 flex flex-col-reverse md:flex-row items-center justify-between gap-16 lg:gap-32 group ${isImageLeft ? 'md:flex-row-reverse' : ''
+              className={`w-full py-16 md:py-48 lg:py-64 flex flex-col-reverse md:flex-row items-center justify-between gap-16 lg:gap-32 group ${isImageLeft ? 'md:flex-row-reverse' : ''
                 }`}
             >
               {/* CONTENT SIDE */}
@@ -129,13 +129,12 @@ export default function WhyChooseSocialMinds() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className={`w-full md:w-[45%] flex ${!isImageLeft ? 'md:justify-end' : 'md:justify-start'}`}
+                className={`w-full md:w-[45%] flex justify-center ${!isImageLeft ? 'md:justify-end' : 'md:justify-start'}`}
                 style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
               >
-                <div className="w-full max-w-[520px] flex flex-col items-start text-left -mt-6 md:-mt-8">
+                <div className="w-full max-w-[520px] flex flex-col items-center md:items-start text-center md:text-left -mt-6 md:-mt-8">
                   {/* Eyebrow + number row */}
-                  <div style={{
-                    display: 'flex',
+                  <div className="flex justify-center md:justify-start w-full" style={{
                     alignItems: 'center',
                     gap: '14px',
                     marginBottom: '28px',
@@ -163,7 +162,7 @@ export default function WhyChooseSocialMinds() {
                       alignItems: 'center',
                       gap: '8px',
                     }}>
-                      <div style={{
+                      <div className="hidden md:block" style={{
                         width: '24px',
                         height: '1.5px',
                         background: 'linear-gradient(90deg, #FF9C60, rgba(255,156,96,0.3))',
@@ -198,7 +197,13 @@ export default function WhyChooseSocialMinds() {
                   </div>
 
                   {/* Divider line */}
-                  <div
+                  <div className="md:hidden" style={{
+                    width: '60px',
+                    height: '2px',
+                    background: '#FF7030',
+                    margin: '0 auto 24px auto',
+                  }} />
+                  <div className="hidden md:block"
                     style={{
                       width: '100%',
                       height: '2px',
@@ -209,7 +214,7 @@ export default function WhyChooseSocialMinds() {
                   />
 
                   {/* Description */}
-                  <p style={{
+                  <p className="mx-auto md:mx-0" style={{
                     fontFamily: "'Inter', sans-serif",
                     fontSize: 'clamp(15px, 1.6vw, 18px)',
                     color: 'rgba(0,0,0,0.5)',

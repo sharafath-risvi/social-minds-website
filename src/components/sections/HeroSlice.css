@@ -354,11 +354,12 @@
 @media (max-width: 768px) {
   .hero-twocol-inner {
     flex-direction: column;
-    padding: 90px 20px 36px;
-    gap: 32px;
-    align-items: flex-start;
+    padding: 120px 20px 48px;
+    gap: 40px;
+    align-items: center;
     justify-content: flex-start;
     overflow-y: auto;
+    text-align: center;
   }
 
   .hero-left {
@@ -367,54 +368,44 @@
     max-width: 100%;
     padding: 0;
     margin-top: 0;
+    align-items: center;
   }
 
-  .hero-right {
-    height: 240px;
-    width: 100%;
-    flex: none;
-  }
-
-  .hero-slices-wrap {
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 0;
-    gap: 10px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    height: 240px;
-    align-items: stretch;
-    justify-content: flex-start;
-  }
-
-  .hero-slices-wrap::-webkit-scrollbar {
-    display: none;
-  }
-
-  .hero-slice {
-    width: 150px !important;
-    height: 100% !important;
-    margin-top: 0 !important;
-    flex-shrink: 0;
-    border-radius: 16px !important;
-  }
-
-  .hero-slices-wrap .hero-slice:last-child {
-    display: block;
+  .hero-badge {
+    margin-bottom: 20px;
   }
 
   .hero-headline {
-    font-size: clamp(3rem, 11vw, 4.8rem);
+    font-size: clamp(2.6rem, 9vw, 4rem);
+    align-items: center;
   }
 
   .hero-desc {
     font-size: 15px;
+    max-width: 100%;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    padding-right: 0;
+  }
+
+  .hero-ctas {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .hero-btn-primary, .hero-btn-ghost {
+    padding: 12px 24px;
+    font-size: 12px;
+    white-space: nowrap;
   }
 
   .hero-stats {
     flex-wrap: wrap;
-    gap: 16px;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
   }
 
   .hero-stat-div {
@@ -423,9 +414,46 @@
 
   .hero-stat {
     padding: 0;
+    align-items: center;
   }
 
   .hero-stat-val {
     font-size: clamp(24px, 6vw, 32px);
+  }
+
+  .hero-right {
+    height: auto;
+    width: 100%;
+    flex: none;
+  }
+
+  .hero-slices-wrap {
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: hidden;
+    padding: 0;
+    gap: 8px;
+    height: auto;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .hero-slice {
+    width: calc(33.333% - 5.33px) !important;
+    height: 110px !important;
+    margin-top: 0 !important;
+    flex-shrink: 0;
+    border-radius: 12px !important;
+  }
+
+  /* Make the last 2 slices take up 50% each on the next row */
+  .hero-slices-wrap .hero-slice:nth-child(4),
+  .hero-slices-wrap .hero-slice:nth-child(5) {
+    width: calc(50% - 4px) !important;
+  }
+
+  /* Removed display: none for 4th and 5th slices to show all 5 images */
+  .hero-slices-wrap .hero-slice:nth-child(n+4) {
+    display: block !important;
   }
 }
