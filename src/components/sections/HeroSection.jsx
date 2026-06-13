@@ -478,10 +478,10 @@ export default function HeroSection() {
               opacity: 0, willChange: 'transform, opacity', transform: 'translateZ(0)'
             }}>
               {/* ── SHOWCASE ADS LAYER — all 6 cards, grouped for staggered animation ── */}
-              <div ref={cardsRef}>
+              <div ref={cardsRef} className="phone-floating-cards-wrapper">
 
               {/* Card 1 (top-left) - 1.2M Reach — slides from left */}
-              <div data-dir="left" style={{
+              <div data-dir="left" className="hide-on-mobile" style={{
                 position: 'absolute', top: '10%', left: 'clamp(-280px, -42vw, -480px)', width: '180px', height: '110px',
                 background: '#111', borderRadius: '16px', padding: '18px',
                 boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-8deg) translateZ(0)',
@@ -499,7 +499,7 @@ export default function HeroSection() {
               </div>
 
               {/* Card 1.5 (far bottom-left) - Content Creation — slides from left */}
-              <div data-dir="left" style={{
+              <div data-dir="left" className="hide-on-mobile" style={{
                 position: 'absolute', bottom: '24%', left: 'clamp(-350px, -42vw, -450px)', width: '160px', height: '200px',
                 background: '#111', borderRadius: '12px', padding: '6px',
                 boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(-14deg) translateZ(0)', zIndex: -3, opacity: 0, willChange: 'transform, opacity'
@@ -515,7 +515,7 @@ export default function HeroSection() {
               </div>
 
               {/* Card 2 (bottom-left) - Brand Awareness — slides from left (first to appear) */}
-              <div data-dir="left" style={{
+              <div data-dir="left" className="scale-card-mobile scale-card-left" style={{
                 position: 'absolute', bottom: '15%', left: 'clamp(-200px, -26vw, -250px)', width: '220px', height: '280px',
                 background: '#fff', borderRadius: '16px', padding: '8px',
                 boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(-10deg) translateZ(0)', zIndex: -2, opacity: 0, willChange: 'transform, opacity'
@@ -536,7 +536,7 @@ export default function HeroSection() {
               </div>
 
               {/* Card 3 (top-right) - 14,200 Leads — slides from right */}
-              <div data-dir="right" style={{
+              <div data-dir="right" className="hide-on-mobile" style={{
                 position: 'absolute', top: '10%', right: 'clamp(-320px, -46vw, -520px)', width: '160px', height: '115px',
                 background: '#fff', borderRadius: '16px', padding: '14px',
                 boxShadow: '0 20px 40px rgba(0,0,0,0.12)', transform: 'rotate(7deg) translateZ(0)',
@@ -554,7 +554,7 @@ export default function HeroSection() {
               </div>
 
               {/* Card 4.5 (far bottom-right) - Conversion — slides from right */}
-              <div data-dir="right" style={{
+              <div data-dir="right" className="hide-on-mobile" style={{
                 position: 'absolute', bottom: '22%', right: 'clamp(-350px, -42vw, -450px)', width: '160px', height: '200px',
                 background: '#fff', borderRadius: '12px', padding: '6px',
                 boxShadow: '0 20px 40px rgba(0,0,0,0.2)', transform: 'rotate(14deg) translateZ(0)', zIndex: -3, opacity: 0, willChange: 'transform, opacity'
@@ -570,7 +570,7 @@ export default function HeroSection() {
               </div>
 
               {/* Card 4 (bottom-right) - Brand Scaling — slides from right */}
-              <div data-dir="right" style={{
+              <div data-dir="right" className="scale-card-mobile scale-card-right" style={{
                 position: 'absolute', bottom: '15%', right: 'clamp(-200px, -26vw, -250px)', width: '220px', height: '280px',
                 background: '#fff', borderRadius: '16px', padding: '8px',
                 boxShadow: '0 30px 60px rgba(0,0,0,0.25)', transform: 'rotate(10deg) translateZ(0)', zIndex: -2, opacity: 0, willChange: 'transform, opacity'

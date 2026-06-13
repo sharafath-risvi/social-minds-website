@@ -132,9 +132,10 @@ export default function Careers() {
               We're looking for passionate creators, marketers, strategists, editors, and innovators who want to shape the future of digital marketing and content creation.
             </motion.p>
             
-            <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <motion.div variants={fadeInUp} className="career-hero-btns" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
               <motion.a 
                 href="#open-positions" 
+                className="career-hero-btn"
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 style={{
                   background: 'linear-gradient(135deg, #FF9C60, #FF7030)', color: '#000',
@@ -147,6 +148,7 @@ export default function Careers() {
               </motion.a>
               <motion.a 
                 href="#apply" 
+                className="career-hero-btn"
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 style={{
                   background: '#111', color: '#FFF',

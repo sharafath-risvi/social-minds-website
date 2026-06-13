@@ -87,7 +87,7 @@ export default function ImmersiveJourney() {
 
         {/* ─── SCENE 2: SOCIAL MEDIA GROWTH ─── */}
         <motion.div style={{ position: 'absolute', inset: 0, opacity: s2Op, scale: s2Scale, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
-           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(4rem, 8vw, 8rem)', color: '#FFF', letterSpacing: '0.02em', margin: '0 0 40px 0', textShadow: '0 10px 40px rgba(0,0,0,0.5)', zIndex: 2 }}>
+           <h2 className="journey-title-long" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(4rem, 8vw, 8rem)', color: '#FFF', letterSpacing: '0.02em', margin: '0 0 40px 0', textShadow: '0 10px 40px rgba(0,0,0,0.5)', zIndex: 2 }}>
              SOCIAL MEDIA GROWTH
            </h2>
 
@@ -149,7 +149,7 @@ export default function ImmersiveJourney() {
 
         {/* ─── SCENE 4: PERFORMANCE MARKETING ─── */}
         <motion.div style={{ position: 'absolute', inset: 0, opacity: s4Op, scale: s4Scale, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
-           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3.5rem, 7vw, 7.5rem)', color: '#FFF', letterSpacing: '0.02em', margin: '0 0 50px 0', textShadow: '0 10px 40px rgba(0,0,0,0.5)', zIndex: 2 }}>
+           <h2 className="journey-title-long" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3.5rem, 7vw, 7.5rem)', color: '#FFF', letterSpacing: '0.02em', margin: '0 0 50px 0', textShadow: '0 10px 40px rgba(0,0,0,0.5)', zIndex: 2 }}>
              PERFORMANCE MARKETING
            </h2>
 

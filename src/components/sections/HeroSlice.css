@@ -376,8 +376,23 @@
   }
 
   .hero-headline {
-    font-size: clamp(2.6rem, 9vw, 4rem);
-    align-items: center;
+    display: block;
+    font-size: clamp(2.4rem, 8vw, 3.4rem);
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .hero-headline span.hero-hl-black, 
+  .hero-headline span.hero-hl-orange {
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  /* Force line break after BRANDS on mobile */
+  .hero-headline span:nth-child(2)::after {
+    content: "\A";
+    white-space: pre;
   }
 
   .hero-desc {
@@ -455,5 +470,25 @@
   /* Removed display: none for 4th and 5th slices to show all 5 images */
   .hero-slices-wrap .hero-slice:nth-child(n+4) {
     display: block !important;
+  }
+
+  /* Mobile floating cards handling */
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* Scale the two remaining cards by ~35% */
+  .scale-card-mobile {
+    zoom: 0.65;
+  }
+  
+  .scale-card-left {
+    left: -140px !important;
+    bottom: 10% !important;
+  }
+  
+  .scale-card-right {
+    right: -140px !important;
+    bottom: 10% !important;
   }
 }

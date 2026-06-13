@@ -29,12 +29,13 @@ const getVisualComponent = (id, theme) => {
   }
 };
 
-function AnimatedSection({ children, delay = 0, style = {} }) {
+function AnimatedSection({ children, delay = 0, style = {}, className = "" }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   return (
     <motion.div
       ref={ref}
+      className={className}
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -239,7 +240,7 @@ export default function Services() {
               alignItems: 'center',
             }}>
               {/* Content — alternate left/right */}
-              <AnimatedSection delay={0.1} style={{ order: i % 2 === 0 ? 0 : 1 }}>
+              <AnimatedSection className="service-content" delay={0.1} style={{ order: i % 2 === 0 ? 0 : 1 }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                     <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '13px', color: 'rgba(255,156,96,0.5)', letterSpacing: '0.1em' }}>
@@ -331,7 +332,7 @@ export default function Services() {
               </AnimatedSection>
 
               {/* Dynamic Interactive Visual Component */}
-              <AnimatedSection delay={0.2} style={{ order: i % 2 === 0 ? 1 : 0 }}>
+              <AnimatedSection className="service-visual" delay={0.2} style={{ order: i % 2 === 0 ? 1 : 0 }}>
                 {getVisualComponent(service.id, i % 2 === 0 ? 'dark' : 'light')}
               </AnimatedSection>
             </div>

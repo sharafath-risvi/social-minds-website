@@ -36,6 +36,7 @@ export default function AboutHero() {
       <div className="ab-hero-sticky-viewport">
         {/* Premium Left Content Block */}
         <motion.div 
+          className="ab-hero-left"
           style={{
             position: 'absolute',
             left: 'clamp(16px, 3vw, 5vw)',
@@ -210,6 +211,7 @@ export default function AboutHero() {
 
         {/* Premium Right Social Orbit Block */}
         <motion.div
+          className="ab-hero-right"
           style={{
             position: 'absolute',
             right: 0,
@@ -227,7 +229,7 @@ export default function AboutHero() {
           }}
         >
           {/* Instagram Card (Top Right) */}
-          <div style={{ 
+          <div className="ab-hero-right-card" style={{ 
             position: 'absolute', top: '8%', right: 'clamp(40px, 6vw, 100px)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 
@@ -245,7 +247,7 @@ export default function AboutHero() {
           </div>
           
           {/* WhatsApp Card (Slightly lower, slightly left) */}
-          <div style={{ 
+          <div className="ab-hero-right-card" style={{ 
             position: 'absolute', top: '26%', right: 'clamp(140px, 15vw, 240px)', transform: 'scale(1.08) translateZ(0)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 
@@ -262,7 +264,7 @@ export default function AboutHero() {
           </div>
 
           {/* Facebook Card (Center right) */}
-          <div style={{ 
+          <div className="ab-hero-right-card" style={{ 
             position: 'absolute', top: '44%', right: 'clamp(40px, 6vw, 100px)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 
@@ -280,7 +282,7 @@ export default function AboutHero() {
           </div>
 
           {/* YouTube Card (Lower, slightly left) */}
-          <div style={{ 
+          <div className="ab-hero-right-card" style={{ 
             position: 'absolute', top: '62%', right: 'clamp(140px, 15vw, 240px)', transform: 'scale(1.05) translateZ(0)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 
@@ -297,7 +299,7 @@ export default function AboutHero() {
           </div>
 
           {/* Google Business Card (Bottom right) */}
-          <div style={{ 
+          <div className="ab-hero-right-card" style={{ 
             position: 'absolute', top: '80%', right: 'clamp(40px, 6vw, 100px)',
             background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
             borderRadius: '18px', padding: '18px 22px 18px 18px', 

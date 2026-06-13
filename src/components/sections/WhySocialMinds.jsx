@@ -297,8 +297,16 @@ export default function WhySocialMinds() {
               </AnimatePresence>
             </div>{/* /wsm-cards-row */}
 
-            {/* ── Navigation bar: dots ── */}
+            {/* ── Navigation bar: dots & arrows ── */}
             <div className="wsm-nav-bar">
+              <button 
+                onClick={() => setActiveId((prev) => (prev - 1 + N) % N)}
+                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '0 4px' }}
+                aria-label="Previous service"
+              >
+                <ChevronLeft />
+              </button>
+
               <div className="wsm-nav-dots" role="tablist">
                 {SERVICES.map((svc, i) => (
                   <button
@@ -307,10 +315,18 @@ export default function WhySocialMinds() {
                     aria-selected={i === activeId}
                     aria-label={svc.label}
                     className={`wsm-dot${i === activeId ? ' active' : ''}`}
-                    style={{ pointerEvents: 'none' }}
+                    onClick={() => setActiveId(i)}
                   />
                 ))}
               </div>
+
+              <button 
+                onClick={() => setActiveId((prev) => (prev + 1) % N)}
+                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '0 4px' }}
+                aria-label="Next service"
+              >
+                <ChevronRight />
+              </button>
             </div>{/* /wsm-nav-bar */}
 
           </div>{/* /wsm-cards-area */}

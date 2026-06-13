@@ -387,6 +387,7 @@ export default function Contact() {
                     area to avoid costly compositing during scroll.
           ══════════════════════════════════════════════════════════════ */}
       <section
+        className="contact-hero-section"
         style={{
           position: 'relative',
           minHeight: '100vh',
@@ -466,6 +467,7 @@ export default function Contact() {
                   }}
                 >
                   <motion.div
+                    className="contact-hero-heading"
                     initial={{ opacity: 0, y: 70 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.9, delay: 0.3 + i * 0.13, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -511,12 +513,14 @@ export default function Contact() {
 
               {/* CTA row */}
               <motion.div
+                className="contact-hero-ctas"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.95, duration: 0.65 }}
                 style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}
               >
                 <motion.a
+                  className="contact-hero-btn"
                   href="#connect-form"
                   whileHover={{ scale: 1.04, boxShadow: '0 0 56px rgba(255,112,48,0.48), 0 14px 36px rgba(255,112,48,0.28)' }}
                   whileTap={{ scale: 0.97 }}
@@ -534,6 +538,7 @@ export default function Contact() {
                   START A PROJECT ↗
                 </motion.a>
                 <motion.a
+                  className="contact-hero-btn"
                   href="https://wa.me/917200323181"
                   target="_blank" rel="noopener noreferrer"
                   whileHover={{ background: 'rgba(255,112,48,0.07)', borderColor: 'rgba(255,112,48,0.4)' }}
@@ -691,7 +696,7 @@ export default function Contact() {
           </FadeUp>
 
           {/* ── Split grid — 40 / 60 ── */}
-          <div style={{
+          <div className="contact-split-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'minmax(0, 5fr) minmax(0, 7fr)',
             gap: 'clamp(2.5rem,5vw,4.5rem)',
