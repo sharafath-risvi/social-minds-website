@@ -1423,6 +1423,20 @@
 }
 
 /* ================================================================
+   RESPONSIVE — Mobile & Tablet Portrait (≤768px)
+================================================================ */
+@media (max-width: 768px) {
+  .ab-culture-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 280px;
+  }
+
+  .ab-culture-cell:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .ab-culture-cell:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .ab-culture-cell:nth-child(3) { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* ================================================================
    RESPONSIVE — Mobile (≤640px)
 ================================================================ */
 @media (max-width: 640px) {
@@ -1563,12 +1577,7 @@
     grid-template-columns: 1fr;
   }
 
-  .ab-culture-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: 260px 220px 220px;
-  }
-
-  .ab-culture-cell:nth-child(1) { grid-row: auto; }
+  /* Removed .ab-culture-grid and .ab-culture-cell:nth-child(1) settings to inherit from 768px media query */
 
   .ab-culture-extra {
     grid-template-columns: 1fr 1fr;

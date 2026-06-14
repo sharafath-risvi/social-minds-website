@@ -42,18 +42,9 @@ export default function Footer() {
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Top Section */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: '60px',
-            marginBottom: '60px',
-          }}
-        >
+        <div className="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-[60px] mb-12 md:mb-[60px]">
           {/* Brand */}
-          <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '340px' }}>
+          <div className="flex-1 w-full md:max-w-[340px] flex flex-col gap-5">
             <Link to="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
               <img 
                 src="/socialmindslogowithoutbg.png" 
@@ -72,13 +63,7 @@ export default function Footer() {
           </div>
 
           {/* Links & Connect Section */}
-          <div style={{
-            display: 'flex',
-            gap: '80px',
-            flexWrap: 'wrap',
-            flex: '2 1 600px',
-            justifyContent: 'flex-end',
-          }}>
+          <div className="flex flex-col md:flex-row gap-10 md:gap-[80px] w-full md:w-auto md:flex-[2_1_600px] md:justify-end">
             {/* Company & Services */}
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category} style={{ minWidth: '120px' }}>
@@ -186,17 +171,8 @@ export default function Footer() {
         }} />
 
         {/* Bottom bar */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '16px',
-            padding: '0 24px',
-          }}
-        >
-          <p style={{
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 px-0 md:px-6 text-center md:text-left mt-6 md:mt-0">
+          <p className="justify-center md:justify-start" style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '13px',
             color: '#888888',

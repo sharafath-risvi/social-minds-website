@@ -219,7 +219,7 @@ export default function HeroSection() {
           trigger: wrapperRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.5, // Reduced scrub for a snappier, more responsive tracking without lag
+          scrub: 0.15, // Highly responsive scrub to remove lag while remaining smooth
           invalidateOnRefresh: true,
           onComplete: () => {
             idleFloat = gsap.to(phoneRef.current, {
@@ -235,37 +235,37 @@ export default function HeroSection() {
       // PHASE 1: two-col hero fades back faster
       tl.to(textRef.current, {
         scale: 1.03, opacity: 0, y: -40,
-        duration: 0.20, ease: 'none',
+        duration: 0.12, ease: 'power1.inOut',
       }, 0);
 
       tl.to(ctaRef.current, {
         opacity: 0, y: -24,
-        duration: 0.15, ease: 'none',
+        duration: 0.10, ease: 'power1.inOut',
       }, 0);
 
       tl.to(bgBlurRef.current, {
-        opacity: 1, duration: 0.20, ease: 'none',
+        opacity: 1, duration: 0.15, ease: 'power1.inOut',
       }, 0);
 
-      // PHASE 2: phone fades/scales in — Starts significantly earlier (0.05 instead of 0.18)
+      // PHASE 2: phone fades/scales in — Starts almost immediately upon scroll
       tl.fromTo(phoneRef.current,
         { opacity: 0, scale: 0.55, y: 180 },
-        { opacity: 1, scale: 0.92, y: -15, duration: 0.40, ease: 'none' },
-        0.05
+        { opacity: 1, scale: 0.92, y: -15, duration: 0.35, ease: 'power2.out' },
+        0.02
       );
 
       if (ambientGlow) {
         tl.fromTo(ambientGlow,
-          { opacity: 0 }, { opacity: 1, duration: 0.28, ease: 'none' }, 0.15
+          { opacity: 0 }, { opacity: 1, duration: 0.20, ease: 'power1.inOut' }, 0.05
         );
       }
 
       // PHASE 3: phone holds, top heading slides up
-      tl.to(phoneRef.current, { y: -15, scale: 0.92, duration: 0.06, ease: 'none' }, 0.45);
+      tl.to(phoneRef.current, { y: -15, scale: 0.92, duration: 0.06, ease: 'none' }, 0.37);
       tl.fromTo(topTextRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.1, ease: 'none' },
-        0.48
+        { opacity: 1, y: 0, duration: 0.12, ease: 'power2.out' },
+        0.39
       );
 
       // PHASE 4: stagger the 6 cards from their sides
@@ -276,8 +276,8 @@ export default function HeroSection() {
           const fromX = dir === 'left' ? -60 : 60;
           tl.fromTo(card,
             { opacity: 0, x: fromX },
-            { opacity: 1, x: 0, duration: 0.12, ease: 'none' },
-            0.55 + i * 0.04
+            { opacity: 1, x: 0, duration: 0.15, ease: 'power2.out' },
+            0.45 + i * 0.03
           );
         });
       }
