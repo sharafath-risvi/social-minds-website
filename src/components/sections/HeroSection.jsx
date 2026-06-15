@@ -187,6 +187,15 @@ const STATS = [
 // ─── HERO SECTION MAIN ────────────────────────────────────────────────────────
 export default function HeroSection() {
   const showIntro = useContext(IntroContext);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const wrapperRef    = useRef(null);
   const stickyRef     = useRef(null);
   const textRef       = useRef(null);   // fades out on scroll — now wraps two-col layout
@@ -282,11 +291,13 @@ export default function HeroSection() {
         });
       }
 
-      // PHASE 5: hold
-      tl.to({}, { duration: 0.1 }, 0.85);
+      if (!isMobile) {
+        // PHASE 5: hold
+        tl.to({}, { duration: 0.1 }, 0.85);
 
-      // PHASE 6: hold beat
-      tl.to({}, { duration: 0.05 }, 0.95);
+        // PHASE 6: hold beat
+        tl.to({}, { duration: 0.05 }, 0.95);
+      }
     }, wrapperRef);
 
     // Mouse parallax
@@ -302,10 +313,10 @@ export default function HeroSection() {
       if (idleFloat) idleFloat.kill();
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
-    <div ref={wrapperRef} style={{ position: 'relative', height: '400vh', background: '#ffffff' }}>
+    <div ref={wrapperRef} style={{ position: 'relative', height: isMobile ? '200vh' : '400vh', background: '#ffffff' }}>
 
       {/* STICKY SHELL — unchanged */}
       <section

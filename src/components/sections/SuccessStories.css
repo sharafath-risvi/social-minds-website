@@ -1,0 +1,394 @@
+/* Success Stories Section */
+.ss-section {
+  background-color: #FFFFFF;
+  padding: clamp(100px, 12vw, 200px) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ss-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 40px);
+}
+
+/* Header */
+.ss-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4.5rem, 8vw, 8.5rem);
+  color: #111111;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 30px;
+}
+
+.ss-title-accent {
+  background: linear-gradient(135deg, #FF9C60, #FF7030);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ss-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(17px, 1.6vw, 20px);
+  color: #666666;
+  max-width: 700px;
+  margin: 0 auto 100px;
+  line-height: 1.6;
+}
+
+/* Glass Card Common */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 28px;
+}
+
+/* ==================================================
+   VERTICAL TIMELINE SECTION
+================================================== */
+.ss-timeline {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+/* Center Line Container */
+.ss-timeline-line-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.ss-timeline-line-progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: linear-gradient(to bottom, #FF9C60, #FF7030);
+  transform: translateX(-50%);
+  transform-origin: top;
+  z-index: 2;
+}
+
+/* Timeline Rows */
+.ss-timeline-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+  margin-bottom: 160px;
+}
+
+.ss-timeline-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Split Halves */
+.ss-timeline-half {
+  flex: 1;
+  display: flex;
+}
+
+.ss-timeline-center {
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ss-timeline-node {
+  width: 24px;
+  height: 24px;
+  background: #FFFFFF;
+  border: 4px solid #FF7030;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px rgba(255, 112, 48, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.ss-timeline-row:hover .ss-timeline-node {
+  transform: scale(1.4);
+  box-shadow: 0 0 0 12px rgba(255, 112, 48, 0.2);
+  background: #FF7030;
+}
+
+/* --------------------------------------
+   Alternating Layout Logic 
+-------------------------------------- */
+
+/* EVEN ROW: Logo on Left, Content on Right */
+.ss-row-even .ss-timeline-logo-side {
+  justify-content: flex-end;
+  padding-right: 60px;
+}
+
+.ss-row-even .ss-timeline-content-side {
+  justify-content: flex-start;
+  padding-left: 60px;
+}
+
+/* ODD ROW: Content on Left, Logo on Right */
+.ss-row-odd {
+  flex-direction: row-reverse;
+}
+
+.ss-row-odd .ss-timeline-logo-side {
+  justify-content: flex-start;
+  padding-left: 60px;
+}
+
+.ss-row-odd .ss-timeline-content-side {
+  justify-content: flex-end;
+  padding-right: 60px;
+  text-align: right;
+}
+
+/* --------------------------------------
+   Timeline Content Styling
+-------------------------------------- */
+.ss-timeline-logo-box {
+  width: 260px;
+  height: 260px;
+  background: #FFFFFF;
+  border-radius: 48px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.02);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px;
+  color: #FF7030;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.4s ease;
+  overflow: hidden; /* Ensure rounded corners clip the padding area if needed */
+  padding: 24px; /* Moved from img to container for correct corner clipping */
+}
+
+.ss-client-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 24px; /* Smooth corners for JPEG logos */
+  animation: fadeInLogo 0.8s ease-out forwards;
+}
+
+@keyframes fadeInLogo {
+  from { opacity: 0; filter: blur(4px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+.ss-logo-fallback {
+  line-height: 1;
+}
+
+.ss-timeline-row:hover .ss-timeline-logo-box {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 40px 80px rgba(255, 156, 96, 0.15);
+  border-color: rgba(255, 156, 96, 0.2);
+}
+
+.ss-timeline-content-box {
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ss-row-odd .ss-timeline-content-box {
+  align-items: flex-end; /* right-align content box internally for odd rows */
+}
+
+.ss-node-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #111111;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.ss-node-growth {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  color: #111111;
+  line-height: 0.9;
+  margin-bottom: 24px;
+}
+
+.ss-node-growth .arrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  color: #AAAAAA;
+  margin: 0 14px;
+  vertical-align: middle;
+}
+
+.ss-node-growth .followers-text {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #888888;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.ss-node-highlight {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  color: #555555;
+  line-height: 1.6;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ss-row-odd .ss-node-highlight {
+  flex-direction: row-reverse;
+}
+
+.highlight-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FF9C60;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------
+   Mobile Responsive Timeline — HORIZONTAL PARALLAX
+-------------------------------------- */
+@media (max-width: 992px) {
+  .ss-section {
+    padding: clamp(60px, 10vw, 100px) 0;
+  }
+
+  .ss-timeline {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: -20px; /* Offset the container padding for full-bleed scroll */
+    margin-right: -20px;
+    padding-bottom: 40px;
+  }
+
+  /* Rotate background line horizontally */
+  .ss-timeline-line-bg, .ss-timeline-line-progress {
+    top: 240px; /* Adjust to sit behind the timeline nodes horizontally */
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: none;
+  }
+
+  .ss-timeline-line-progress {
+    height: 4px;
+    transform-origin: left;
+    /* Map to horizontal progress if needed, otherwise rely on scroll-driven */
+  }
+
+  /* The actual scrolling container */
+  .ss-timeline-milestones {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 40px;
+    padding: 0 40px; /* Pad the start and end of scroll */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .ss-timeline-milestones::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  .ss-timeline-row, .ss-row-odd {
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+    margin-bottom: 0;
+    min-width: 280px; /* Fixed width for horizontal swipe cards */
+    max-width: 320px;
+    scroll-snap-align: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .ss-timeline-center {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 60px;
+    height: 60px;
+    margin: 20px 0; /* Space between logo and content */
+    z-index: 5;
+  }
+
+  .ss-timeline-half {
+    width: 100%;
+  }
+
+  /* Reset layout constraints for mobile */
+  .ss-row-even .ss-timeline-logo-side,
+  .ss-row-odd .ss-timeline-logo-side,
+  .ss-row-even .ss-timeline-content-side,
+  .ss-row-odd .ss-timeline-content-side {
+    padding: 0;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .ss-timeline-content-box,
+  .ss-row-odd .ss-timeline-content-box {
+    align-items: center;
+    text-align: center;
+  }
+
+  .ss-row-odd .ss-node-highlight {
+    flex-direction: row; /* Reset dot orientation */
+    justify-content: center;
+  }
+  
+  .ss-node-highlight {
+    justify-content: center;
+  }
+
+  .ss-timeline-logo-box {
+    width: 200px;
+    height: 200px;
+    font-size: 60px;
+    margin-bottom: 0;
+    border-radius: 32px;
+    padding: 16px;
+    margin: 0 auto; /* Center logo in column */
+  }
+  
+  .ss-client-logo-img {
+    border-radius: 16px;
+  }
+  
+  .ss-node-growth {
+    font-size: 38px;
+  }
+}
+
+.text-orange {
+  color: #FF7030;
+}

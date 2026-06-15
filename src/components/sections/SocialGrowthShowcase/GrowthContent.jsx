@@ -122,31 +122,37 @@ export default function GrowthContent({ data, activeIndex, onDotClick }) {
         >
           {activeIndex !== null ? (
             <>
-              {/* ── Case study label ── */}
-              <div className="sgs-story-case-label" aria-label="Case study label">
-                {data.caseLabel}
-              </div>
+              {/* ── Mobile-only clean title ── */}
+              <h3 className="sgs-story-mobile-title">{data.title}</h3>
 
-              {/* ── Giant bold heading ── */}
-              <h2
-                className="sgs-story-heading"
-                dangerouslySetInnerHTML={{ __html: data.heading }}
-                aria-label={data.headingPlain}
-              />
+              {/* ── Desktop-only detailed content wrapper ── */}
+              <div className="sgs-story-desktop-content">
+                {/* ── Case study label ── */}
+                <div className="sgs-story-case-label" aria-label="Case study label">
+                  {data.caseLabel}
+                </div>
 
-              {/* ── Description ── */}
-              <p className="sgs-story-desc">{data.description}</p>
+                {/* ── Giant bold heading ── */}
+                <h2
+                  className="sgs-story-heading"
+                  dangerouslySetInnerHTML={{ __html: data.heading }}
+                  aria-label={data.headingPlain}
+                />
 
-              {/* ── Animated stats grid ── */}
-              <div className="sgs-stats-grid" role="list" aria-label="Key metrics">
-                {data.stats.map((stat, i) => (
-                  <StatCard
-                    key={`${activeIndex}-${i}`}
-                    stat={stat}
-                    index={i}
-                    isVisible={isVisible}
-                  />
-                ))}
+                {/* ── Description ── */}
+                <p className="sgs-story-desc">{data.description}</p>
+
+                {/* ── Animated stats grid ── */}
+                <div className="sgs-stats-grid" role="list" aria-label="Key metrics">
+                  {data.stats.map((stat, i) => (
+                    <StatCard
+                      key={`${activeIndex}-${i}`}
+                      stat={stat}
+                      index={i}
+                      isVisible={isVisible}
+                    />
+                  ))}
+                </div>
               </div>
             </>
           ) : (

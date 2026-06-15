@@ -101,15 +101,15 @@ export default function Pricing() {
                     y: -10,
                     scale: isPremiumBlack ? 1.02 : 1,
                     boxShadow: isPremiumBlack 
-                        ? '0 30px 60px rgba(0,0,0,0.4), 0 0 0 2px #FF7030' 
+                        ? '0 30px 60px rgba(0,0,0,0.6), 0 0 60px rgba(230,126,34,0.2), 0 0 0 2px #FF7030' 
                         : '0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 2px #FF7030',
                   }}
                   style={{
-                    background: isPremiumBlack ? 'linear-gradient(180deg, #111 0%, #222 100%)' : '#FFFFFF',
+                    background: isPremiumBlack ? 'linear-gradient(135deg, #0A0A0A 0%, #151515 55%, rgba(230,126,34,0.18) 100%)' : '#FFFFFF',
                     color: isPremiumBlack ? '#FFF' : '#000',
                     borderRadius: '24px',
                     padding: '32px',
-                    boxShadow: isPremiumBlack ? '0 20px 40px rgba(0, 0, 0, 0.25)' : '0 10px 30px rgba(0, 0, 0, 0.05)',
+                    boxShadow: isPremiumBlack ? '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(230,126,34,0.1)' : '0 10px 30px rgba(0, 0, 0, 0.05)',
                     border: isPremiumBlack ? '1px solid rgba(255, 156, 96, 0.3)' : '1px solid #EAEAEA',
                     position: 'relative',
                     display: 'flex',
@@ -244,57 +244,6 @@ export default function Pricing() {
 
         {/* BOTTOM CONTENT: TRUST SECTION */}
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-          <h2 style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: '48px',
-            letterSpacing: '0.02em',
-            marginBottom: '48px'
-          }}>
-            Why Brands Choose Social Minds
-          </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '24px',
-            marginBottom: '80px'
-          }}>
-            {[
-              { icon: '🚀', text: 'Growth-Focused Strategies' },
-              { icon: '📈', text: 'Performance Marketing Expertise' },
-              { icon: '🎯', text: 'Dedicated Creative Team' },
-              { icon: '💡', text: 'Content That Converts' },
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                style={{
-                  background: '#F9F9F9',
-                  padding: '32px 24px',
-                  borderRadius: '20px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '16px',
-                  border: '1px solid #EAEAEA'
-                }}
-              >
-                <div style={{ fontSize: '40px' }}>{item.icon}</div>
-                <h4 style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '18px',
-                  fontWeight: 700,
-                  color: '#000'
-                }}>
-                  {item.text}
-                </h4>
-              </motion.div>
-            ))}
-          </div>
-
           {/* FINAL CTA */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

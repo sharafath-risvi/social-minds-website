@@ -434,6 +434,13 @@
   max-width: 460px;
 }
 
+/* --------------------------------------
+   MOBILE-ONLY TITLE (Hidden on Desktop)
+-------------------------------------- */
+.sgs-story-mobile-title {
+  display: none;
+}
+
 /* ========================================
    ANIMATED STATISTICS GRID
    ======================================== */
@@ -796,6 +803,24 @@
 
   .sgs-bottom-stats-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* --------------------------------------
+     MOBILE CLEAN TITLE LAYOUT
+     Hide detailed descriptions/stats, show only clean title
+  -------------------------------------- */
+  .sgs-story-desktop-content {
+    display: none !important;
+  }
+  
+  .sgs-story-mobile-title {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 8vw, 3rem);
+    color: #000000;
+    text-align: center;
+    margin: 0;
+    letter-spacing: 0.02em;
   }
 }
 

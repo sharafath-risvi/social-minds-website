@@ -335,12 +335,13 @@ function PerformanceCard({ icon, label, value, active, delay = 0 }) {
 // Hover → pauses auto-rotation + shows overlay + updates active step
 // HoverEnd → resumes auto-rotation with a fresh 4.5s window
 // ============================================================
-function CinematicGrid({ activeIndex, onHover, onHoverEnd, onClick, inView }) {
+function CinematicGrid({ activeIndex, onHover, onHoverEnd, onClick }) {
   return (
     <motion.div
       className="ope-center"
       initial={{ opacity: 0, scale: 0.97 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.85, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
       {GRID_ITEMS.map((item, index) => (
@@ -349,7 +350,8 @@ function CinematicGrid({ activeIndex, onHover, onHoverEnd, onClick, inView }) {
           className={`ope-grid-item${activeIndex === item.stepIndex ? ' active' : ''}`}
           // ── Stagger reveal: each cell enters with slight delay
           initial={{ opacity: 0, y: 32, scale: 0.95 }}
-          animate={inView ? { opacity: 1, y: item.stepIndex === 4 ? -8 : 0, scale: 1 } : {}}
+          whileInView={{ opacity: 1, y: item.stepIndex === 4 ? -8 : 0, scale: 1 }}
+          viewport={{ once: true, margin: '-80px' }}
           transition={{
             duration: 0.75,
             delay: 0.4 + index * 0.07,
@@ -564,9 +566,153 @@ function RightPanel({ step, stepIndex }) {
 }
 
 // ============================================================
+// MOBILE COMPONENT — Static sequential stacking
+// ============================================================
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  return isMobile;
+}
+
+function MobileProcessExperience() {
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, margin: '-80px' });
+  const [activePhase, setActivePhase] = useState(0);
+  
+  // Auto-rotation timer ref
+  const intervalRef = useRef(null);
+
+  const startAutoRotate = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setActivePhase((prev) => (prev + 1) % PROCESS_STEPS.length);
+    }, 4000); // 4 seconds
+  }, []);
+
+  useEffect(() => {
+    if (inView) {
+      startAutoRotate();
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [inView, startAutoRotate]);
+
+  const handleManualClick = (index) => {
+    setActivePhase(index);
+    startAutoRotate(); // Reset timer on manual click
+  };
+
+  return (
+    <section ref={sectionRef} className="ope-section" id="our-process-experience" aria-label="Our Process Experience">
+      {/* ── Editorial film grain texture ── */}
+      <div className="ope-grain" aria-hidden="true" />
+      <div className="ope-ambient-top" aria-hidden="true" />
+      <div className="ope-ambient-bottom" aria-hidden="true" />
+
+      {/* ── SECTION HEADER ── */}
+      <motion.div
+        className="ope-header"
+        initial={{ opacity: 0, y: 32 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="ope-eyebrow">
+          <span className="ope-eyebrow-dot" aria-hidden="true" />
+          Our Process Experience
+        </div>
+        <div style={{ overflow: 'hidden' }}>
+          <motion.h2 className="ope-main-title" initial={{ y: '110%' }} animate={inView ? { y: 0 } : {}} transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
+            How We Build<br />
+            <span className="ope-title-orange">Your Empire.</span>
+          </motion.h2>
+        </div>
+        <motion.p className="ope-subtitle" initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.3 }}>
+          A proven cinematic process, refined across <span style={{ color: '#ff9c60' }}>50+ brands</span>, engineered to create compounding, unstoppable growth.
+        </motion.p>
+      </motion.div>
+
+      {/* ── IMAGES GRID ── */}
+      <div style={{ marginBottom: '60px' }}>
+        <CinematicGrid
+          activeIndex={activePhase}
+          onHover={() => {}}
+          onHoverEnd={() => {}}
+          onClick={handleManualClick}
+        />
+      </div>
+
+      {/* ── ACTIVE PHASE CONTENT (FADE TRANSITION) ── */}
+      <div style={{ padding: '0 20px', minHeight: '300px' }}>
+        <AnimatePresence mode="wait">
+          {PROCESS_STEPS.map((step, index) => {
+            if (index !== activePhase) return null;
+            return (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                style={{ textAlign: 'center' }}
+              >
+                <div className="ope-step-number" style={{ WebkitTextStroke: '2px #ff9c60', color: 'transparent', fontSize: 'clamp(4rem, 18vw, 8rem)' }}>
+                  {step.number}
+                </div>
+                <div className="ope-step-label" style={{ justifyContent: 'center', marginTop: '10px' }}>
+                  {step.label}
+                </div>
+                <h3 className="ope-step-heading" style={{ whiteSpace: 'pre-line' }}>
+                  {step.heading}
+                </h3>
+                <p className="ope-step-description">
+                  {step.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+        
+        {/* ── VISUAL HELPER INDICATOR ── */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          style={{ textAlign: 'center', marginTop: '30px' }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginBottom: '12px' }}>
+            {PROCESS_STEPS.map((_, i) => (
+              <div 
+                key={`dot-${i}`} 
+                style={{ 
+                  width: activePhase === i ? '16px' : '6px', 
+                  height: '6px', 
+                  borderRadius: '3px', 
+                  backgroundColor: activePhase === i ? '#FF9C60' : 'rgba(255,255,255,0.2)',
+                  transition: 'all 0.3s ease'
+                }} 
+              />
+            ))}
+          </div>
+          <span style={{ fontSize: '13px', color: '#888', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+            Tap images above to explore
+          </span>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
 // MAIN COMPONENT — OurProcessExperience
 // ============================================================
 export default function OurProcessExperience() {
+  const isMobile = useIsMobile();
   // ── Active step state — drives left/right panel content
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -626,6 +772,11 @@ export default function OurProcessExperience() {
   // ============================================================
   // RENDER
   // ============================================================
+  
+  if (isMobile) {
+    return <MobileProcessExperience />;
+  }
+
   return (
     <section
       ref={sectionRef}
@@ -644,7 +795,8 @@ export default function OurProcessExperience() {
       <motion.div
         className="ope-header"
         initial={{ opacity: 0, y: 32 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Eyebrow pill tag */}
@@ -658,7 +810,8 @@ export default function OurProcessExperience() {
           <motion.h2
             className="ope-main-title"
             initial={{ y: '110%' }}
-            animate={inView ? { y: 0 } : {}}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             How We Build
@@ -671,7 +824,8 @@ export default function OurProcessExperience() {
         <motion.p
           className="ope-subtitle"
           initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           A proven cinematic process, refined across{' '}
@@ -684,7 +838,8 @@ export default function OurProcessExperience() {
       <motion.div
         className="ope-layout"
         initial={{ opacity: 0, y: 40 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* ────────────────────────────────────────
@@ -707,7 +862,6 @@ export default function OurProcessExperience() {
           onHover={handleImageHover}
           onHoverEnd={handleImageHoverEnd}
           onClick={handleDotClick}
-          inView={inView}
         />
 
         {/* ────────────────────────────────────────

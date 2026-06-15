@@ -5,33 +5,27 @@
 // ========================================
 
 import { motion } from 'framer-motion';
+import './BrandMarquee.css';
 
-// Row 1 — brands / platforms
+// Row 1 — clients
 const row1 = [
-  { label: 'Instagram', icon: '📸' },
-  { label: 'YouTube', icon: '🎬' },
-  { label: 'LinkedIn', icon: '💼' },
-  { label: 'TikTok', icon: '🎵' },
-  { label: 'Reels', icon: '🎥' },
-  { label: 'Stories', icon: '⚡' },
-  { label: 'Shorts', icon: '🔥' },
-  { label: 'Pinterest', icon: '📌' },
-  { label: 'Twitter', icon: '🐦' },
-  { label: 'Facebook', icon: '📘' },
+  { label: 'Afra Modest', logo: '/clientlogos/afra.png' },
+  { label: 'Shashijab', logo: '/clientlogos/Shashijab.png' },
+  { label: 'SSJ Super Shop', logo: '/clientlogos/ssjsupershop.png' },
+  { label: 'Brita', logo: '/clientlogos/brita.png' },
+  { label: '1Way', logo: '/clientlogos/1way.jpg' },
+  { label: 'Rainbow Pro Gears', logo: '/clientlogos/rainbow.jpg' },
+  { label: 'Kanchi Plaza', logo: '/clientlogos/kanchiplaza.jpg' },
 ];
 
-// Row 2 — services / achievements
+// Row 2 — clients
 const row2 = [
-  { label: '10M+ Views', icon: '👁️' },
-  { label: '50+ Brands', icon: '🏆' },
-  { label: 'Viral Content', icon: '🚀' },
-  { label: 'Growth Hacking', icon: '📈' },
-  { label: 'Reel Strategy', icon: '🎯' },
-  { label: 'Brand Building', icon: '🏛️' },
-  { label: 'Content Studio', icon: '🎨' },
-  { label: 'Analytics', icon: '📊' },
-  { label: 'Ads Management', icon: '💡' },
-  { label: 'SEO Strategy', icon: '🔍' },
+  { label: 'MedWalk', logo: '/clientlogos/medwalk.png' },
+  { label: 'Bag House', logo: '/clientlogos/bag-house.png' },
+  { label: 'Rahman Plaza', logo: '/clientlogos/rahmanplaza.png' },
+  { label: 'Princess Park', logo: '/clientlogos/princesspark.jpg' },
+  { label: 'Simco', logo: '/clientlogos/simco.png' },
+  { label: 'SS Footwear', logo: '/clientlogos/ss-footwear.png' },
 ];
 
 function MarqueeRow({ items, reverse = false, speed = 'normal' }) {
@@ -43,29 +37,24 @@ function MarqueeRow({ items, reverse = false, speed = 'normal' }) {
     <div style={{ overflow: 'hidden', width: '100%' }}>
       <div className={animClass} style={{ display: 'flex', gap: '16px', whiteSpace: 'nowrap', width: 'max-content' }}>
         {[...items, ...items, ...items].map((item, i) => (
-          <div
-            key={i}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 20px',
-              // Replaced backdropFilter:blur(12px) — was applied to 30+ cloned moving elements
-              // causing a massive compositing layer cost on every marquee animation frame.
-              background: 'rgba(20,20,20,0.85)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '100px',
-              flexShrink: 0,
-            }}
-          >
-            <span style={{ fontSize: '14px' }}>{item.icon}</span>
-            <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '13px',
-              fontWeight: 500,
-              color: 'rgba(255,255,255,0.55)',
-              letterSpacing: '0.04em',
-            }}>
+          <div key={i} className="brand-pill">
+            {item.logo ? (
+              <div className="brand-pill-logo">
+                <img 
+                  src={item.logo} 
+                  alt={item.label}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.parentElement.style.display = 'none';
+                    e.target.parentElement.nextSibling.style.display = 'flex';
+                  }}
+                />
+              </div>
+            ) : null}
+            <div className="brand-pill-initial" style={{ display: item.logo ? 'none' : 'flex' }}>
+              {item.label.charAt(0)}
+            </div>
+            <span className="brand-pill-text">
               {item.label}
             </span>
           </div>
@@ -112,7 +101,7 @@ export default function BrandMarquee() {
             color: 'rgba(255,255,255,0.3)',
             textTransform: 'uppercase',
           }}>
-            AS SEEN GROWING WITH
+            TRUSTED BY GROWING BRANDS
           </span>
           <div style={{ height: '1px', width: '40px', background: 'rgba(255,156,96,0.4)' }} />
         </motion.div>

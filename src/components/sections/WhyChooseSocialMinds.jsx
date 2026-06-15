@@ -120,7 +120,7 @@ export default function WhyChooseSocialMinds() {
           return (
             <div
               key={topic.id}
-              className={`w-full py-16 md:py-48 lg:py-64 flex flex-col-reverse md:flex-row items-center justify-between gap-16 lg:gap-32 group ${isImageLeft ? 'md:flex-row-reverse' : ''
+              className={`w-full py-16 md:py-48 lg:py-64 flex flex-col-reverse md:flex-row items-center justify-between gap-6 md:gap-16 lg:gap-32 group ${isImageLeft ? 'md:flex-row-reverse' : ''
                 }`}
             >
               {/* CONTENT SIDE */}
@@ -132,7 +132,7 @@ export default function WhyChooseSocialMinds() {
                 className={`w-full md:w-[45%] flex justify-center ${!isImageLeft ? 'md:justify-end' : 'md:justify-start'}`}
                 style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
               >
-                <div className="w-full max-w-[520px] flex flex-col items-center md:items-start text-center md:text-left -mt-6 md:-mt-8">
+                <div className={`w-full max-w-[520px] flex flex-col items-center md:items-start text-center md:text-left -mt-14 md:-mt-8 ${index === 5 ? 'px-6 md:px-0' : ''}`}>
                   {/* Eyebrow + number row */}
                   <div className="flex justify-center md:justify-start w-full" style={{
                     alignItems: 'center',

@@ -5,11 +5,11 @@
 
 import HeroSection from '../components/sections/HeroSection';
 import BrandMarquee from '../components/sections/BrandMarquee';
-import VerticalParallaxStory from '../components/sections/VerticalParallaxStory';
 import SocialGrowthShowcase from '../components/sections/SocialGrowthShowcase/SocialGrowthShowcase';
 import WhySocialMinds from '../components/sections/WhySocialMinds';
 import WhyChooseSocialMinds from '../components/sections/WhyChooseSocialMinds';
 import Testimonials from '../components/sections/Testimonials';
+import SuccessStories from '../components/sections/SuccessStories';
 import OurProcessExperience from '../components/sections/OurProcessExperience';
 import FinalCTA from '../components/sections/FinalCTA';
 
@@ -28,14 +28,15 @@ export default function Home() {
       {/* 5. Why Choose Social Minds Section */}
       <WhyChooseSocialMinds />
 
-      {/* 6. Our Process Section ("How We Make Magic Happen") */}
-      <VerticalParallaxStory />
 
       {/* 7. Growth Stories Section */}
       <SocialGrowthShowcase />
 
       {/* 8. Experience Section */}
       <OurProcessExperience />
+
+      {/* Success Stories Section */}
+      <SuccessStories />
 
       {/* 9. What Brands Say Section */}
       <Testimonials />
