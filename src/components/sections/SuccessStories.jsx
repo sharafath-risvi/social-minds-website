@@ -138,6 +138,47 @@ function AnimatedCounter({ from, to }) {
   return <span>{formatNumber(count)}</span>;
 }
 
+function ClientLogo({ client, index, isMobile }) {
+  const [imgSrc, setImgSrc] = useState(client.logo);
+  const [hasError, setHasError] = useState(!client.logo);
+
+  if (hasError) {
+    return (
+      <div 
+        className={isMobile ? "" : "ss-logo-fallback"} 
+        style={isMobile ? { fontSize: '48px', color: '#FF7030', fontFamily: 'Bebas Neue, sans-serif' } : { display: 'block' }}
+      >
+        {client.name.charAt(0)}
+      </div>
+    );
+  }
+
+  return (
+    <img 
+      loading={index === 0 ? "eager" : "lazy"}
+      src={imgSrc} 
+      alt={`${client.name} Logo`} 
+      className={isMobile ? "" : "ss-client-logo-img"}
+      style={isMobile ? { 
+        width: '100%', height: '100%', objectFit: 'contain', 
+        borderRadius: '16px', 
+        transform: client.logoScale ? `scale(${client.logoScale})` : 'scale(1)'
+      } : { 
+        transform: client.logoScale ? `scale(${client.logoScale})` : 'scale(1)' 
+      }}
+      onError={() => {
+        if (imgSrc.endsWith('.webp')) {
+          setImgSrc(client.logo.replace('.webp', '.png'));
+        } else if (imgSrc.endsWith('.png')) {
+          setImgSrc(client.logo.replace('.webp', '.jpg'));
+        } else {
+          setHasError(true);
+        }
+      }}
+    />
+  );
+}
+
 function TimelineItem({ client, index }) {
   // Odd rows have logo left, text right.
   // We use index % 2 === 0 as "even" in 0-indexed terms (so 0, 2, 4 are left-logo).
@@ -160,21 +201,7 @@ function TimelineItem({ client, index }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
         >
-          {client.logo ? (
-            <img loading={index === 0 ? "eager" : "lazy"}
-              src={client.logo} 
-              alt={`${client.name} Logo`} 
-              className="ss-client-logo-img"
-              style={{ transform: client.logoScale ? `scale(${client.logoScale})` : 'scale(1)' }}
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'block';
-              }}
-            />
-          ) : null}
-          <div className="ss-logo-fallback" style={{ display: client.logo ? 'none' : 'block' }}>
-            {client.name.charAt(0)}
-          </div>
+          <ClientLogo client={client} index={index} isMobile={false} />
         </motion.div>
       </div>
 
@@ -268,11 +295,7 @@ function MobileSuccessTimeline() {
                 
                 {/* Logo Box */}
                 <div className="ss-timeline-logo-box" style={{ width: '160px', height: '160px', marginBottom: '32px', borderRadius: '24px', padding: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#FFF', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
-                  {client.logo ? (
-                    <img loading={index === 0 ? "eager" : "lazy"} src={client.logo} alt={client.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '16px', transform: client.logoScale ? `scale(${client.logoScale})` : 'scale(1)' }} />
-                  ) : (
-                    <div style={{ fontSize: '48px', color: '#FF7030', fontFamily: 'Bebas Neue, sans-serif' }}>{client.name.charAt(0)}</div>
-                  )}
+                  <ClientLogo client={client} index={index} isMobile={true} />
                 </div>
 
                 {/* Timeline Dot — Perfectly Centered on the Line */}

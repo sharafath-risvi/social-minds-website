@@ -854,6 +854,16 @@
     min-height: auto;
   }
 
+  .sgs-story-text-wrapper {
+    display: none !important;
+  }
+
+  .sgs-story-nav {
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
   .sgs-stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }

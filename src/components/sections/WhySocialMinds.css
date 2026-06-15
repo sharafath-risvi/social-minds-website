@@ -11,6 +11,24 @@
 .wsm-section {
   background: #FFFFFF;
   padding: clamp(5rem, 9vw, 9rem) 0;
+  border: none;
+  outline: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+/* ── GSAP PIN-SPACER artifact suppression ──
+   When GSAP pins .wsm-section it wraps it in a
+   .pin-spacer div. The unpinning transition can
+   leave a 1px compositing seam at the bottom.
+   This rule eliminates it without touching layout. */
+div:has(> .wsm-section),
+.pin-spacer:has(.wsm-section) {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
 }
 
 .wsm-wrap {

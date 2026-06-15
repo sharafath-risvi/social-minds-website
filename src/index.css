@@ -740,7 +740,7 @@ html.lenis { height: auto; }
 /* Contain each section's layout/paint — prevents scroll-triggered reflows
    from cascading across the whole page */
 section {
-  contain: layout style paint;
+  contain: layout style;
   /* Promote sticky sections to their own GPU layer */
   transform: translateZ(0);
   backface-visibility: hidden;

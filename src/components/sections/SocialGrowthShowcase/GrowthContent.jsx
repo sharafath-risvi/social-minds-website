@@ -114,6 +114,7 @@ export default function GrowthContent({ data, activeIndex, onDotClick }) {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeIndex ?? 'none'}
+          className="sgs-story-text-wrapper"
           initial={{ opacity: 0, y: 30, clipPath: 'inset(0 0 20% 0)' }}
           animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
           exit={{ opacity: 0, y: -16, clipPath: 'inset(20% 0 0 0)' }}

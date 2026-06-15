@@ -120,6 +120,17 @@ export default function WhySocialMinds() {
           }
         }
       });
+
+      // Suppress the 1px border artifact on the GSAP-injected pin-spacer div
+      requestAnimationFrame(() => {
+        const pinSpacer = sectionRef.current?.parentElement;
+        if (pinSpacer && pinSpacer !== document.body) {
+          pinSpacer.style.border = 'none';
+          pinSpacer.style.outline = 'none';
+          pinSpacer.style.boxShadow = 'none';
+          pinSpacer.style.borderBottom = 'none';
+        }
+      });
     }, sectionRef);
 
     return () => ctx.revert();

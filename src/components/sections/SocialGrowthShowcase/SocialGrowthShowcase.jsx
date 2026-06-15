@@ -35,7 +35,7 @@ gsap.registerPlugin(ScrollTrigger);
 const ACCORDION_DATA = [
   {
     id: 'reel-obsession',
-    image: '/showcase/panel-1-reel.png',
+    image: '/showcase/panel-1-reel.webp',
     altText: 'Creator filming Instagram Reels in a professional studio with orange ring light',
     shortLabel: 'Reel Strategy',
     caseLabel: 'CASE STUDY / 01',
@@ -55,7 +55,7 @@ const ACCORDION_DATA = [
   },
   {
     id: 'brand-identity',
-    image: '/showcase/panel-2-brand.png',
+    image: '/showcase/panel-2-brand.webp',
     altText: 'Premium branding moodboard with orange and black design collateral',
     shortLabel: 'Brand Identity',
     caseLabel: 'CASE STUDY / 02',
@@ -64,7 +64,7 @@ const ACCORDION_DATA = [
     heading: 'From <em>invisible</em><br>to iconic brand.',
     headingPlain: 'From invisible to iconic brand.',
     description:
-      'We rebuilt the brand\'s visual language from scratch — logo, color system, typography, and content aesthetic. The result was a premium, instantly recognizable identity that commanded premium pricing.',
+      "We rebuilt the brand's visual language from scratch — logo, color system, typography, and content aesthetic. The result was a premium, instantly recognizable identity that commanded premium pricing.",
     stats: [
       { value: '+280%', label: 'Profile Visits' },
       { value: '6.8M', label: 'Impressions' },
@@ -75,7 +75,7 @@ const ACCORDION_DATA = [
   },
   {
     id: 'analytics-mastery',
-    image: '/showcase/panel-3-analytics.png',
+    image: '/showcase/panel-3-analytics.webp',
     altText: 'Futuristic analytics dashboard showing orange glowing social media growth metrics',
     shortLabel: 'Data & Analytics',
     caseLabel: 'CASE STUDY / 03',
@@ -95,7 +95,7 @@ const ACCORDION_DATA = [
   },
   {
     id: 'campaign-viral',
-    image: '/showcase/panel-4-campaign.png',
+    image: '/showcase/panel-4-campaign.webp',
     altText: 'Multiple smartphones displaying viral social media content in a creative studio',
     shortLabel: 'Campaign Launch',
     caseLabel: 'CASE STUDY / 04',
@@ -115,7 +115,7 @@ const ACCORDION_DATA = [
   },
   {
     id: 'audience-psychology',
-    image: '/showcase/panel-5-audience.png',
+    image: '/showcase/panel-5-audience.webp',
     altText: 'Abstract orange digital network visualization representing viral audience growth',
     shortLabel: 'Audience Growth',
     caseLabel: 'CASE STUDY / 05',
@@ -124,7 +124,7 @@ const ACCORDION_DATA = [
     heading: 'Building an audience<br>that <em>stays obsessed</em>.',
     headingPlain: 'Building an audience that stays obsessed.',
     description:
-      'We mapped the full audience psychology — what they watch, save, share, and why. Then we reverse-engineered content that triggered each psychological driver. The result: a community that doesn\'t just follow, it evangelizes.',
+      "We mapped the full audience psychology — what they watch, save, share, and why. Then we reverse-engineered content that triggered each psychological driver. The result: a community that doesn't just follow, it evangelizes.",
     stats: [
       { value: '+730%', label: 'Community Growth' },
       { value: '3.9M', label: 'Total Reach' },

@@ -484,6 +484,12 @@
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
+@media (max-width: 768px) {
+  .ab-founder-quote-card {
+    display: none !important;
+  }
+}
+
 .ab-founder-quote-mark {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 3rem;
