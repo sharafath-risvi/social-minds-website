@@ -12,7 +12,7 @@ const SPRING = [0.16, 1, 0.3, 1];
 // ── Founder achievement stats
 const FOUNDER_STATS = [
   { val: '8+', label: 'Years Experience' },
-  { val: '150+', label: 'Brands Built' },
+  { val: '50+', label: 'Brands Built' },
   { val: '₹50Cr', label: 'Revenue Driven' },
 ];
 
@@ -43,13 +43,12 @@ export default function FounderExperience() {
           <div className="ab-founder-img-wrap">
             <img
               className="ab-founder-img"
-              src="/about/founder.png"
+              src="/socialmindsceo.jpg"
               alt="Social Minds Founder and CEO"
               loading="lazy"
               draggable={false}
+              style={{ objectFit: 'cover', width: '100%', height: '100%', margin: 0, padding: 0 }}
             />
-            {/* Bottom gradient fade into section bg */}
-            <div className="ab-founder-img-overlay" aria-hidden="true" />
           </div>
 
           {/* ── Floating quote card — overlaps bottom-right of portrait ── */}
@@ -58,7 +57,6 @@ export default function FounderExperience() {
             initial={{ opacity: 0, scale: 0.8, y: 24 }}
             animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.55, ease: SPRING }}
-            style={{ animation: 'ab-float 4s ease-in-out infinite' }}
           >
             <div className="ab-founder-quote-mark">&ldquo;</div>
             <p className="ab-founder-quote-text">

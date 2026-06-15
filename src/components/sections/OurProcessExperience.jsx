@@ -34,7 +34,7 @@ const PROCESS_STEPS = [
     heading: 'Discovery',
     description:
       'We dissect your brand at every layer — audience behavior, competitor positioning, content gaps, and algorithm dynamics. Nothing is assumed. Everything is audited.',
-    image: '/process/discovery.png',
+    image: '/process/discovery.webp',
     imageAlt: 'Brand discovery and audit session',
     overlayTitle: 'Brand Discovery',
     overlayDesc: 'Deep-dive audit across all platforms and competitors',
@@ -65,7 +65,7 @@ const PROCESS_STEPS = [
     heading: 'Strategy',
     description:
       'We architect your growth blueprint — content pillars, hook frameworks, posting cadence, hashtag intelligence, and a 90-day milestone map tailored to your niche.',
-    image: '/process/strategy.png',
+    image: '/process/strategy.webp',
     imageAlt: 'Creative strategy planning session',
     overlayTitle: 'Growth Blueprint',
     overlayDesc: 'Custom content strategy and 90-day roadmap',
@@ -95,7 +95,7 @@ const PROCESS_STEPS = [
     heading: 'Production',
     description:
       'From scripting to shooting, editing to sound design — we produce content that stops the scroll. Every frame is intentional. Every second is engineered for retention.',
-    image: '/process/production.png',
+    image: '/process/production.webp',
     imageAlt: 'Professional content production shoot',
     overlayTitle: 'Cinematic Content',
     overlayDesc: 'Full-scale production from script to final edit',
@@ -125,7 +125,7 @@ const PROCESS_STEPS = [
     heading: 'Campaign\nLaunch',
     description:
       'We deploy your content at peak engagement windows, activate collaborations, seed reach networks, and trigger the algorithm with precision timing for maximum viral exposure.',
-    image: '/process/launch.png',
+    image: '/process/launch.webp',
     imageAlt: 'Social media campaign launch moment',
     overlayTitle: 'Campaign Live',
     overlayDesc: 'Multi-platform simultaneous deployment',
@@ -155,7 +155,7 @@ const PROCESS_STEPS = [
     heading: 'Growth\nScaling',
     description:
       'We analyze every data point weekly, double down on winners, cut underperformers, and iterate with compounding precision. Your growth never plateaus. It accelerates.',
-    image: '/process/growth.png',
+    image: '/process/growth.webp',
     imageAlt: 'Analytics and growth scaling dashboard',
     overlayTitle: 'Scale Up',
     overlayDesc: 'Weekly optimization and compounding growth system',
@@ -188,7 +188,7 @@ const PROCESS_STEPS = [
 const GRID_ITEMS = [
   {
     // Cell 1 — large tall left (rows 1-2)
-    img: '/process/grid_creator.png',
+    img: '/process/grid_creator.webp',
     alt: 'Content creator filming reels with iPhone',
     category: 'Reel Strategy',
     title: 'Discovery & Audit',
@@ -197,7 +197,7 @@ const GRID_ITEMS = [
   },
   {
     // Cell 2 — top right landscape
-    img: '/process/grid_podcast.png',
+    img: '/process/grid_podcast.webp',
     alt: 'Premium podcast studio setup',
     category: 'Podcast Production',
     title: 'Strategy Build',
@@ -206,7 +206,7 @@ const GRID_ITEMS = [
   },
   {
     // Cell 3 — middle right square
-    img: '/process/grid_edit.png',
+    img: '/process/grid_edit.webp',
     alt: 'Video editing workflow on premium workstation',
     category: 'Editing Studio',
     title: 'Content Production',
@@ -215,7 +215,7 @@ const GRID_ITEMS = [
   },
   {
     // Cell 4 — bottom left wide
-    img: '/process/launch.png',
+    img: '/process/launch.webp',
     alt: 'Social media campaign launch room',
     category: 'Campaign Launch',
     title: 'Go Live',
@@ -224,7 +224,7 @@ const GRID_ITEMS = [
   },
   {
     // Cell 5 — bottom right floating
-    img: '/process/grid_data.png',
+    img: '/process/grid_data.webp',
     alt: 'Analytics war room with growth dashboards',
     category: 'Growth Scaling',
     title: 'Scale Up',
@@ -369,7 +369,7 @@ function CinematicGrid({ activeIndex, onHover, onHoverEnd, onClick }) {
             className="ope-grid-img"
             src={item.img}
             alt={item.alt}
-            loading="lazy"
+            loading={index === 0 ? "eager" : "lazy"}
             draggable={false}
           />
 

@@ -10,7 +10,7 @@ const CLIENTS = [
     end: 92000, 
     detail: '4 Branches', 
     highlight: 'Expanded to 4 Branches in Chennai',
-    logo: '/clientlogos/afra.png'
+    logo: '/clientlogos/afra.webp'
   },
   { 
     id: 2, 
@@ -19,7 +19,7 @@ const CLIENTS = [
     end: 42000, 
     detail: '5 Branches', 
     highlight: 'Expanded to 5 Branches across South India',
-    logo: '/clientlogos/medwalk.png',
+    logo: '/clientlogos/medwalk.webp',
     logoScale: 1.5
   },
   { 
@@ -28,7 +28,7 @@ const CLIENTS = [
     start: 0, 
     end: 26000, 
     highlight: 'Organic Growth Masterclass',
-    logo: '/clientlogos/Shashijab.png',
+    logo: '/clientlogos/Shashijab.webp',
     logoScale: 1.6
   },
   { 
@@ -37,7 +37,7 @@ const CLIENTS = [
     start: 0, 
     end: 36000, 
     highlight: 'Viral Content Strategy Execution',
-    logo: '/clientlogos/bag-house.png'
+    logo: '/clientlogos/bag-house.webp'
   },
   { 
     id: 5, 
@@ -45,7 +45,7 @@ const CLIENTS = [
     start: 0, 
     end: 25000, 
     highlight: 'Local Community Building',
-    logo: '/clientlogos/ssjsupershop.png'
+    logo: '/clientlogos/ssjsupershop.webp'
   },
   { 
     id: 6, 
@@ -53,7 +53,7 @@ const CLIENTS = [
     start: 3000, 
     end: 56000, 
     highlight: 'Achieved Hyperlocal Dominance',
-    logo: '/clientlogos/rahmanplaza.png'
+    logo: '/clientlogos/rahmanplaza.webp'
   },
   { 
     id: 7, 
@@ -61,7 +61,7 @@ const CLIENTS = [
     start: 600, 
     end: 25000, 
     highlight: 'Complete Brand Positioning',
-    logo: '/clientlogos/brita.png'
+    logo: '/clientlogos/brita.webp'
   },
   { 
     id: 8, 
@@ -69,7 +69,7 @@ const CLIENTS = [
     start: 0, 
     end: 25000, 
     highlight: 'Premium Aesthetic Makeover',
-    logo: '/clientlogos/princesspark.jpg'
+    logo: '/clientlogos/princesspark.webp'
   },
   { 
     id: 9, 
@@ -77,7 +77,7 @@ const CLIENTS = [
     start: 0, 
     end: 30000, 
     highlight: 'Maximized Engagement Optimization',
-    logo: '/clientlogos/1way.jpg'
+    logo: '/clientlogos/1way.webp'
   },
   { 
     id: 10, 
@@ -85,7 +85,7 @@ const CLIENTS = [
     start: 0, 
     end: 14000, 
     highlight: 'B2B & Retail Expansion Strategy',
-    logo: '/clientlogos/simco.png'
+    logo: '/clientlogos/simco.webp'
   },
   { 
     id: 11, 
@@ -93,7 +93,7 @@ const CLIENTS = [
     start: 0, 
     end: 9300, 
     highlight: 'Precision Niche Audience Targeting',
-    logo: '/clientlogos/rainbow.jpg'
+    logo: '/clientlogos/rainbow.webp'
   },
   { 
     id: 12, 
@@ -101,7 +101,7 @@ const CLIENTS = [
     start: 0, 
     end: 17000, 
     highlight: 'Aggressive Sales-driven Content',
-    logo: '/clientlogos/ss-footwear.png'
+    logo: '/clientlogos/ss-footwear.webp'
   },
   { 
     id: 13, 
@@ -109,7 +109,7 @@ const CLIENTS = [
     start: 0, 
     end: 17000, 
     highlight: 'Established Regional Authority',
-    logo: '/clientlogos/kanchiplaza.jpg'
+    logo: '/clientlogos/kanchiplaza.webp'
   },
 ];
 
@@ -161,7 +161,7 @@ function TimelineItem({ client, index }) {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
         >
           {client.logo ? (
-            <img 
+            <img loading={index === 0 ? "eager" : "lazy"}
               src={client.logo} 
               alt={`${client.name} Logo`} 
               className="ss-client-logo-img"
@@ -269,7 +269,7 @@ function MobileSuccessTimeline() {
                 {/* Logo Box */}
                 <div className="ss-timeline-logo-box" style={{ width: '160px', height: '160px', marginBottom: '32px', borderRadius: '24px', padding: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#FFF', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
                   {client.logo ? (
-                    <img src={client.logo} alt={client.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '16px', transform: client.logoScale ? `scale(${client.logoScale})` : 'scale(1)' }} />
+                    <img loading={index === 0 ? "eager" : "lazy"} src={client.logo} alt={client.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '16px', transform: client.logoScale ? `scale(${client.logoScale})` : 'scale(1)' }} />
                   ) : (
                     <div style={{ fontSize: '48px', color: '#FF7030', fontFamily: 'Bebas Neue, sans-serif' }}>{client.name.charAt(0)}</div>
                   )}
