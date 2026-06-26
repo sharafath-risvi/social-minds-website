@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@number-flow/react": "^0.6.0",
+    "@portabletext/react": "^6.2.0",
+    "@sanity/client": "^7.23.0",
+    "@sanity/image-url": "^2.1.1",
     "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.3.0",
     "axios": "^1.16.1",

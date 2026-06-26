@@ -5,10 +5,12 @@
 // Content Strategy / Personal Branding
 // ========================================
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { blogPosts, categories } from '../data/blogPosts';
 import FinalCTA from '../components/sections/FinalCTA';
+import { client, urlFor } from '../lib/sanity';
 
 function AnimatedSection({ children, delay = 0, style = {} }) {
   const ref = useRef(null);
@@ -27,6 +29,7 @@ function AnimatedSection({ children, delay = 0, style = {} }) {
 }
 
 function BlogCard({ post, index, featured = false }) {
+  const navigate = useNavigate();
   return (
     <motion.article
       initial={{ opacity: 0, y: 40 }}
@@ -40,33 +43,43 @@ function BlogCard({ post, index, featured = false }) {
         overflow: 'hidden',
         cursor: 'pointer',
         transition: 'box-shadow 0.3s ease',
+        display: 'block',
       }}
+      onClick={() => navigate(`/blog/${post.slug || post.id}`)}
       onHoverStart={(e) => e.target.style && (e.target.style.boxShadow = '0 20px 60px rgba(0,0,0,0.12)')}
     >
-      {/* Gradient preview thumbnail */}
+      {/* Preview thumbnail */}
       <div style={{
         height: featured ? '260px' : '180px',
-        background: post.gradient,
+        background: post.mainImage ? '#EAEAEA' : post.gradient,
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* Animated content lines */}
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            style={{
-              position: 'absolute',
-              left: '10%',
-              right: '10%',
-              height: '20px',
-              background: 'rgba(255,255,255,0.08)',
-              borderRadius: '6px',
-              top: `${25 + i * 22}%`,
-            }}
-            animate={{ opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+        {post.mainImage ? (
+          <img
+            src={urlFor(post.mainImage).width(600).height(featured ? 520 : 360).url()}
+            alt={post.title}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
-        ))}
+        ) : (
+          /* Animated content lines placeholder */
+          [...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: '10%',
+                right: '10%',
+                height: '20px',
+                background: 'rgba(255,255,255,0.08)',
+                borderRadius: '6px',
+                top: `${25 + i * 22}%`,
+              }}
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+            />
+          ))
+        )}
 
         {/* Category tag */}
         <div style={{
@@ -191,13 +204,73 @@ function BlogCard({ post, index, featured = false }) {
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [sanityPosts, setSanityPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const data = await client.fetch(`
+          *[_type == "post"] | order(publishedAt desc) {
+            "id": _id,
+            title,
+            "slug": slug.current,
+            mainImage,
+            "excerptText": pt::text(body),
+            "date": publishedAt,
+            "category": categories[0]->title,
+            "tags": categories[]->title
+          }
+        `);
+
+        const formattedPosts = data.map((post, index) => {
+          // Find matching category in static array to inherit colors, or use fallback
+          const defaultCat = blogPosts[0];
+          const matchedStaticPost = post.category 
+            ? blogPosts.find(p => p.category.toLowerCase() === post.category.toLowerCase()) 
+            : defaultCat;
+            
+          const catPost = matchedStaticPost || defaultCat;
+
+          const plainText = post.excerptText || '';
+          const excerpt = plainText.length > 150 ? plainText.substring(0, 150) + '...' : plainText;
+          const wordCount = plainText.split(/\s+/).length;
+
+          return {
+            id: post.id,
+            slug: post.slug,
+            category: post.category || 'Uncategorized',
+            categoryColor: catPost.categoryColor,
+            title: post.title,
+            excerpt: excerpt,
+            readTime: Math.max(1, Math.round(wordCount / 200)) + ' min read',
+            date: new Date(post.date || new Date()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+            featured: index === 0,
+            tags: post.tags || [],
+            gradient: catPost.gradient,
+            mainImage: post.mainImage,
+          };
+        });
+
+        setSanityPosts(formattedPosts);
+      } catch (error) {
+        console.error("Failed to fetch Sanity posts", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  const currentPosts = sanityPosts.length > 0 ? sanityPosts : blogPosts;
 
   const filteredPosts = activeCategory === 'All'
-    ? blogPosts
-    : blogPosts.filter(p => p.category === activeCategory);
+    ? currentPosts
+    : currentPosts.filter(p => p.category === activeCategory);
 
-  const featuredPost = blogPosts.find(p => p.featured);
-  const remainingPosts = blogPosts.filter(p => !p.featured);
+  const featuredPost = currentPosts.find(p => p.featured) || currentPosts[0];
+  const remainingPosts = currentPosts.filter(p => p.id !== (featuredPost?.id));
 
   return (
     <main>
@@ -255,7 +328,7 @@ export default function Blog() {
       </section>
 
       {/* ── FEATURED POST ── */}
-      <section style={{ background: '#F5F5F3', padding: 'clamp(4rem, 8vw, 6rem) 24px' }}>
+      <section style={{ background: '#F5F5F3', padding: 'clamp(4rem, 8vw, 6rem) 24px', minHeight: loading ? '600px' : 'auto' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <AnimatedSection>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px' }}>
@@ -266,11 +339,16 @@ export default function Blog() {
             </div>
           </AnimatedSection>
 
-          {featuredPost && (
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', border: '3px solid rgba(255,156,96,0.2)', borderTopColor: '#FF9C60', animation: 'spin 1s linear infinite' }} />
+              <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+            </div>
+          ) : featuredPost ? (
             <AnimatedSection delay={0.1}>
               <BlogCard post={featuredPost} index={0} featured />
             </AnimatedSection>
-          )}
+          ) : null}
         </div>
       </section>
 
@@ -306,9 +384,14 @@ export default function Blog() {
 
           {/* Articles grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
-            {filteredPosts.map((post, i) => (
+            {loading ? (
+              [...Array(3)].map((_, i) => (
+                <div key={i} style={{ height: '400px', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', animation: 'pulse 1.5s infinite' }} />
+              ))
+            ) : filteredPosts.map((post, i) => (
               <BlogCard key={post.id} post={post} index={i} />
             ))}
+            <style>{`@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }`}</style>
           </div>
         </div>
       </section>
