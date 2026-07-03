@@ -16,6 +16,8 @@ import ContentVisual from '../components/services/ContentVisual';
 import BrandingVisual from '../components/services/BrandingVisual';
 import WebDevVisual from '../components/services/WebDevVisual';
 import SEOVisual from '../components/services/SEOVisual';
+import SEOGrowthVisual from '../components/services/SEOGrowthVisual';
+import SocialMediaManagementVisual from '../components/services/SocialMediaManagementVisual';
 
 const getVisualComponent = (id, theme) => {
   switch (id) {
@@ -25,6 +27,8 @@ const getVisualComponent = (id, theme) => {
     case 'content-strategy': return <SEOVisual theme={theme} />; // Map SEO to Content Strategy as it fits keywords
     case 'personal-branding': return <WebDevVisual theme={theme} />; // Map WebDev to Personal Branding (personal sites)
     case 'reel-growth': return <ContentVisual theme={theme} />; // Map Content Production to Reel Growth
+    case 'social-media-management': return <SocialMediaManagementVisual theme={theme} />;
+    case 'seo': return <SEOGrowthVisual theme={theme} />;
     default: return <SocialMediaVisual theme={theme} />;
   }
 };
@@ -135,9 +139,9 @@ export default function Services() {
               marginBottom: '20px' 
             }}
           >
-            <span style={{ color: '#0A0A0A', display: 'block' }}>ENGINEERED FOR</span>
-            <span style={{ color: '#FF9C60', display: 'inline-block', marginRight: '16px' }}>DIGITAL</span>
-            <span style={{ WebkitTextStroke: '2px #0A0A0A', color: 'transparent' }}>DOMINATION</span>
+            <span style={{ color: '#0A0A0A', display: 'block' }}>EVERYTHING YOUR BRAND NEEDS</span>
+            <span style={{ color: '#FF9C60', display: 'inline-block', marginRight: '16px' }}>TO GROW</span>
+            <span style={{ WebkitTextStroke: '2px #0A0A0A', color: 'transparent' }}>ONLINE</span>
           </motion.h1>
 
           <motion.p
@@ -222,123 +226,126 @@ export default function Services() {
       </section>
 
       {/* ── SERVICE DEEP DIVES ── */}
-      {services.map((service, i) => (
-        <section
-          key={service.id}
-          style={{
-            background: i % 2 === 0 ? '#0A0A0A' : '#F5F5F3',
-            padding: 'clamp(5rem, 8vw, 7rem) 24px',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '64px',
-              alignItems: 'center',
-            }}>
-              {/* Content — alternate left/right */}
-              <AnimatedSection className="service-content" delay={0.1} style={{ order: i % 2 === 0 ? 0 : 1 }}>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                    <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '13px', color: 'rgba(255,156,96,0.5)', letterSpacing: '0.1em' }}>
-                      {service.number}
-                    </span>
-                    <span style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: '10px',
-                      letterSpacing: '0.15em',
-                      color: i % 2 === 0 ? 'rgba(255,255,255,0.3)' : '#838383',
-                      border: `1px solid ${i % 2 === 0 ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                      borderRadius: '100px',
-                      padding: '3px 10px',
-                    }}>
-                      {service.tag}
-                    </span>
-                  </div>
-
-                  <div style={{ fontSize: '40px', color: '#FF9C60', marginBottom: '12px' }}>{service.icon}</div>
-
-                  <h2 style={{
-                    fontFamily: "'Bebas Neue', sans-serif",
-                    fontSize: 'clamp(2.5rem, 4vw, 4.5rem)',
-                    color: i % 2 === 0 ? '#FFFFFF' : '#0A0A0A',
-                    lineHeight: 0.95,
-                    marginBottom: '8px',
-                  }}>
-                    {service.title}
-                  </h2>
-                  <p style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '13px',
-                    color: '#FF9C60',
-                    letterSpacing: '0.1em',
-                    marginBottom: '24px',
-                  }}>
-                    {service.subtitle}
-                  </p>
-                  <p style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '16px',
-                    color: i % 2 === 0 ? 'rgba(255,255,255,0.5)' : '#555',
-                    lineHeight: 1.8,
-                    marginBottom: '32px',
-                    maxWidth: '480px',
-                  }}>
-                    {service.description}
-                  </p>
-
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {service.features.map((f) => (
-                      <li key={f} style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '15px',
-                        color: i % 2 === 0 ? 'rgba(255,255,255,0.6)' : '#444',
-                      }}>
-                        <span style={{ color: '#FF9C60', fontSize: '8px', flexShrink: 0 }}>◆</span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div style={{ marginTop: '40px' }}>
-                    <Link
-                      to="/contact"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '14px 32px',
-                        background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                        borderRadius: '100px',
-                        textDecoration: 'none',
+      {services.map((service, i) => {
+        const isDark = service.isDark !== undefined ? service.isDark : i % 2 === 0;
+        return (
+          <section
+            key={service.id}
+            style={{
+              background: isDark ? '#0A0A0A' : '#F5F5F3',
+              padding: 'clamp(5rem, 8vw, 7rem) 24px',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '64px',
+                alignItems: 'center',
+              }}>
+                {/* Content — alternate left/right */}
+                <AnimatedSection className="service-content" delay={0.1} style={{ order: i % 2 === 0 ? 0 : 1 }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '13px', color: 'rgba(255,156,96,0.5)', letterSpacing: '0.1em' }}>
+                        {service.number}
+                      </span>
+                      <span style={{
                         fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '14px',
-                        fontWeight: 700,
-                        color: '#000',
-                        letterSpacing: '0.06em',
-                        boxShadow: '0 0 24px rgba(255, 156, 96, 0.35)',
-                      }}
-                    >
-                      Get Started ↗
-                    </Link>
-                  </div>
-                </div>
-              </AnimatedSection>
+                        fontSize: '10px',
+                        letterSpacing: '0.15em',
+                        color: isDark ? 'rgba(255,255,255,0.3)' : '#838383',
+                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                        borderRadius: '100px',
+                        padding: '3px 10px',
+                      }}>
+                        {service.tag}
+                      </span>
+                    </div>
 
-              {/* Dynamic Interactive Visual Component */}
-              <AnimatedSection className="service-visual" delay={0.2} style={{ order: i % 2 === 0 ? 1 : 0 }}>
-                {getVisualComponent(service.id, i % 2 === 0 ? 'dark' : 'light')}
-              </AnimatedSection>
+                    <div style={{ fontSize: '40px', color: '#FF9C60', marginBottom: '12px' }}>{service.icon}</div>
+
+                    <h2 style={{
+                      fontFamily: "'Bebas Neue', sans-serif",
+                      fontSize: 'clamp(2.5rem, 4vw, 4.5rem)',
+                      color: isDark ? '#FFFFFF' : '#0A0A0A',
+                      lineHeight: 0.95,
+                      marginBottom: '8px',
+                    }}>
+                      {service.title}
+                    </h2>
+                    <p style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: '13px',
+                      color: '#FF9C60',
+                      letterSpacing: '0.1em',
+                      marginBottom: '24px',
+                    }}>
+                      {service.subtitle}
+                    </p>
+                    <p style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: '16px',
+                      color: isDark ? 'rgba(255,255,255,0.5)' : '#555',
+                      lineHeight: 1.8,
+                      marginBottom: '32px',
+                      maxWidth: '480px',
+                    }}>
+                      {service.description}
+                    </p>
+
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      {service.features.map((f) => (
+                        <li key={f} style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: '15px',
+                          color: isDark ? 'rgba(255,255,255,0.6)' : '#444',
+                        }}>
+                          <span style={{ color: '#FF9C60', fontSize: '8px', flexShrink: 0 }}>◆</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div style={{ marginTop: '40px' }}>
+                      <Link
+                        to="/contact"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '14px 32px',
+                          background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
+                          borderRadius: '100px',
+                          textDecoration: 'none',
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: '14px',
+                          fontWeight: 700,
+                          color: '#000',
+                          letterSpacing: '0.06em',
+                          boxShadow: '0 0 24px rgba(255, 156, 96, 0.35)',
+                        }}
+                      >
+                        Get Started ↗
+                      </Link>
+                    </div>
+                  </div>
+                </AnimatedSection>
+
+                {/* Dynamic Interactive Visual Component */}
+                <AnimatedSection className="service-visual" delay={0.2} style={{ order: i % 2 === 0 ? 1 : 0 }}>
+                  {getVisualComponent(service.id, isDark ? 'dark' : 'light')}
+                </AnimatedSection>
+              </div>
             </div>
-          </div>
-        </section>
-      ))}
+          </section>
+        );
+      })}
 
       {/* ── PROCESS ── */}
       <ProcessTimeline />

@@ -11,21 +11,21 @@ import './BrandMarquee.css';
 const row1 = [
   { label: 'Afra Modest', logo: '/clientlogos/afra.png' },
   { label: 'Shashijab', logo: '/clientlogos/Shashijab.png' },
-  { label: 'SSJ Super Shop', logo: '/clientlogos/ssjsupershop.png' },
-  { label: 'Brita', logo: '/clientlogos/brita.png' },
+  { label: 'SSJ Super Shop', logo: '/logos/ssjsupershop.jpeg' },
+  { label: 'Brita', logo: '/logos/britafootwear.jpeg' },
   { label: '1Way', logo: '/clientlogos/1way.jpg' },
   { label: 'Rainbow Pro Gears', logo: '/clientlogos/rainbow.jpg' },
-  { label: 'Kanchi Plaza', logo: '/clientlogos/kanchiplaza.jpg' },
+  { label: 'Kanchi Plaza', logo: '/logos/kanchiplaza.jpeg' },
 ];
 
 // Row 2 — clients
 const row2 = [
   { label: 'MedWalk', logo: '/clientlogos/medwalk.png' },
-  { label: 'Bag House', logo: '/clientlogos/bag-house.png' },
+  { label: 'Bag House', logo: '/logos/baghouse.jpeg' },
   { label: 'Rahman Plaza', logo: '/clientlogos/rahmanplaza.png' },
-  { label: 'Princess Park', logo: '/clientlogos/princesspark.jpg' },
+  { label: 'Princess Park', logo: '/logos/princesspark.jpeg' },
   { label: 'Simco', logo: '/clientlogos/simco.png' },
-  { label: 'SS Footwear', logo: '/clientlogos/ss-footwear.png' },
+  { label: 'SS Footwear', logo: '/logos/sssignature.jpeg' },
 ];
 
 function MarqueeRow({ items, reverse = false, speed = 'normal' }) {

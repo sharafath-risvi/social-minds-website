@@ -13,21 +13,21 @@ const SPRING = [0.16, 1, 0.3, 1];
 const CULTURE_CELLS = [
   {
     // Large tall left — spans full height
-    img: '/about/culture1.png',
+    img: '/Teampics/workingpic1.webp',
     alt: 'Social Minds creator filming content in studio',
     tag: 'Production',
     title: 'Cinema-Quality Creation',
   },
   {
     // Top right — strategy meeting
-    img: '/about/culture2.png',
+    img: '/Teampics/workingpic2.webp',
     alt: 'Social Minds team strategy session',
     tag: 'Strategy',
     title: 'Data-Led Decisions',
   },
   {
     // Bottom right — process image
-    img: '/process/grid_edit.png',
+    img: '/Teampics/workingpic3.webp',
     alt: 'Post-production editing workflow',
     tag: 'Post-Production',
     title: 'Premium Editing',

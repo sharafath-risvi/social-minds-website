@@ -113,7 +113,7 @@ export default function Careers() {
               fontFamily: "'Space Grotesk', sans-serif", fontSize: '13px', fontWeight: 700,
               letterSpacing: '0.1em', marginBottom: '24px'
             }}>
-              <span>🚀</span> Join The Social Minds Team
+              Join Social Minds
             </motion.div>
             
             <motion.h1 variants={fadeInUp} style={{
@@ -133,19 +133,6 @@ export default function Careers() {
             </motion.p>
             
             <motion.div variants={fadeInUp} className="career-hero-btns" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-              <motion.a 
-                href="#open-positions" 
-                className="career-hero-btn"
-                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                style={{
-                  background: 'linear-gradient(135deg, #FF9C60, #FF7030)', color: '#000',
-                  padding: '16px 32px', borderRadius: '100px', fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700, textDecoration: 'none', display: 'inline-block',
-                  boxShadow: '0 10px 30px rgba(255, 112, 48, 0.3)'
-                }}
-              >
-                View Open Positions
-              </motion.a>
               <motion.a 
                 href="#apply" 
                 className="career-hero-btn"
@@ -170,7 +157,7 @@ export default function Careers() {
                 style={{ gridColumn: '1 / 2', gridRow: '1 / 3', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.08)', position: 'relative' }}
                 whileHover={{ scale: 1.02 }} transition={{ duration: 0.4 }}
               >
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&fm=webp&fit=crop&w=800&q=80" alt="Team Collaboration" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/Teampics/workingpic5.webp" alt="Team Collaboration" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </motion.div>
 
               {/* Top Right Image */}
@@ -178,7 +165,7 @@ export default function Careers() {
                 style={{ gridColumn: '2 / 3', gridRow: '1 / 2', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.08)', position: 'relative' }}
                 whileHover={{ scale: 1.03 }} transition={{ duration: 0.4 }}
               >
-                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&fm=webp&fit=crop&w=800&q=80" alt="Creative Workspace" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/Teampics/workingpic1.webp" alt="Creative Workspace" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </motion.div>
 
               {/* Bottom Right Image */}
@@ -186,7 +173,7 @@ export default function Careers() {
                 style={{ gridColumn: '2 / 3', gridRow: '2 / 3', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.08)', position: 'relative' }}
                 whileHover={{ scale: 1.03 }} transition={{ duration: 0.4 }}
               >
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&fm=webp&fit=crop&w=800&q=80" alt="Marketing Professionals" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/Teampics/workingpic2.webp" alt="Marketing Professionals" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </motion.div>
 
               {/* Overlapping 4th image */}
@@ -194,7 +181,7 @@ export default function Careers() {
                 style={{ position: 'absolute', bottom: '-15px', left: '-15px', width: '200px', height: '200px', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', border: '8px solid #FFF', zIndex: 10 }}
                 whileHover={{ scale: 1.05 }} transition={{ duration: 0.4 }}
               >
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&fm=webp&fit=crop&w=400&q=80" alt="Agency Work" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/Teampics/workingpic4.webp" alt="Agency Work" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </motion.div>
             </div>
           </motion.div>

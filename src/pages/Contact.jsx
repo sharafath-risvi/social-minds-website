@@ -7,6 +7,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { Mail, Phone, MapPin, Clock, CheckCircle, Lock, Zap, Target } from 'lucide-react';
 
 // ─── Scroll-reveal wrapper ──────────────────────────────────────────────────
 function FadeUp({ children, delay = 0, style = {} }) {
@@ -215,13 +216,7 @@ function InfoRow({ icon, label, value, sub, href, delay = 0 }) {
   );
 }
 
-// ─── Stats for hero card ─────────────────────────────────────────────────────
-const stats = [
-  { number: '200+', label: 'Brands Elevated' },
-  { number: '98%', label: 'Satisfaction' },
-  { number: '5M+', label: 'Reach Generated' },
-  { number: '3 Hrs', label: 'Avg. Response' },
-];
+// ─── Stats removed ───────────────────────────────────────────────────────────
 
 // ═══════════════════════════════════════════════════════════════════
 // MAIN COMPONENT
@@ -504,160 +499,87 @@ export default function Contact() {
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: 'clamp(14px,1.35vw,17px)', color: '#6E6868',
-                  maxWidth: '430px', lineHeight: 1.78, marginBottom: '44px',
+                  maxWidth: '430px', lineHeight: 1.78, marginBottom: '0px',
                 }}
               >
                 Your next big brand move starts here. One conversation
                 can completely transform where your brand is headed.
               </motion.p>
-
-              {/* CTA row */}
-              <motion.div
-                className="contact-hero-ctas"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.95, duration: 0.65 }}
-                style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}
-              >
-                <motion.a
-                  className="contact-hero-btn"
-                  href="#connect-form"
-                  whileHover={{ scale: 1.04, boxShadow: '0 0 56px rgba(255,112,48,0.48), 0 14px 36px rgba(255,112,48,0.28)' }}
-                  whileTap={{ scale: 0.97 }}
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '10px',
-                    padding: '17px 38px',
-                    background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                    borderRadius: '100px', textDecoration: 'none',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '13px', fontWeight: 700, color: '#fff', letterSpacing: '0.08em',
-                    boxShadow: '0 0 28px rgba(255,112,48,0.32), 0 6px 20px rgba(255,112,48,0.18)',
-                    cursor: 'none',
-                  }}
-                >
-                  START A PROJECT ↗
-                </motion.a>
-                <motion.a
-                  className="contact-hero-btn"
-                  href="https://wa.me/917200323181"
-                  target="_blank" rel="noopener noreferrer"
-                  whileHover={{ background: 'rgba(255,112,48,0.07)', borderColor: 'rgba(255,112,48,0.4)' }}
-                  whileTap={{ scale: 0.97 }}
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '10px',
-                    padding: '17px 38px',
-                    background: 'rgba(255,255,255,0.82)',
-                    border: '1.5px solid rgba(0,0,0,0.09)',
-                    borderRadius: '100px', textDecoration: 'none',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '13px', fontWeight: 700, color: '#1A1A1A', letterSpacing: '0.08em',
-                    boxShadow: '0 3px 14px rgba(0,0,0,0.05)',
-                    cursor: 'none',
-                  }}
-                >
-                  💬 WHATSAPP US
-                </motion.a>
-              </motion.div>
             </div>
 
-            {/* ── Right: premium dashboard card — stable, grounded, no float ── */}
+            {/* ── Right: Premium modern communication visual element ── */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              style={{ position: 'relative', zIndex: 5 }}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.85, delay: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '520px',
+                margin: '0 auto',
+                padding: '15px 5px',
+              }}
             >
-              {/* Main card — static, no animation class */}
-              <div style={{
-                background: 'rgba(255,255,255,0.94)',
-                border: '1px solid rgba(255,255,255,0.98)',
-                borderRadius: '28px',
-                padding: 'clamp(1.8rem,2.8vw,2.4rem)',
-                boxShadow: '0 24px 70px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.05)',
-                position: 'relative', overflow: 'hidden',
-              }}>
-                {/* Orange top bar */}
-                <div style={{
-                  position: 'absolute', top: 0, left: 0, right: 0, height: '3px',
-                  background: 'linear-gradient(90deg, #FF9C60, #FF7030, #CC4F00)',
-                  borderRadius: '28px 28px 0 0',
-                }} />
+              {/* Subtle ambient back-glow */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '85%',
+                  height: '85%',
+                  background: 'radial-gradient(circle, rgba(255,112,48,0.15) 0%, rgba(255,156,96,0.05) 50%, transparent 70%)',
+                  filter: 'blur(40px)',
+                  zIndex: 0,
+                  pointerEvents: 'none',
+                }}
+              />
 
-                {/* Header row */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                  <div style={{
-                    width: '42px', height: '42px', borderRadius: '13px',
-                    background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '18px',
-                    boxShadow: '0 6px 16px rgba(255,112,48,0.28)',
-                  }}>✦</div>
-                  <div>
-                    <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '13px', fontWeight: 700, color: '#1A1A1A' }}>Social Minds</p>
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: '#9A9090' }}>Creative Agency</p>
+              {/* Main Glassmorphic Card */}
+              <div
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 250, 245, 0.88) 100%)',
+                  border: '1.5px solid rgba(255, 112, 48, 0.2)',
+                  borderRadius: '28px',
+                  padding: 'clamp(24px, 4vw, 36px)',
+                  boxShadow: '0 24px 60px rgba(0, 0, 0, 0.07), 0 4px 20px rgba(255, 112, 48, 0.08)',
+                  backdropFilter: 'blur(20px)',
+                }}
+              >
+                {/* Header — Live Status & Agency Tag */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '10px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(34, 197, 94, 0.1)', padding: '6px 14px', borderRadius: '100px', border: '1px solid rgba(34, 197, 94, 0.25)' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e' }} />
+                    <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: '#166534', letterSpacing: '0.05em' }}>
+                      ACCEPTING NEW BRANDS
+                    </span>
                   </div>
-                  <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <span className="cp-blink" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22C55E', display: 'inline-block' }} />
-                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: '#6E6868' }}>Available Now</span>
+                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', fontWeight: 700, color: '#FF7030', letterSpacing: '0.1em', background: 'rgba(255, 112, 48, 0.08)', padding: '5px 12px', borderRadius: '8px' }}>
+                    DIRECT ACCESS
+                  </span>
+                </div>
+
+                {/* Response Metrics Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px', marginBottom: '26px' }}>
+                  <div style={{ background: '#FFFFFF', padding: '18px 16px', borderRadius: '18px', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '26px', fontWeight: 700, color: '#0D0D0D', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      &lt; 2 Hrs
+                    </div>
+                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#6E6868', fontWeight: 500 }}>
+                      Avg. Response Time
+                    </div>
                   </div>
-                </div>
-
-                {/* Stats grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px' }}>
-                  {stats.map((s, i) => (
-                    <div key={i} style={{
-                      padding: '14px 16px', borderRadius: '14px',
-                      background: i === 0
-                        ? 'linear-gradient(135deg, rgba(255,156,96,0.1), rgba(255,112,48,0.05))'
-                        : 'rgba(0,0,0,0.03)',
-                      border: i === 0 ? '1px solid rgba(255,156,96,0.18)' : '1px solid rgba(0,0,0,0.05)',
-                    }}>
-                      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '1.7rem', color: i === 0 ? '#FF7030' : '#1A1A1A', lineHeight: 1, marginBottom: '2px' }}>{s.number}</p>
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', color: '#9A9090' }}>{s.label}</p>
+                  <div style={{ background: '#FFFFFF', padding: '18px 16px', borderRadius: '18px', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '26px', fontWeight: 700, color: '#FF7030', marginBottom: '4px' }}>
+                      100%
                     </div>
-                  ))}
-                </div>
-
-                {/* Tags */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', marginBottom: '18px' }}>
-                  {['Branding', 'Social Media', 'Content', 'Growth'].map(t => (
-                    <span key={t} style={{
-                      padding: '5px 13px', borderRadius: '100px',
-                      background: 'rgba(255,156,96,0.08)', border: '1px solid rgba(255,156,96,0.16)',
-                      fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', fontWeight: 600, color: '#FF7030',
-                    }}>{t}</span>
-                  ))}
-                </div>
-
-                {/* Two inline info chips (replaced absolute floating badges) */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '18px' }}>
-                  {[
-                    { emoji: '📍', title: 'India & Remote', sub: 'Global Clients' },
-                    { emoji: '⚡', title: 'Quick Response', sub: 'Within 3 hours' },
-                  ].map(({ emoji, title, sub }) => (
-                    <div key={title} style={{
-                      display: 'flex', alignItems: 'center', gap: '10px',
-                      padding: '12px 14px', borderRadius: '14px',
-                      background: 'rgba(0,0,0,0.025)',
-                      border: '1px solid rgba(0,0,0,0.05)',
-                    }}>
-                      <span style={{ fontSize: '18px', flexShrink: 0 }}>{emoji}</span>
-                      <div>
-                        <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: '#1A1A1A' }}>{title}</p>
-                        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', color: '#9A9090' }}>{sub}</p>
-                      </div>
+                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#6E6868', fontWeight: 500 }}>
+                      Confidentiality Rate
                     </div>
-                  ))}
-                </div>
-
-                {/* Mini CTA */}
-                <div style={{
-                  padding: '13px 18px', borderRadius: '13px',
-                  background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                }}>
-                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', fontWeight: 700, color: '#fff', letterSpacing: '0.06em' }}>FREE STRATEGY CALL</span>
-                  <span className="cp-arrow" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.85)', display: 'inline-block' }}>→</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -719,30 +641,30 @@ export default function Contact() {
               {/* Contact info rows */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <InfoRow
-                  icon="✉️" label="Email Us"
-                  value="hello@socialminds.in"
+                  icon={<Mail size={20} color="#FF7030" />} label="Email Us"
+                  value="socialminds.official@gmail.com"
                   sub="We reply within 24 hours"
-                  href="mailto:hello@socialminds.in"
+                  href="mailto:socialminds.official@gmail.com"
                   delay={0.1}
                 />
                 <InfoRow
-                  icon="📞" label="Call Us"
+                  icon={<Phone size={20} color="#FF7030" />} label="Call Us"
                   value="+91 72003 23181"
-                  sub="Mon – Sat · 10am to 7pm IST"
+                  sub="Mon – Sat · 9:00 AM – 6:00 PM"
                   href="tel:+917200323181"
                   delay={0.18}
                 />
                 <InfoRow
-                  icon="📍" label="Location"
-                  value="India & Remote"
-                  sub="Serving clients worldwide"
+                  icon={<MapPin size={20} color="#FF7030" />} label="Location"
+                  value="Chennai, Tamil Nadu"
+                  sub="2nd Floor, Lokesh Towers, Nungambakkam"
                   delay={0.26}
                 />
                 <InfoRow
-                  icon="📸" label="Instagram"
-                  value="@socialminds_agency"
+                  icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF7030" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>} label="Instagram"
+                  value="@social.minds.chennai"
                   sub="Follow for daily inspiration"
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/social.minds.chennai"
                   delay={0.34}
                 />
               </div>
@@ -832,10 +754,12 @@ export default function Contact() {
                     style={{ textAlign: 'center', padding: 'clamp(2.5rem,5vw,4rem)', position: 'relative', zIndex: 1 }}
                   >
                     <motion.div
-                      animate={{ rotate: [0, 12, -12, 0], scale: [1, 1.18, 1] }}
+                      animate={{ scale: [1, 1.18, 1] }}
                       transition={{ duration: 0.55, delay: 0.15 }}
-                      style={{ fontSize: '60px', marginBottom: '20px', display: 'block' }}
-                    >🎉</motion.div>
+                      style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}
+                    >
+                      <CheckCircle size={60} color="#FF7030" />
+                    </motion.div>
                     <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2rem,4vw,3.2rem)', color: '#FF7030', marginBottom: '10px' }}>
                       MESSAGE SENT!
                     </h3>
@@ -851,8 +775,8 @@ export default function Contact() {
                     {/* Row 1 */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '18px' }}>
                       <PremiumInput
-                        icon="👤" label="Your Name*"
-                        placeholder="John Doe"
+                        label="Your Name*"
+                        placeholder="Your Name"
                         value={formData.name}
                         onChange={e => {
                           setFormData({ ...formData, name: e.target.value });
@@ -861,8 +785,8 @@ export default function Contact() {
                         error={formErrors.name}
                       />
                       <PremiumInput
-                        icon="✉️" label="Email Address*"
-                        type="email" placeholder="john@company.com"
+                        label="Email Address*"
+                        type="email" placeholder="Email Address"
                         value={formData.email}
                         onChange={e => {
                           setFormData({ ...formData, email: e.target.value });
@@ -870,9 +794,13 @@ export default function Contact() {
                         }}
                         error={formErrors.email}
                       />
+                    </div>
+
+                    {/* Row 2 */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '18px' }}>
                       <PremiumInput
-                        icon="📱" label="Phone Number*"
-                        type="tel" placeholder="9876543210"
+                        label="Phone Number*"
+                        type="tel" placeholder="Phone Number"
                         value={formData.phone}
                         onChange={e => {
                           setFormData({ ...formData, phone: e.target.value });
@@ -880,13 +808,9 @@ export default function Contact() {
                         }}
                         error={formErrors.phone}
                       />
-                    </div>
-
-                    {/* Row 2 */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '18px' }}>
                       <PremiumInput
-                        icon="🏢" label="Brand / Company*"
-                        placeholder="Your brand name"
+                        label="Brand / Company*"
+                        placeholder="Brand / Company"
                         value={formData.brand}
                         onChange={e => {
                           setFormData({ ...formData, brand: e.target.value });
@@ -894,6 +818,10 @@ export default function Contact() {
                         }}
                         error={formErrors.brand}
                       />
+                    </div>
+
+                    {/* Row 3 */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '18px' }}>
                       {/* Service select */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
                         <label style={{
@@ -902,7 +830,6 @@ export default function Contact() {
                           color: '#9A9090', fontWeight: 700, textTransform: 'uppercase',
                           display: 'flex', alignItems: 'center', gap: '6px',
                         }}>
-                          <span style={{ fontSize: '12px' }}>🎯</span>
                           Service Needed*
                         </label>
                         <select
@@ -942,11 +869,12 @@ export default function Contact() {
                           </span>
                         )}
                       </div>
+                      <div className="cp-desktop-spacer" style={{ minHeight: 0 }} />
                     </div>
 
                     {/* Message */}
                     <PremiumInput
-                      icon="💬" label="Your Message*"
+                      label="Your Message*"
                       placeholder="Tell us about your brand, goals, and what you're looking to achieve..."
                       value={formData.message}
                       onChange={e => {
@@ -991,8 +919,9 @@ export default function Contact() {
                     <p style={{
                       fontFamily: "'Inter', sans-serif",
                       fontSize: '12px', color: '#B0ACAC', textAlign: 'center', lineHeight: 1.5,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px'
                     }}>
-                      🔒 Your information is 100% private and secure.
+                      <Lock size={14} color="#B0ACAC" /> Your information is 100% private and secure.
                     </p>
                   </form>
                 )}
@@ -1068,7 +997,7 @@ export default function Contact() {
                     window.scrollBy({ top: dy, left: 0, behavior: 'auto' });
                   }}
                 >
-                  <span className="cp-map-overlay-hint">🖱 Click to interact with map</span>
+                  <span className="cp-map-overlay-hint">Click to interact with map</span>
                 </div>
               )}
 
@@ -1076,7 +1005,7 @@ export default function Contact() {
                   (overlay above handles everything) */}
               <iframe
                 title="Social Minds Studio Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15279.17397565!2d77.5946!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000"
+                src="https://www.google.com/maps?q=Lokesh+Towers,+No.37/28,+Kodambakkam+High+Rd,+Nungambakkam,+Chennai,+Tamil+Nadu+600034&output=embed"
                 width="100%"
                 height="460"
                 style={{ border: 0, display: 'block' }}
@@ -1123,10 +1052,10 @@ export default function Contact() {
                 display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap',
                 zIndex: 16, pointerEvents: 'none',
               }}>
-                <span style={{ fontSize: '13px' }}>📍</span>
+                <MapPin size={15} color="#FF7030" />
                 <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: '#1A1A1A', letterSpacing: '0.07em' }}>SOCIAL MINDS STUDIO</span>
                 <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#22C55E', display: 'inline-block', flexShrink: 0 }} />
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: '#6E6868' }}>Remote-First · India</span>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: '#6E6868' }}>Chennai · Tamil Nadu</span>
               </div>
             </div>
           </FadeUp>
@@ -1140,29 +1069,29 @@ export default function Contact() {
             }}>
               {[
                 {
-                  icon: '📍',
+                  icon: <MapPin size={22} color="#FF7030" />,
                   label: 'Office Address',
-                  lines: ['Social Minds HQ', 'Digital First · Remote Agency'],
+                  lines: ['2nd Floor, Lokesh Towers, No.37/28', 'Kodambakkam High Rd, Nungambakkam, Chennai – 600034'],
                 },
                 {
-                  icon: '🕐',
+                  icon: <Clock size={22} color="#FF7030" />,
                   label: 'Working Hours',
-                  lines: ['Mon–Fri  10am – 7pm', 'Sat  11am – 5pm · Sun Closed'],
+                  lines: ['Monday – Saturday: 9:00 AM – 6:00 PM', 'Sunday: Closed'],
                 },
                 {
-                  icon: '✉️',
+                  icon: <Mail size={22} color="#FF7030" />,
                   label: 'Email',
-                  lines: ['hello@socialminds.in', 'Reply within 24 hours'],
-                  href: 'mailto:hello@socialminds.in',
+                  lines: ['socialminds.official@gmail.com', 'Reply within 24 hours'],
+                  href: 'mailto:socialminds.official@gmail.com',
                 },
                 {
-                  icon: '📞',
+                  icon: <Phone size={22} color="#FF7030" />,
                   label: 'Phone',
-                  lines: ['+91 72003 23181', 'Mon–Sat · 10am–7pm IST'],
+                  lines: ['+91 72003 23181', 'Mon – Sat: 9:00 AM – 6:00 PM'],
                   href: 'tel:+917200323181',
                 },
                 {
-                  icon: '✅',
+                  icon: <CheckCircle size={22} color="#22C55E" />,
                   label: 'Availability',
                   lines: ['Currently Available', 'WhatsApp 24 / 7'],
                   green: true,
@@ -1206,7 +1135,7 @@ export default function Contact() {
                       border: '1px solid rgba(255,156,96,0.16)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '19px',
                     }}>{icon}</div>
-                    <div>
+                    <div style={{ minWidth: 0, width: '100%' }}>
                       <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '9px', letterSpacing: '0.16em', color: '#FF7030', fontWeight: 700, textTransform: 'uppercase', marginBottom: '5px' }}>{label}</p>
                       {lines.map((line, li) => (
                         <p key={li} style={{
@@ -1215,6 +1144,8 @@ export default function Contact() {
                           fontWeight: li === 0 ? 600 : 400,
                           color: li === 0 ? (green ? '#16A34A' : '#1A1A1A') : '#9A9090',
                           lineHeight: 1.5,
+                          overflowWrap: 'anywhere',
+                          wordBreak: 'break-word',
                         }}>{line}</p>
                       ))}
                     </div>
@@ -1222,42 +1153,6 @@ export default function Contact() {
                 );
               })}
             </div>
-          </FadeUp>
-
-          {/* Meeting booking CTA */}
-          <FadeUp delay={0.3} style={{ marginTop: '20px' }}>
-            <motion.a
-              href="https://wa.me/917200323181"
-              target="_blank" rel="noopener noreferrer"
-              whileHover={{ y: -3, boxShadow: '0 20px 52px rgba(255,112,48,0.25), 0 0 0 1.5px rgba(255,112,48,0.35)' }}
-              whileTap={{ scale: 0.99 }}
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                flexWrap: 'wrap', gap: '16px',
-                padding: 'clamp(1.4rem,2.5vw,2rem) clamp(2rem,4vw,3rem)',
-                background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                borderRadius: '22px', textDecoration: 'none',
-                boxShadow: '0 8px 28px rgba(255,112,48,0.28)',
-                cursor: 'none',
-              }}
-            >
-              <div>
-                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '9px', letterSpacing: '0.16em', color: 'rgba(255,255,255,0.7)', fontWeight: 700, marginBottom: '5px' }}>READY TO TALK?</p>
-                <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(1.4rem,2.5vw,2rem)', color: '#fff', letterSpacing: '0.03em' }}>Book Your Free 30-Min Strategy Call</p>
-              </div>
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '10px',
-                padding: '12px 28px', borderRadius: '100px',
-                background: 'rgba(255,255,255,0.2)',
-                border: '1px solid rgba(255,255,255,0.35)',
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '13px', fontWeight: 700, color: '#fff', letterSpacing: '0.08em',
-                flexShrink: 0,
-              }}>
-                BOOK NOW
-                <span className="cp-arrow" style={{ fontSize: '15px', display: 'inline-block' }}>↗</span>
-              </div>
-            </motion.a>
           </FadeUp>
 
         </div>
@@ -1339,13 +1234,13 @@ export default function Contact() {
             {/* Trust signals */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(14px,3vw,36px)', marginTop: '52px', flexWrap: 'wrap' }}>
               {[
-                { icon: '🔒', text: '100% Confidential' },
-                { icon: '⚡', text: '24hr Response' },
-                { icon: '🎯', text: 'No-Pressure Call' },
-                { icon: '✨', text: 'Free Strategy Session' },
+                { icon: <Lock size={15} color="#FF7030" />, text: '100% Confidential' },
+                { icon: <Zap size={15} color="#FF7030" />, text: '24hr Response' },
+                { icon: <Target size={15} color="#FF7030" />, text: 'No-Pressure Call' },
+                { icon: <CheckCircle size={15} color="#FF7030" />, text: 'Free Strategy Session' },
               ].map(({ icon, text }) => (
                 <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                  <span style={{ fontSize: '15px' }}>{icon}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center' }}>{icon}</span>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#6E6868', fontWeight: 500 }}>{text}</span>
                 </div>
               ))}

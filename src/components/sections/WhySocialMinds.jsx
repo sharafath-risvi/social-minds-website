@@ -17,7 +17,7 @@ const SERVICES = [
     heading: ['STOP THE', 'SCROLL'],
     description:
       'We engineer short-form content that captures attention in seconds and converts viewers into followers, leads and paying customers.',
-    image: '/wsm/reels.webp',
+    image: '/Teampics/workingpic2.webp',
   },
   {
     id: 1,
@@ -25,7 +25,7 @@ const SERVICES = [
     heading: ['BECOME', 'UNFORGETTABLE'],
     description:
       'We build distinctive brand systems that make your business instantly recognizable across every platform and every touchpoint.',
-    image: '/wsm/brand.webp',
+    image: '/Teampics/trustedclient.webp',
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ const SERVICES = [
     heading: ['GROW WITH', 'DATA'],
     description:
       'Every decision is backed by performance metrics, audience insights and growth analytics that compound over time.',
-    image: '/wsm/analytics.webp',
+    image: '/Teampics/workingpic4.webp',
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const SERVICES = [
     heading: ['EXECUTE', 'TO SCALE'],
     description:
       'From strategy to execution, we build and launch campaigns engineered to generate measurable, predictable business results.',
-    image: '/wsm/launch.webp',
+    image: '/Teampics/workingpic1.webp',
   },
 ];
 

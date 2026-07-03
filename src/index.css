@@ -916,6 +916,9 @@ a, button, [role="button"], input, select, textarea {
   .contact-split-grid {
     grid-template-columns: 1fr !important;
   }
+  .cp-desktop-spacer {
+    display: none !important;
+  }
 
   /* Contact Page Hero Mobile Fixes */
   .contact-hero-section {

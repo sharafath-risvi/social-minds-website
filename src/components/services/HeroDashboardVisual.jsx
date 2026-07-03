@@ -76,18 +76,7 @@ export default function HeroDashboardVisual() {
                     borderRadius: '4px 4px 0 0',
                     position: 'relative'
                   }}
-                >
-                  {i === 5 && (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 1.5 }}
-                      style={{ position: 'absolute', top: '-24px', left: '50%', transform: 'translateX(-50%)', background: '#FF9C60', color: '#000', fontSize: '10px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}
-                    >
-                      MAX
-                    </motion.div>
-                  )}
-                </motion.div>
+                />
               ))}
             </div>
           </div>

@@ -19,19 +19,19 @@ const MILESTONES = [
     year: 'Phase 1',
     title: 'Foundation & Vision',
     desc: 'Social Minds founded with a single mission: make brands impossible to ignore. A new era of premium storytelling begins.',
-    img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop',
+    img: '/about/socialminds_logo.png',
   },
   {
     year: 'Phase 2',
     title: 'First Brand Partnership',
     desc: 'Secured our first major client and delivered a campaign that set the standard for our signature cinematic approach.',
-    img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop',
+    img: '/about/phase2_partnership.png',
   },
   {
     year: 'Phase 3',
     title: 'Content Expansion',
     desc: 'Expanded our in-house production capabilities, adding dedicated podcast and short-form video studios.',
-    img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop',
+    img: '/Teampics/workingpic2.webp',
   },
   {
     year: 'Phase 4',
@@ -43,7 +43,7 @@ const MILESTONES = [
     year: 'Phase 5',
     title: 'Regional Growth',
     desc: 'Scaled operations and team size, taking on international clients and establishing a multi-city presence.',
-    img: '/process/growth.png',
+    img: '/Teampics/workingpic4.webp',
   },
   {
     year: 'Phase 6',

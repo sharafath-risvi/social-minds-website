@@ -36,24 +36,11 @@ export default function AboutStory() {
             {/* Main agency image */}
             <img
               className="ab-story-img"
-              src="/about/agency.png"
+              src="/Teampics/groupphoto.webp"
               alt="Social Minds creative agency team at work"
               loading="lazy"
               draggable={false}
             />
-
-            {/* ── Floating stat card — overlaps corner of image ── */}
-            <motion.div
-              className="ab-story-float-card"
-              initial={{ opacity: 0, scale: 0.85, y: 20 }}
-              animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.45, ease: SPRING }}
-              // Subtle perpetual float animation
-              style={{ animation: 'ab-float 3.5s ease-in-out infinite' }}
-            >
-              <div className="ab-story-float-val">50Cr+</div>
-              <div className="ab-story-float-label">Revenue Generated</div>
-            </motion.div>
           </div>
         </motion.div>
 

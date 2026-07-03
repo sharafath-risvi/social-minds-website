@@ -390,7 +390,7 @@ export default function HeroSection() {
                 transition={{ duration: 1.1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
               >
                 <span className="hero-badge-dot" />
-                Premium Digital Growth Agency
+                Digital Growth Agency
               </motion.div>
 
               {/* Main headline */}

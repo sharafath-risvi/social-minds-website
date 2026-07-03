@@ -37,7 +37,7 @@ const CLIENTS = [
     start: 0, 
     end: 36000, 
     highlight: 'Viral Content Strategy Execution',
-    logo: '/clientlogos/bag-house.webp'
+    logo: '/logos/baghouse.jpeg'
   },
   { 
     id: 5, 
@@ -45,7 +45,7 @@ const CLIENTS = [
     start: 0, 
     end: 25000, 
     highlight: 'Local Community Building',
-    logo: '/clientlogos/ssjsupershop.webp'
+    logo: '/logos/ssjsupershop.jpeg'
   },
   { 
     id: 6, 
@@ -61,7 +61,7 @@ const CLIENTS = [
     start: 600, 
     end: 25000, 
     highlight: 'Complete Brand Positioning',
-    logo: '/clientlogos/brita.webp'
+    logo: '/logos/britafootwear.jpeg'
   },
   { 
     id: 8, 
@@ -69,7 +69,7 @@ const CLIENTS = [
     start: 0, 
     end: 25000, 
     highlight: 'Premium Aesthetic Makeover',
-    logo: '/clientlogos/princesspark.webp'
+    logo: '/logos/princesspark.jpeg'
   },
   { 
     id: 9, 
@@ -101,7 +101,7 @@ const CLIENTS = [
     start: 0, 
     end: 17000, 
     highlight: 'Aggressive Sales-driven Content',
-    logo: '/clientlogos/ss-footwear.webp'
+    logo: '/logos/sssignature.jpeg'
   },
   { 
     id: 13, 
@@ -109,7 +109,7 @@ const CLIENTS = [
     start: 0, 
     end: 17000, 
     highlight: 'Established Regional Authority',
-    logo: '/clientlogos/kanchiplaza.webp'
+    logo: '/logos/kanchiplaza.jpeg'
   },
 ];
 

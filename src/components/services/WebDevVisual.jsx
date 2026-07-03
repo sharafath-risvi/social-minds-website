@@ -175,7 +175,7 @@ export default function WebDevVisual({ theme }) {
       </motion.div>
 
 
-      {/* Floating Indicator 1: Thought Leadership */}
+      {/* Floating Indicator 1 */}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -203,7 +203,6 @@ export default function WebDevVisual({ theme }) {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-          <div style={{ fontSize: '11px', fontWeight: 600, color: textColor, fontFamily: "'Inter', sans-serif" }}>Thought Leadership</div>
           <div style={{ display: 'flex', gap: '3px', alignItems: 'flex-end' }}>
              {[4, 8, 6, 10, 5, 8].map((h, i) => (
                <motion.div key={i} animate={{ height: [h, h*0.5, h] }} transition={{ duration: 1, repeat: Infinity, delay: i*0.1 }} style={{ width: '2px', background: accentColor, borderRadius: '1px' }} />
@@ -221,7 +220,7 @@ export default function WebDevVisual({ theme }) {
         animate={{ y: [-12, 12, -12] }}
         style={{
           position: 'absolute',
-          bottom: '15%',
+          bottom: '5%',
           left: '8%',
           background: cardBg,
           backdropFilter: 'blur(20px)',

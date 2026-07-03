@@ -35,7 +35,7 @@ gsap.registerPlugin(ScrollTrigger);
 const ACCORDION_DATA = [
   {
     id: 'reel-obsession',
-    image: '/showcase/panel-1-reel.webp',
+    image: '/Teampics/Editingpic.webp',
     altText: 'Creator filming Instagram Reels in a professional studio with orange ring light',
     shortLabel: 'Reel Strategy',
     caseLabel: 'CASE STUDY / 01',
@@ -55,7 +55,7 @@ const ACCORDION_DATA = [
   },
   {
     id: 'brand-identity',
-    image: '/showcase/panel-2-brand.webp',
+    image: '/Teampics/trustedclient.webp',
     altText: 'Premium branding moodboard with orange and black design collateral',
     shortLabel: 'Brand Identity',
     caseLabel: 'CASE STUDY / 02',
@@ -95,7 +95,7 @@ const ACCORDION_DATA = [
   },
   {
     id: 'campaign-viral',
-    image: '/showcase/panel-4-campaign.webp',
+    image: '/Teampics/workingpic4.webp',
     altText: 'Multiple smartphones displaying viral social media content in a creative studio',
     shortLabel: 'Campaign Launch',
     caseLabel: 'CASE STUDY / 04',
