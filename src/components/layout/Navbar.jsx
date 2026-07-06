@@ -13,9 +13,9 @@ const navLinks = [
   { label: 'Services', path: '/services' },
   { 
     label: 'Pricing', 
-    path: '/pricing',
     subLinks: [
-      { label: 'Onboarding', path: '/onboarding' }
+      { label: 'Onboarding', path: '/onboarding' },
+      { label: 'Plan', path: '/plan' }
     ]
   },
   { label: 'Blog', path: '/blog' },
@@ -136,13 +136,13 @@ export default function Navbar() {
           >
             {navLinks.map((link) => {
               const isSubActive = link.subLinks && link.subLinks.some(sub => location.pathname === sub.path || hoveredPath === sub.path);
-              const isHovered = hoveredPath === link.path || isSubActive || hoveredDropdown === link.label;
+              const isHovered = (link.path && hoveredPath === link.path) || isSubActive || hoveredDropdown === link.label;
               return (
                 <div
-                  key={link.path}
+                  key={link.label || link.path}
                   style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
                   onMouseEnter={() => {
-                    setHoveredPath(link.path);
+                    setHoveredPath(link.path || link.label);
                     if (link.subLinks) setHoveredDropdown(link.label);
                   }}
                   onMouseLeave={() => {
@@ -150,48 +150,87 @@ export default function Navbar() {
                     if (link.subLinks) setHoveredDropdown(null);
                   }}
                 >
-                  <Link
-                    to={link.path}
-                    style={{
-                      textDecoration: 'none',
-                      padding: '8px 16px',
-                      borderRadius: '100px',
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: '13px',
-                      fontWeight: isHovered ? 600 : 400,
-                      color: isHovered ? '#FF9C60' : '#222',
-                      letterSpacing: '0.05em',
-                      transition: 'color 0.2s ease, font-weight 0.2s ease',
-                      position: 'relative',
-                      zIndex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                    }}
-                  >
-                    {isHovered && (
-                      <motion.div
-                        layoutId="navbar-highlight"
-                        transition={{ 
-                          type: "tween", 
-                          ease: "easeInOut",
-                          duration: 0.6 
-                        }}
-                        style={{
-                          position: 'absolute',
-                          inset: 0,
-                          background: 'rgba(255, 156, 96, 0.1)',
-                          border: '1px solid rgba(255, 156, 96, 0.2)',
-                          borderRadius: '100px',
-                          zIndex: -1,
-                        }}
-                      />
-                    )}
-                    <span>{link.label}</span>
-                    {link.subLinks && (
+                  {link.subLinks ? (
+                    <div
+                      style={{
+                        padding: '8px 16px',
+                        borderRadius: '100px',
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: '13px',
+                        fontWeight: isHovered ? 600 : 400,
+                        color: isHovered ? '#FF9C60' : '#222',
+                        letterSpacing: '0.05em',
+                        transition: 'color 0.2s ease, font-weight 0.2s ease',
+                        position: 'relative',
+                        zIndex: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        cursor: 'default',
+                      }}
+                    >
+                      {isHovered && (
+                        <motion.div
+                          layoutId="navbar-highlight"
+                          transition={{ 
+                            type: "tween", 
+                            ease: "easeInOut",
+                            duration: 0.6 
+                          }}
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'rgba(255, 156, 96, 0.1)',
+                            border: '1px solid rgba(255, 156, 96, 0.2)',
+                            borderRadius: '100px',
+                            zIndex: -1,
+                          }}
+                        />
+                      )}
+                      <span>{link.label}</span>
                       <span style={{ fontSize: '9px', opacity: 0.6, transform: hoveredDropdown === link.label ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▼</span>
-                    )}
-                  </Link>
+                    </div>
+                  ) : (
+                    <Link
+                      to={link.path}
+                      style={{
+                        textDecoration: 'none',
+                        padding: '8px 16px',
+                        borderRadius: '100px',
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: '13px',
+                        fontWeight: isHovered ? 600 : 400,
+                        color: isHovered ? '#FF9C60' : '#222',
+                        letterSpacing: '0.05em',
+                        transition: 'color 0.2s ease, font-weight 0.2s ease',
+                        position: 'relative',
+                        zIndex: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}
+                    >
+                      {isHovered && (
+                        <motion.div
+                          layoutId="navbar-highlight"
+                          transition={{ 
+                            type: "tween", 
+                            ease: "easeInOut",
+                            duration: 0.6 
+                          }}
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'rgba(255, 156, 96, 0.1)',
+                            border: '1px solid rgba(255, 156, 96, 0.2)',
+                            borderRadius: '100px',
+                            zIndex: -1,
+                          }}
+                        />
+                      )}
+                      <span>{link.label}</span>
+                    </Link>
+                  )}
 
                   {/* Dropdown Submenu */}
                   <AnimatePresence>
@@ -354,29 +393,48 @@ export default function Navbar() {
               const isActive = location.pathname === link.path || (link.subLinks && link.subLinks.some(sub => location.pathname === sub.path));
               return (
                 <motion.div
-                  key={link.path}
+                  key={link.label || link.path}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06 }}
                   style={{ borderBottom: '1px solid rgba(0,0,0,0.05)' }}
                 >
-                  <Link
-                    to={link.path}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '14px 16px',
-                      textDecoration: 'none',
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: '16px',
-                      fontWeight: isActive ? 600 : 400,
-                      color: isActive ? '#FF9C60' : '#222',
-                    }}
-                  >
-                    <span>{link.label}</span>
-                    {link.subLinks && <span style={{ fontSize: '12px', color: '#FF9C60' }}>▾</span>}
-                  </Link>
+                  {link.subLinks ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '14px 16px',
+                        textDecoration: 'none',
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: '16px',
+                        fontWeight: isActive ? 600 : 400,
+                        color: isActive ? '#FF9C60' : '#222',
+                        cursor: 'default',
+                      }}
+                    >
+                      <span>{link.label}</span>
+                      <span style={{ fontSize: '12px', color: '#FF9C60' }}>▾</span>
+                    </div>
+                  ) : (
+                    <Link
+                      to={link.path}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '14px 16px',
+                        textDecoration: 'none',
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: '16px',
+                        fontWeight: isActive ? 600 : 400,
+                        color: isActive ? '#FF9C60' : '#222',
+                      }}
+                    >
+                      <span>{link.label}</span>
+                    </Link>
+                  )}
                   {link.subLinks && (
                     <div style={{ paddingLeft: '24px', paddingBottom: '12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                       {link.subLinks.map((sub) => {

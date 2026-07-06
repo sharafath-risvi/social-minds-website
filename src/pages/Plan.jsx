@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { pricingPlans } from '../data/pricing';
 
-export default function Pricing() {
+export default function Plan() {
   return (
     <main style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', paddingTop: '120px', paddingBottom: '80px', color: '#000' }}>
       <section style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 24px' }}>

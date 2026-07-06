@@ -4,7 +4,7 @@
 // global cursor, and layout shell
 // ========================================
 
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -17,7 +17,7 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
-import Pricing from './pages/Pricing';
+import Plan from './pages/Plan';
 import Onboarding from './pages/Onboarding';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
@@ -56,7 +56,8 @@ function AnimatedRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/plan" element={<Plan />} />
+          <Route path="/pricing" element={<Navigate to="/plan" replace />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
@@ -93,7 +94,7 @@ function AppShell() {
 
       {/* Floating WhatsApp Button */}
       <motion.a
-        href="https://wa.me/917000000000?text=Hi! I'd like to know more about Social Minds."
+        href="https://wa.me/917200323181?text=Hi! I'd like to know more about Social Minds."
         target="_blank"
         rel="noopener noreferrer"
         initial={{ scale: 0, opacity: 0 }}
