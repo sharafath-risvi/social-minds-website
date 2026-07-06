@@ -1,13 +1,13 @@
 // ================================================================
 // ABOUT STORY — Section 02
-// Asymmetric editorial split: cinematic image left + rich text right
-// Stats, floating card overlay, scroll-triggered reveals
+// Vertical editorial layout: Section Heading + Large Landscape Banner + Clean Content
+// Stats, scroll-triggered reveals, premium styling preserved
 // ================================================================
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-// ── Agency story stats displayed in 2x2 grid
+// ── Agency story stats displayed in grid
 const STORY_STATS = [
   { val: '2021', label: 'Founded' },
   { val: '₹50Cr+', label: 'Revenue Generated' },
@@ -24,32 +24,14 @@ export default function AboutStory() {
 
   return (
     <section className="ab-story" ref={ref} aria-label="About Social Minds Story">
-      <div className="ab-story-grid">
+      <div className="ab-story-vertical">
 
-        {/* ── LEFT: Cinematic image with floating stat card ── */}
+        {/* ── 1. SECTION HEADING ── */}
         <motion.div
-          initial={{ opacity: 0, x: -48 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
+          className="ab-story-header"
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.85, ease: SPRING }}
-        >
-          <div className="ab-story-image-wrap">
-            {/* Main agency image */}
-            <img
-              className="ab-story-img"
-              src="/Teampics/groupphoto.webp"
-              alt="Social Minds creative agency team at work"
-              loading="lazy"
-              draggable={false}
-            />
-          </div>
-        </motion.div>
-
-        {/* ── RIGHT: Editorial storytelling content ── */}
-        <motion.div
-          className="ab-story-content"
-          initial={{ opacity: 0, x: 48 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.15, ease: SPRING }}
         >
           {/* Eyebrow label */}
           <div className="ab-eyebrow">
@@ -58,12 +40,43 @@ export default function AboutStory() {
           </div>
 
           {/* Section heading with outline accent */}
-          <h2>
+          <h2 className="ab-story-heading">
             Born From
             <br />
             <span>Frustration</span>
           </h2>
 
+          {/* Two-line description */}
+          <p className="ab-story-header-desc">
+            We watched brilliant brands and talented people remain invisible in a crowded digital world.
+            We are here to change that by making your brand impossible to ignore.
+          </p>
+        </motion.div>
+
+        {/* ── 2. LARGE LANDSCAPE IMAGE BANNER ── */}
+        <motion.div
+          className="ab-story-banner-wrap"
+          initial={{ opacity: 0, y: 36 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.15, ease: SPRING }}
+        >
+          {/* Main agency image banner */}
+          <img
+            className="ab-story-img-landscape"
+            src="/Teampics/groupphoto.webp"
+            alt="Social Minds creative agency team at work"
+            loading="lazy"
+            draggable={false}
+          />
+        </motion.div>
+
+        {/* ── 3. CONTENT SECTION (Single-column readable layout) ── */}
+        <motion.div
+          className="ab-story-content-vertical"
+          initial={{ opacity: 0, y: 36 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.3, ease: SPRING }}
+        >
           {/* Storytelling paragraphs */}
           <p>
             Social Minds was born from a single, burning frustration: brilliant
@@ -84,12 +97,12 @@ export default function AboutStory() {
             media agency. We don&apos;t follow trends. We set them.
           </p>
 
-          {/* ── 2x2 Stats grid ── */}
+          {/* ── Stats grid ── */}
           <motion.div
             className="ab-story-stats"
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.35, ease: SPRING }}
+            transition={{ duration: 0.7, delay: 0.45, ease: SPRING }}
           >
             {STORY_STATS.map((s, i) => (
               <motion.div
@@ -97,7 +110,7 @@ export default function AboutStory() {
                 className="ab-story-stat"
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 + i * 0.07, ease: SPRING }}
+                transition={{ duration: 0.5, delay: 0.5 + i * 0.07, ease: SPRING }}
               >
                 <div className="ab-story-stat-val">{s.val}</div>
                 <div className="ab-story-stat-label">{s.label}</div>

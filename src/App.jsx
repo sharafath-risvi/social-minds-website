@@ -18,6 +18,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Pricing from './pages/Pricing';
+import Onboarding from './pages/Onboarding';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import Careers from './pages/Careers';
@@ -56,6 +57,7 @@ function AnimatedRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogDetails />} />
           <Route path="/contact" element={<Contact />} />

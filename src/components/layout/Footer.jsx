@@ -6,11 +6,33 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const footerLinks = {
+const mobileFooterLinks = {
   Company: [
     { label: 'About Us', path: '/about' },
     { label: 'Services', path: '/services' },
     { label: 'Blog', path: '/blog' },
+    { label: 'Contact', path: '/contact' },
+  ],
+  Services: [
+    { label: 'Social Media Marketing', path: '/services#social-media-marketing' },
+    { label: 'Branding', path: '/services#branding' },
+    { label: 'Personal Branding', path: '/services#personal-branding' },
+    { label: 'Reel Growth', path: '/services#reel-growth' },
+    { label: 'Content Strategy', path: '/services#content-strategy' },
+  ],
+};
+
+const desktopFooterLinks = {
+  Navigation: [
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Services', path: '/services' },
+    { label: 'Pricing', path: '/pricing' },
+  ],
+  Resources: [
+    { label: 'Onboarding', path: '/onboarding' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'Career', path: '/careers' },
     { label: 'Contact', path: '/contact' },
   ],
   Services: [
@@ -29,22 +51,76 @@ const socialLinks = [
   { label: 'Phone', path: 'tel:7200323181', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> },
 ];
 
+const renderConnectSection = (isDesktop = false) => (
+  <div style={{ minWidth: isDesktop ? '130px' : '140px' }}>
+    <h4 style={{
+      fontFamily: "'Space Grotesk', sans-serif",
+      fontSize: isDesktop ? '14px' : '12px',
+      fontWeight: 700,
+      letterSpacing: '0.15em',
+      color: '#222222',
+      marginBottom: isDesktop ? '24px' : '20px',
+      textTransform: 'uppercase',
+    }}>
+      Connect
+    </h4>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', maxWidth: '100px' }}>
+      {socialLinks.map((social) => (
+        <a
+          key={social.label}
+          href={social.path}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={social.label}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '40px',
+            height: '40px',
+            borderRadius: '10px',
+            background: '#FFFFFF',
+            border: '1px solid rgba(0,0,0,0.05)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+            color: '#555555',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#FF9C60';
+            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.boxShadow = '0 8px 20px rgba(255,156,96,0.15)';
+            e.currentTarget.style.borderColor = 'rgba(255,156,96,0.2)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = '#555555';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.03)';
+            e.currentTarget.style.borderColor = 'rgba(0,0,0,0.05)';
+          }}
+        >
+          {social.icon}
+        </a>
+      ))}
+    </div>
+  </div>
+);
+
 export default function Footer() {
   return (
     <footer
       style={{
         background: 'linear-gradient(to bottom, #FFFFFF 0%, #F8F8F8 100%)',
         borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-        padding: '70px 24px 30px',
+        padding: '70px clamp(16px, 3vw, 32px) 30px',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1380px', margin: '0 auto' }}>
         {/* Top Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-[60px] mb-12 md:mb-[60px]">
+        <div className="flex flex-col md:flex-row justify-between lg:justify-between items-start gap-12 md:gap-[60px] lg:gap-[56px] mb-12 md:mb-[60px]">
           {/* Brand */}
-          <div className="flex-1 w-full md:max-w-[340px] flex flex-col gap-5">
+          <div className="flex-1 w-full md:max-w-[340px] lg:max-w-[300px] lg:flex-[0_0_300px] flex flex-col gap-5">
             <Link to="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
               <img 
                 src="/socialmindslogowithoutbg.png" 
@@ -54,18 +130,18 @@ export default function Footer() {
             </Link>
             <p style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: '14px',
+              fontSize: 'clamp(14px, 1.05vw, 15.5px)',
               color: 'rgba(0,0,0,0.5)',
-              lineHeight: 1.6,
+              lineHeight: 1.65,
             }}>
               We mind your business digitally. A premium social media agency for brands that demand excellence and scalable growth.
             </p>
           </div>
 
-          {/* Links & Connect Section */}
-          <div className="flex flex-col md:flex-row gap-10 md:gap-[80px] w-full md:w-auto md:flex-[2_1_600px] md:justify-end">
+          {/* Links & Connect Section (Mobile & Tablet) */}
+          <div className="flex flex-col md:flex-row gap-10 md:gap-[80px] w-full md:w-auto md:flex-[2_1_600px] md:justify-end lg:hidden">
             {/* Company & Services */}
-            {Object.entries(footerLinks).map(([category, links]) => (
+            {Object.entries(mobileFooterLinks).map(([category, links]) => (
               <div key={category} style={{ minWidth: '120px' }}>
                 <h4 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
@@ -108,58 +184,57 @@ export default function Footer() {
               </div>
             ))}
 
-            {/* Connect Section */}
-            <div style={{ minWidth: '140px' }}>
-              <h4 style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '12px',
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                color: '#222222',
-                marginBottom: '20px',
-                textTransform: 'uppercase',
-              }}>
-                Connect
-              </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', maxWidth: '100px' }}>
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '10px',
-                      background: '#FFFFFF',
-                      border: '1px solid rgba(0,0,0,0.05)',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
-                      color: '#555555',
-                      transition: 'all 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#FF9C60';
-                      e.currentTarget.style.transform = 'translateY(-3px)';
-                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(255,156,96,0.15)';
-                      e.currentTarget.style.borderColor = 'rgba(255,156,96,0.2)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = '#555555';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.03)';
-                      e.currentTarget.style.borderColor = 'rgba(0,0,0,0.05)';
-                    }}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
+            {/* Connect Section (Mobile & Tablet) */}
+            {renderConnectSection(false)}
+          </div>
+
+          {/* Links & Connect Section (Desktop 5-Column Layout) */}
+          <div className="hidden lg:flex lg:flex-1 lg:justify-between lg:gap-[40px] w-full">
+            {Object.entries(desktopFooterLinks).map(([category, links]) => (
+              <div key={category} className={category === 'Services' ? 'lg:min-w-[210px]' : 'lg:min-w-[130px]'}>
+                <h4 style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  letterSpacing: '0.15em',
+                  color: '#222222',
+                  marginBottom: '24px',
+                  textTransform: 'uppercase',
+                }}>
+                  {category}
+                </h4>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px', padding: 0, margin: 0 }}>
+                  {links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        to={link.path}
+                        style={{
+                          textDecoration: 'none',
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: '15.5px',
+                          color: '#555555',
+                          transition: 'all 0.2s ease',
+                          display: 'inline-block',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#FF9C60';
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = '#555555';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            ))}
+
+            {/* Connect Section (Desktop) */}
+            {renderConnectSection(true)}
           </div>
         </div>
 

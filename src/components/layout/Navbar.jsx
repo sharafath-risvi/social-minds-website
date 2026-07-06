@@ -11,7 +11,13 @@ const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Services', path: '/services' },
-  { label: 'Pricing', path: '/pricing' },
+  { 
+    label: 'Pricing', 
+    path: '/pricing',
+    subLinks: [
+      { label: 'Onboarding', path: '/onboarding' }
+    ]
+  },
   { label: 'Blog', path: '/blog' },
   { label: 'Career', path: '/careers' },
   { label: 'Contact', path: '/contact' },
@@ -23,6 +29,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [hoveredPath, setHoveredPath] = useState(location.pathname);
+  const [hoveredDropdown, setHoveredDropdown] = useState(null);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -122,49 +129,135 @@ export default function Navbar() {
           <div
             className="hidden md:flex"
             style={{ alignItems: 'center', gap: '4px', position: 'relative' }}
-            onMouseLeave={() => setHoveredPath(location.pathname)}
+            onMouseLeave={() => {
+              setHoveredPath(location.pathname);
+              setHoveredDropdown(null);
+            }}
           >
             {navLinks.map((link) => {
-              const isHovered = hoveredPath === link.path;
+              const isSubActive = link.subLinks && link.subLinks.some(sub => location.pathname === sub.path || hoveredPath === sub.path);
+              const isHovered = hoveredPath === link.path || isSubActive || hoveredDropdown === link.label;
               return (
-                <Link
+                <div
                   key={link.path}
-                  to={link.path}
-                  onMouseEnter={() => setHoveredPath(link.path)}
-                  style={{
-                    textDecoration: 'none',
-                    padding: '8px 16px',
-                    borderRadius: '100px',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: isHovered ? 600 : 400,
-                    color: isHovered ? '#FF9C60' : '#222',
-                    letterSpacing: '0.05em',
-                    transition: 'color 0.2s ease, font-weight 0.2s ease',
-                    position: 'relative',
-                    zIndex: 1,
+                  style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+                  onMouseEnter={() => {
+                    setHoveredPath(link.path);
+                    if (link.subLinks) setHoveredDropdown(link.label);
+                  }}
+                  onMouseLeave={() => {
+                    setHoveredPath(location.pathname);
+                    if (link.subLinks) setHoveredDropdown(null);
                   }}
                 >
-                  {isHovered && (
-                    <motion.div
-                      layoutId="navbar-highlight"
-                      transition={{ 
-                        type: "tween", 
-                        ease: "easeInOut",
-                        duration: 0.6 
-                      }}
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'rgba(255, 156, 96, 0.1)',
-                        border: '1px solid rgba(255, 156, 96, 0.2)',
-                        borderRadius: '100px',
-                        zIndex: -1,
-                      }}
-                    />
-                  )}
-                  {link.label}
-                </Link>
+                  <Link
+                    to={link.path}
+                    style={{
+                      textDecoration: 'none',
+                      padding: '8px 16px',
+                      borderRadius: '100px',
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: '13px',
+                      fontWeight: isHovered ? 600 : 400,
+                      color: isHovered ? '#FF9C60' : '#222',
+                      letterSpacing: '0.05em',
+                      transition: 'color 0.2s ease, font-weight 0.2s ease',
+                      position: 'relative',
+                      zIndex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                    }}
+                  >
+                    {isHovered && (
+                      <motion.div
+                        layoutId="navbar-highlight"
+                        transition={{ 
+                          type: "tween", 
+                          ease: "easeInOut",
+                          duration: 0.6 
+                        }}
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          background: 'rgba(255, 156, 96, 0.1)',
+                          border: '1px solid rgba(255, 156, 96, 0.2)',
+                          borderRadius: '100px',
+                          zIndex: -1,
+                        }}
+                      />
+                    )}
+                    <span>{link.label}</span>
+                    {link.subLinks && (
+                      <span style={{ fontSize: '9px', opacity: 0.6, transform: hoveredDropdown === link.label ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>▼</span>
+                    )}
+                  </Link>
+
+                  {/* Dropdown Submenu */}
+                  <AnimatePresence>
+                    {link.subLinks && hoveredDropdown === link.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        style={{
+                          position: 'absolute',
+                          top: '100%',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          paddingTop: '10px',
+                          zIndex: 1001,
+                        }}
+                      >
+                        <div
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.98)',
+                            backdropFilter: 'blur(20px)',
+                            WebkitBackdropFilter: 'blur(20px)',
+                            border: '1px solid rgba(0, 0, 0, 0.08)',
+                            borderRadius: '16px',
+                            padding: '6px',
+                            boxShadow: '0 12px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(255, 140, 66, 0.1)',
+                            minWidth: '150px',
+                          }}
+                        >
+                          {link.subLinks.map((sub) => {
+                            const isCurrentSub = location.pathname === sub.path;
+                            return (
+                              <Link
+                                key={sub.path}
+                                to={sub.path}
+                                onClick={() => setHoveredDropdown(null)}
+                                style={{
+                                  display: 'block',
+                                  padding: '10px 16px',
+                                  borderRadius: '10px',
+                                  textDecoration: 'none',
+                                  fontFamily: "'Space Grotesk', sans-serif",
+                                  fontSize: '13px',
+                                  fontWeight: isCurrentSub ? 600 : 500,
+                                  color: isCurrentSub ? '#FF7030' : '#222',
+                                  transition: 'all 0.2s ease',
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background = 'rgba(255, 156, 96, 0.12)';
+                                  e.currentTarget.style.color = '#FF7030';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background = 'transparent';
+                                  e.currentTarget.style.color = isCurrentSub ? '#FF7030' : '#222';
+                                }}
+                              >
+                                {sub.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               );
             })}
           </div>
@@ -258,29 +351,61 @@ export default function Navbar() {
             }}
           >
             {navLinks.map((link, i) => {
-              const isActive = location.pathname === link.path;
+              const isActive = location.pathname === link.path || (link.subLinks && link.subLinks.some(sub => location.pathname === sub.path));
               return (
                 <motion.div
                   key={link.path}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06 }}
+                  style={{ borderBottom: '1px solid rgba(0,0,0,0.05)' }}
                 >
                   <Link
                     to={link.path}
                     style={{
-                      display: 'block',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                       padding: '14px 16px',
                       textDecoration: 'none',
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: '16px',
                       fontWeight: isActive ? 600 : 400,
                       color: isActive ? '#FF9C60' : '#222',
-                      borderBottom: '1px solid rgba(0,0,0,0.05)',
                     }}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
+                    {link.subLinks && <span style={{ fontSize: '12px', color: '#FF9C60' }}>▾</span>}
                   </Link>
+                  {link.subLinks && (
+                    <div style={{ paddingLeft: '24px', paddingBottom: '12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      {link.subLinks.map((sub) => {
+                        const isSubActive = location.pathname === sub.path;
+                        return (
+                          <Link
+                            key={sub.path}
+                            to={sub.path}
+                            onClick={() => setMenuOpen(false)}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              padding: '8px 12px',
+                              textDecoration: 'none',
+                              fontFamily: "'Space Grotesk', sans-serif",
+                              fontSize: '14px',
+                              fontWeight: isSubActive ? 600 : 400,
+                              color: isSubActive ? '#FF7030' : '#555',
+                              background: isSubActive ? 'rgba(255, 156, 96, 0.1)' : 'transparent',
+                              borderRadius: '8px',
+                            }}
+                          >
+                            <span style={{ color: '#FF7030', fontSize: '12px' }}>└──</span> {sub.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
                 </motion.div>
               );
             })}

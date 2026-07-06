@@ -28,174 +28,180 @@ function AnimatedSection({ children, delay = 0, style = {} }) {
   );
 }
 
-function BlogCard({ post, index, featured = false }) {
+function BlogCard({ post, index }) {
   const navigate = useNavigate();
   return (
     <motion.article
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
-      whileHover={{ y: -6 }}
+      transition={{ duration: 0.6, delay: (index % 3) * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+      whileHover={{ y: -10 }}
+      className="group"
       style={{
         background: '#FFFFFF',
         border: '1px solid rgba(0,0,0,0.06)',
-        borderRadius: '24px',
+        borderRadius: '28px',
         overflow: 'hidden',
         cursor: 'pointer',
-        transition: 'box-shadow 0.3s ease',
-        display: 'block',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.04)',
+        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
       }}
       onClick={() => navigate(`/blog/${post.slug || post.id}`)}
-      onHoverStart={(e) => e.target.style && (e.target.style.boxShadow = '0 20px 60px rgba(0,0,0,0.12)')}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 25px 60px rgba(0,0,0,0.12)';
+        e.currentTarget.style.borderColor = 'rgba(255,156,96,0.3)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.04)';
+        e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
+      }}
     >
-      {/* Preview thumbnail */}
+      {/* ── Large Image (~65-70% height / wide landscape style) ── */}
       <div style={{
-        height: featured ? '260px' : '180px',
+        aspectRatio: '16 / 10',
+        width: '100%',
         background: post.mainImage ? '#EAEAEA' : post.gradient,
         position: 'relative',
         overflow: 'hidden',
       }}>
         {post.mainImage ? (
           <img
-            src={urlFor(post.mainImage).width(600).height(featured ? 520 : 360).url()}
+            src={urlFor(post.mainImage).width(800).height(500).url()}
             alt={post.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
           />
         ) : (
-          /* Animated content lines placeholder */
-          [...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              style={{
-                position: 'absolute',
-                left: '10%',
-                right: '10%',
-                height: '20px',
-                background: 'rgba(255,255,255,0.08)',
-                borderRadius: '6px',
-                top: `${25 + i * 22}%`,
-              }}
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-            />
-          ))
+          <div
+            className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-108"
+            style={{ background: post.gradient, width: '100%', height: '100%' }}
+          >
+            {/* Animated content lines placeholder */}
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                style={{
+                  position: 'absolute',
+                  left: '10%',
+                  right: '10%',
+                  height: '20px',
+                  background: 'rgba(255,255,255,0.15)',
+                  borderRadius: '6px',
+                  top: `${28 + i * 22}%`,
+                }}
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+              />
+            ))}
+          </div>
         )}
 
-        {/* Category tag */}
+        {/* Category Badge on Top-Left */}
         <div style={{
           position: 'absolute',
-          top: '16px',
-          left: '16px',
-          padding: '5px 12px',
-          background: 'rgba(0,0,0,0.5)',
-          backdropFilter: 'blur(10px)',
+          top: '20px',
+          left: '20px',
+          padding: '6px 16px',
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(12px)',
           borderRadius: '100px',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.08)',
+          border: '1px solid rgba(255,255,255,0.5)',
+          zIndex: 2,
         }}>
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '10px',
+            fontSize: '11px',
             fontWeight: 700,
-            letterSpacing: '0.1em',
-            color: post.categoryColor,
+            letterSpacing: '0.12em',
+            color: post.categoryColor || '#FF9C60',
+            textTransform: 'uppercase',
           }}>
-            {post.category.toUpperCase()}
-          </span>
-        </div>
-
-        {/* Read time */}
-        <div style={{
-          position: 'absolute',
-          bottom: '16px',
-          right: '16px',
-          padding: '4px 10px',
-          background: 'rgba(0,0,0,0.5)',
-          backdropFilter: 'blur(10px)',
-          borderRadius: '100px',
-        }}>
-          <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '10px',
-            color: 'rgba(255,255,255,0.7)',
-          }}>
-            {post.readTime}
+            {post.category}
           </span>
         </div>
       </div>
 
-      {/* Content */}
-      <div style={{ padding: '28px 28px 32px' }}>
-        <div style={{ marginBottom: '12px' }}>
+      {/* ── Content Area ── */}
+      <div style={{ padding: '32px 30px 36px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+        {/* Author / Published Date */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '11px',
-            color: '#838383',
-            letterSpacing: '0.05em',
+            fontSize: '12px',
+            fontWeight: 600,
+            color: '#FF9C60',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
           }}>
             {post.date}
           </span>
+          <span style={{ color: '#D0D0D0' }}>•</span>
+          <span style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '12px',
+            color: '#888888',
+          }}>
+            {post.readTime}
+          </span>
         </div>
 
-        <h3 style={{
+        {/* Title (Max 2 lines) */}
+        <h3 className="group-hover:text-[#FF9C60] transition-colors duration-300" style={{
           fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: featured ? '22px' : '17px',
+          fontSize: 'clamp(20px, 1.3vw, 24px)',
           fontWeight: 700,
           color: '#0A0A0A',
-          lineHeight: 1.3,
-          marginBottom: '10px',
-        }}>
-          {post.title}
-        </h3>
-
-        <p style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '14px',
-          color: '#838383',
-          lineHeight: 1.7,
-          marginBottom: '20px',
+          lineHeight: 1.35,
+          marginBottom: '16px',
           display: '-webkit-box',
           WebkitLineClamp: 2,
           WebkitBoxOrient: 'vertical',
           overflow: 'hidden',
         }}>
+          {post.title}
+        </h3>
+
+        {/* Short Description (Max 2-3 lines) */}
+        <p style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '15.5px',
+          color: '#666666',
+          lineHeight: 1.7,
+          marginBottom: '28px',
+          display: '-webkit-box',
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+          flex: 1,
+        }}>
           {post.excerpt}
         </p>
 
-        {/* Tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
-          {post.tags.map((tag) => (
-            <span key={tag} style={{
-              padding: '3px 10px',
-              background: 'rgba(0,0,0,0.04)',
-              border: '1px solid rgba(0,0,0,0.06)',
-              borderRadius: '100px',
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '10px',
-              color: '#838383',
-              letterSpacing: '0.05em',
-            }}>
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Read more */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* Read Article CTA */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingTop: '20px',
+          borderTop: '1px solid rgba(0,0,0,0.06)',
+          marginTop: 'auto',
+        }}>
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '13px',
             fontWeight: 700,
-            color: '#FF9C60',
-            letterSpacing: '0.06em',
-          }}>
-            READ ARTICLE
+            color: '#0A0A0A',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }} className="group-hover:text-[#FF9C60] transition-colors duration-300">
+            Read Article
           </span>
-          <motion.span
-            animate={{ x: [0, 4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            style={{ color: '#FF9C60', fontSize: '14px' }}
-          >
-            →
-          </motion.span>
+          <span className="transform group-hover:translate-x-2 transition-transform duration-300 inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#F5F5F3] group-hover:bg-[#FF9C60] group-hover:text-white text-[#FF9C60] font-bold text-sm">
+            ↗
+          </span>
         </div>
       </div>
     </motion.article>
@@ -269,12 +275,15 @@ export default function Blog() {
     ? currentPosts
     : currentPosts.filter(p => p.category === activeCategory);
 
-  const featuredPost = currentPosts.find(p => p.featured) || currentPosts[0];
-  const remainingPosts = currentPosts.filter(p => p.id !== (featuredPost?.id));
+  // Combine static categories with any dynamic categories found in posts
+  const allCategories = ['All', ...new Set([
+    ...categories.filter(c => c !== 'All'),
+    ...currentPosts.map(p => p.category).filter(Boolean)
+  ])];
 
   return (
-    <main>
-      {/* ── HERO ── */}
+    <main style={{ background: '#F5F5F3', minHeight: '100vh' }}>
+      {/* ── 1. HERO SECTION ── */}
       <section style={{
         background: '#000',
         padding: 'clamp(8rem, 15vw, 12rem) 24px clamp(4rem, 8vw, 6rem)',
@@ -327,53 +336,41 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ── FEATURED POST ── */}
-      <section style={{ background: '#F5F5F3', padding: 'clamp(4rem, 8vw, 6rem) 24px', minHeight: loading ? '600px' : 'auto' }}>
+      {/* ── 2. CATEGORIES + 3. BLOG CARDS GRID ── */}
+      <section style={{ padding: 'clamp(4rem, 8vw, 7rem) 24px' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          {/* Categories Horizontal Filter Tabs */}
           <AnimatedSection>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px' }}>
-              <div style={{ width: '32px', height: '1px', background: '#FF9C60' }} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', letterSpacing: '0.2em', color: '#FF9C60', fontWeight: 700 }}>
-                FEATURED
-              </span>
-            </div>
-          </AnimatedSection>
-
-          {loading ? (
-            <div style={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '50%', border: '3px solid rgba(255,156,96,0.2)', borderTopColor: '#FF9C60', animation: 'spin 1s linear infinite' }} />
-              <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-            </div>
-          ) : featuredPost ? (
-            <AnimatedSection delay={0.1}>
-              <BlogCard post={featuredPost} index={0} featured />
-            </AnimatedSection>
-          ) : null}
-        </div>
-      </section>
-
-      {/* ── CATEGORY FILTER + ARTICLES ── */}
-      <section style={{ background: '#0A0A0A', padding: 'clamp(4rem, 8vw, 6rem) 24px' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          {/* Categories */}
-          <AnimatedSection>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '56px' }}>
-              {categories.map((cat) => (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginBottom: '64px' }}>
+              {allCategories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   style={{
-                    padding: '10px 20px',
+                    padding: '12px 28px',
                     borderRadius: '100px',
-                    border: `1px solid ${activeCategory === cat ? 'rgba(255, 156, 96, 0.4)' : 'rgba(255,255,255,0.1)'}`,
-                    background: activeCategory === cat ? 'rgba(255, 156, 96, 0.1)' : 'transparent',
+                    border: `1px solid ${activeCategory === cat ? '#0A0A0A' : 'rgba(0,0,0,0.08)'}`,
+                    background: activeCategory === cat ? '#0A0A0A' : '#FFFFFF',
                     fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '13px',
-                    fontWeight: activeCategory === cat ? 600 : 400,
-                    color: activeCategory === cat ? '#FF9C60' : 'rgba(255,255,255,0.5)',
+                    fontSize: '14px',
+                    fontWeight: activeCategory === cat ? 700 : 500,
+                    color: activeCategory === cat ? '#FFFFFF' : '#555555',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    letterSpacing: '0.05em',
+                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                    letterSpacing: '0.04em',
+                    boxShadow: activeCategory === cat ? '0 8px 25px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.02)',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (activeCategory !== cat) {
+                      e.currentTarget.style.borderColor = '#FF9C60';
+                      e.currentTarget.style.color = '#0A0A0A';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (activeCategory !== cat) {
+                      e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)';
+                      e.currentTarget.style.color = '#555555';
+                    }
                   }}
                 >
                   {cat}
@@ -382,11 +379,11 @@ export default function Blog() {
             </div>
           </AnimatedSection>
 
-          {/* Articles grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
+          {/* 3. Articles Grid (3 per row desktop, 2 tablet, 1 mobile) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {loading ? (
-              [...Array(3)].map((_, i) => (
-                <div key={i} style={{ height: '400px', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', animation: 'pulse 1.5s infinite' }} />
+              [...Array(6)].map((_, i) => (
+                <div key={i} style={{ height: '520px', background: 'rgba(0,0,0,0.04)', borderRadius: '28px', animation: 'pulse 1.5s infinite' }} />
               ))
             ) : filteredPosts.map((post, i) => (
               <BlogCard key={post.id} post={post} index={i} />
@@ -396,64 +393,7 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ── NEWSLETTER CTA ── */}
-      <section style={{ background: '#F5F5F3', padding: 'clamp(5rem, 10vw, 7rem) 24px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-          <AnimatedSection>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '24px' }}>
-              <div style={{ width: '32px', height: '1px', background: '#FF9C60' }} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', letterSpacing: '0.2em', color: '#FF9C60', fontWeight: 700 }}>
-                STAY AHEAD
-              </span>
-              <div style={{ width: '32px', height: '1px', background: '#FF9C60' }} />
-            </div>
-
-            <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 5rem)', color: '#0A0A0A', lineHeight: 0.92, marginBottom: '16px' }}>
-              GET THE WEEKLY<br />
-              <span style={{ WebkitTextStroke: '2px #0A0A0A', color: 'transparent' }}>PLAYBOOK</span>
-            </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px', color: '#838383', marginBottom: '40px', lineHeight: 1.7 }}>
-              Every week: one viral strategy, one content tip, one growth insight. Straight to your inbox.
-            </p>
-
-            <div style={{ display: 'flex', gap: '12px', maxWidth: '480px', margin: '0 auto', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                style={{
-                  flex: 1,
-                  minWidth: '240px',
-                  padding: '14px 20px',
-                  background: '#FFFFFF',
-                  border: '1px solid rgba(0,0,0,0.12)',
-                  borderRadius: '100px',
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '15px',
-                  color: '#0A0A0A',
-                  outline: 'none',
-                }}
-              />
-              <button style={{
-                padding: '14px 28px',
-                background: 'linear-gradient(135deg, #FF9C60, #FF7030)',
-                border: 'none',
-                borderRadius: '100px',
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '14px',
-                fontWeight: 700,
-                color: '#000',
-                letterSpacing: '0.06em',
-                cursor: 'pointer',
-                boxShadow: '0 0 24px rgba(255, 156, 96, 0.35)',
-              }}>
-                Subscribe ↗
-              </button>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ── FINAL CTA ── */}
+      {/* ── 4. READY TO GO VIRAL CTA ── */}
       <FinalCTA />
     </main>
   );
