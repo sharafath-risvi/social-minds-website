@@ -85,7 +85,7 @@ const CLIENTS = [
     start: 0, 
     end: 14000, 
     highlight: 'B2B & Retail Expansion Strategy',
-    logo: '/clientlogos/simco.webp'
+    logo: '/logos/simco.jpg'
   },
   { 
     id: 11, 

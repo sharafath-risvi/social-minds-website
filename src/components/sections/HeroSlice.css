@@ -127,6 +127,8 @@
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: clamp(28px, 4.2vh, 48px);
+  position: relative;
+  z-index: 30;
 }
 
 /* Primary — black pill, turns orange on hover */
@@ -144,6 +146,10 @@
   text-transform: uppercase;
   text-decoration: none;
   border-radius: 100px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: auto;
   transition:
     background 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
@@ -185,6 +191,10 @@
   text-decoration: none;
   border-radius: 100px;
   border: 1.5px solid rgba(10, 10, 10, 0.18);
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: auto;
   transition:
     border-color 0.22s ease,
     color 0.22s ease,

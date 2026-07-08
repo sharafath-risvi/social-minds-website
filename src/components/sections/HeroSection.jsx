@@ -336,23 +336,23 @@ export default function HeroSection() {
       >
         {/* ── WHITE SCROLL SECTION BACKGROUND LAYERS ── */}
         {/* Very subtle light grid — barely visible on white */}
-        <div className="grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.06, zIndex: 0 }} />
+        <div className="grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.06, zIndex: 0, pointerEvents: 'none' }} />
 
         {/* Warm orange ambient glow — works on white too */}
         <motion.div style={{
           position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)',
           width: '700px', height: '500px',
           background: 'radial-gradient(ellipse, rgba(255, 156, 96, 0.08) 0%, transparent 60%)',
-          x: glowX, y: glowY, zIndex: 0, willChange: 'transform',
+          x: glowX, y: glowY, zIndex: 0, pointerEvents: 'none', willChange: 'transform',
         }} />
 
         {/* Subtle bottom warmth */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', background: 'linear-gradient(0deg, rgba(255,156,96,0.03) 0%, transparent 100%)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', background: 'linear-gradient(0deg, rgba(255,156,96,0.03) 0%, transparent 100%)', zIndex: 0, pointerEvents: 'none' }} />
 
         {/* Particles — orange only, no white (invisible on white bg) */}
         {particles.filter(p => p.color !== '#ffffff').map((p) => (
           <motion.div key={p.id}
-            style={{ position: 'absolute', left: `${p.x}%`, top: `${p.y}%`, width: `${p.size}px`, height: `${p.size}px`, borderRadius: '50%', background: p.color, zIndex: 1, willChange: 'transform, opacity' }}
+            style={{ position: 'absolute', left: `${p.x}%`, top: `${p.y}%`, width: `${p.size}px`, height: `${p.size}px`, borderRadius: '50%', background: p.color, zIndex: 1, pointerEvents: 'none', willChange: 'transform, opacity' }}
             animate={{ y: [0, -60, 0], opacity: [0, p.opacity * 0.4, 0] }}
             transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: 'linear' }}
           />
@@ -471,7 +471,7 @@ export default function HeroSection() {
         }}>
 
           {/* ── TOP CONTENT ── */}
-          <div style={{ pointerEvents: 'auto', paddingTop: '8vh' }}>
+          <div style={{ pointerEvents: 'none', paddingTop: '8vh' }}>
             <div ref={topTextRef} style={{ textAlign: 'center', opacity: 0, willChange: 'transform, opacity', transform: 'translateZ(0)' }}>
               <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(36px, 5vw, 58px)', color: '#0a0a0a', lineHeight: 0.95, letterSpacing: '0.02em', marginBottom: '10px' }}>
                 Turn Attention Into <span style={{ color: '#FF7030' }}>Growth.</span>
@@ -483,7 +483,7 @@ export default function HeroSection() {
           </div>
 
           {/* ── PHONE LAYER ── */}
-          <div style={{ pointerEvents: 'auto', position: 'relative' }}>
+          <div style={{ pointerEvents: 'none', position: 'relative' }}>
             <div ref={phoneRef} style={{
               position: 'relative',
               opacity: 0, willChange: 'transform, opacity', transform: 'translateZ(0)'

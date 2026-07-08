@@ -321,18 +321,9 @@ export default function Blog() {
             transition={{ duration: 0.9, delay: 0.4 }}
             style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3.5rem, 10vw, 11rem)', lineHeight: 0.9, marginBottom: '32px' }}
           >
-            <span style={{ color: '#FFFFFF' }}>INSIGHTS</span><br />
-            <span className="gradient-text-orange glow-text-orange">& STRATEGY</span>
+            <span style={{ color: '#FFFFFF' }}>SOCIAL MINDS BLOG</span><br />
+            <span style={{ color: '#FF9C60' }}>COMING SOON</span>
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(15px, 1.5vw, 18px)', color: 'rgba(255,255,255,0.45)', maxWidth: '500px', lineHeight: 1.7 }}
-          >
-            The playbook for brands that refuse to be invisible. Real strategies, real data, real results.
-          </motion.p>
         </div>
       </section>
 

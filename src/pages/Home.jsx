@@ -38,8 +38,8 @@ export default function Home() {
       {/* Success Stories Section */}
       <SuccessStories />
 
-      {/* 9. What Brands Say Section */}
-      <Testimonials />
+      {/* 9. What Brands Say Section — Temporarily hidden until real client testimonials are ready */}
+      {/* <Testimonials /> */}
 
       {/* 10. CTA Section */}
       <FinalCTA />

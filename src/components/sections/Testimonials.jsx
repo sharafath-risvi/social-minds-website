@@ -6,47 +6,45 @@ import { motion, useInView } from 'framer-motion';
 // ========================================
 const writtenReviews = [
   {
-    name: 'Karan Patel',
-    company: 'TechFlow Solutions',
+    name: 'Raja',
     rating: 5,
-    text: '"Social Minds completely revamped our digital presence. Within 3 months, our inbound leads doubled, and our brand authority skyrocketed. They truly understand modern performance marketing."',
+    text: '"The video editing and video production team at Social Minds is excellent. They created high-quality videos that improved our social media presence. Very creative, responsive, and easy to work with. Great experience overall."',
   },
   {
-    name: 'Simran Kaur',
-    company: 'Glow Cosmetics',
+    name: 'Mohamed',
     rating: 5,
-    text: '"The team’s creative strategy and data-driven approach are unmatched. They didn’t just run ads; they built a community around our brand. Absolutely exceptional experience!"',
+    text: '"Social Minds helped us with performance marketing and branding. Their team understands business goals and delivers effective campaigns. If you\'re looking for reliable digital marketing services in Nungambakkam, Chennai, I highly recommend them."',
   },
   {
-    name: 'Rahul Desai',
-    company: 'Urban Fit Apparel',
+    name: 'Abishek',
     rating: 5,
-    text: '"Working with Social Minds has been the best ROI decision we made this year. Their execution is flawless, and the transparent communication keeps us always in the loop."',
+    text: '"Very happy with the service from Social Minds. Their content marketing strategy and creative designs increased our online visibility. Professional team, quick support, and quality work throughout the project."',
   },
   {
-    name: 'Emily Chen',
-    company: 'NextGen SaaS',
+    name: 'Thowfik',
     rating: 5,
-    text: '"We struggled with lead generation for months. Social Minds stepped in, optimized our funnels, and our conversion rate jumped by 400%. The results speak for themselves."',
+    text: '"Working with Social Minds has been a great experience. Their digital marketing, video production, and branding services exceeded my expectations. The team is knowledgeable, friendly, and focused on delivering results."',
   },
   {
-    name: 'David Okafor',
-    company: 'Apex Fitness',
+    name: 'Priya',
     rating: 5,
-    text: '"What sets them apart is their speed and attention to detail. Every campaign feels custom-tailored, and they are constantly A/B testing to ensure we get the lowest CPA possible."',
+    text: '"Excellent service and great support. Social Minds helped us build our brand identity and improve our online presence through effective digital marketing. I would definitely recommend them."',
   },
   {
-    name: 'Sophia Martinez',
-    company: 'Luxe Interiors',
+    name: 'Karthik',
     rating: 5,
-    text: '"They have a brilliant eye for aesthetics. Not only did our ad performance improve, but our entire brand perception became significantly more premium. Highly recommended."',
+    text: '"The performance marketing campaigns managed by Social Minds generated quality enquiries for our business. They are transparent, professional, and always available to help. Great team to work with."',
   },
   {
-    name: 'Michael Chang',
-    company: 'FinTech Innovators',
+    name: 'Suresh',
     rating: 5,
-    text: '"Their ability to take complex B2B concepts and turn them into highly engaging, viral content is incredible. Our LinkedIn presence has never been stronger."',
-  }
+    text: '"I was impressed by the quality of their video editing and content marketing services. The team delivered creative content on time and helped our business reach more customers. Highly recommended."',
+  },
+  {
+    name: 'Naveen',
+    rating: 5,
+    text: '"Social Minds is a trusted digital marketing agency in Nungambakkam, Chennai. Their expertise in branding, performance marketing, content marketing, and video production makes them a great partner for any business looking to grow."',
+  },
 ];
 
 // ========================================
@@ -97,17 +95,19 @@ function ReviewCard({ review }) {
           fontSize: '18px',
           fontWeight: 700,
           color: '#111',
-          marginBottom: '4px',
+          marginBottom: review.company ? '4px' : '0',
         }}>
           {review.name}
         </div>
-        <div style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '14px',
-          color: '#888',
-        }}>
-          {review.company}
-        </div>
+        {review.company && (
+          <div style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '14px',
+            color: '#888',
+          }}>
+            {review.company}
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -129,16 +129,18 @@ export default function Testimonials() {
     writtenReviews[4],
     writtenReviews[5],
     writtenReviews[6],
+    writtenReviews[7],
   ];
 
   const row2Data = [
-    writtenReviews[3],
     writtenReviews[4],
     writtenReviews[5],
     writtenReviews[6],
+    writtenReviews[7],
     writtenReviews[0],
     writtenReviews[1],
     writtenReviews[2],
+    writtenReviews[3],
   ];
 
   return (

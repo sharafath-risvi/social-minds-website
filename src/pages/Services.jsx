@@ -347,8 +347,8 @@ export default function Services() {
         );
       })}
 
-      {/* ── PROCESS ── */}
-      <ProcessTimeline />
+      {/* ── PROCESS ("5 Steps to Your Growth") — Temporarily commented out per request ── */}
+      {/* <ProcessTimeline /> */}
 
 
 

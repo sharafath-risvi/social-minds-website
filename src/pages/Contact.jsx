@@ -228,6 +228,7 @@ export default function Contact() {
   const [formErrors, setFormErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   // Map scroll-lock fix: overlay blocks iframe scroll capture until user clicks
   const [mapUnlocked, setMapUnlocked] = useState(false);
 
@@ -271,17 +272,65 @@ export default function Contact() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const serviceLabels = {
+    'social-media': 'Social Media Marketing',
+    'branding': 'Brand Identity & Design',
+    'personal': 'Personal Branding',
+    'reels': 'Reel & Video Growth',
+    'content': 'Content Strategy',
+    'performance': 'Performance Marketing',
+    'full': 'Full Brand Package',
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError('');
+
     if (!validateForm()) return;
 
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setSubmitError('Form service is not configured. Missing access key.');
+      return;
+    }
+
     setSubmitLoading(true);
-    setTimeout(() => {
+
+    try {
+      const payload = {
+        access_key: accessKey,
+        Name: formData.name,
+        Email: formData.email,
+        'Phone Number': formData.phone,
+        'Company / Business Name': formData.brand || 'Not provided',
+        'Service Interested In': serviceLabels[formData.service] || formData.service || 'Not provided',
+        Message: formData.message,
+      };
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (response.status === 200 && result.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', phone: '', brand: '', service: '', message: '' });
+        setFormErrors({});
+        setTimeout(() => setSubmitted(false), 6000);
+      } else {
+        setSubmitError(result.message || 'Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      setSubmitError('Failed to send message. Please check your network connection and try again.');
+    } finally {
       setSubmitLoading(false);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', brand: '', service: '', message: '' });
-      setTimeout(() => setSubmitted(false), 6000);
-    }, 1600);
+    }
   };
 
   // Inject CSS keyframes once
@@ -888,7 +937,7 @@ export default function Contact() {
                     {/* Submit button */}
                     <motion.button
                       type="submit"
-                      whileHover={{ scale: 1.02, boxShadow: '0 0 56px rgba(255,112,48,0.48), 0 14px 36px rgba(255,112,48,0.28)' }}
+                      whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       disabled={submitLoading}
                       style={{
@@ -900,7 +949,7 @@ export default function Contact() {
                         fontFamily: "'Space Grotesk', sans-serif",
                         fontSize: '15px', fontWeight: 700, color: '#fff',
                         letterSpacing: '0.08em', cursor: 'none',
-                        boxShadow: '0 0 28px rgba(255,112,48,0.28), 0 6px 20px rgba(255,112,48,0.18)',
+                        boxShadow: 'none',
                         marginTop: '8px',
                       }}
                     >
@@ -915,6 +964,18 @@ export default function Contact() {
                         </span>
                       ) : 'SEND MESSAGE ↗'}
                     </motion.button>
+
+                    {submitError && (
+                      <div style={{
+                        color: '#EF4444',
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: '13px',
+                        textAlign: 'center',
+                        marginTop: '2px',
+                      }}>
+                        {submitError}
+                      </div>
+                    )}
 
                     <p style={{
                       fontFamily: "'Inter', sans-serif",

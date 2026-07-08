@@ -24,7 +24,7 @@ const row2 = [
   { label: 'Bag House', logo: '/logos/baghouse.jpeg' },
   { label: 'Rahman Plaza', logo: '/clientlogos/rahmanplaza.png' },
   { label: 'Princess Park', logo: '/logos/princesspark.jpeg' },
-  { label: 'Simco', logo: '/clientlogos/simco.png' },
+  { label: 'Simco', logo: '/logos/simco.jpg' },
   { label: 'SS Footwear', logo: '/logos/sssignature.jpeg' },
 ];
 

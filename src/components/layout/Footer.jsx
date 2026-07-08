@@ -4,7 +4,6 @@
 // ========================================
 
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const mobileFooterLinks = {
   Company: [
@@ -256,48 +255,8 @@ export default function Footer() {
             gap: '6px',
             flexWrap: 'wrap',
           }}>
-            © 2026 Social Minds. All rights reserved. <span style={{ opacity: 0.5 }}>|</span> Developed by 
-            <a 
-              href="https://thajiratechworks.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              style={{
-                color: '#888888',
-                textDecoration: 'none',
-                fontWeight: 600,
-                transition: 'color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#FF9C60'}
-              onMouseLeave={(e) => e.currentTarget.style.color = '#888888'}
-            >
-              Thajira Techworks
-            </a>
+            © 2026 Social Minds. All rights reserved.
           </p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '12px',
-              color: '#aaaaaa',
-              letterSpacing: '0.05em',
-            }}>
-              CRAFTED WITH
-            </span>
-            <motion.span
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              style={{ color: '#FF9C60', fontSize: '14px' }}
-            >
-              ◈
-            </motion.span>
-            <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '12px',
-              color: '#aaaaaa',
-              letterSpacing: '0.05em',
-            }}>
-              FOR BRANDS THAT DARE
-            </span>
-          </div>
         </div>
       </div>
     </footer>

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { PortableText } from '@portabletext/react';
 import { client, urlFor } from '../lib/sanity';
-import FinalCTA from '../components/sections/FinalCTA';
+import { blogPosts } from '../data/blogPosts';
 
 // Custom Portable Text components to match site typography
 const ptComponents = {
@@ -83,21 +83,31 @@ export default function BlogDetails() {
           *[_type == "post" && slug.current == $slug][0]{
             title,
             mainImage,
-            publishedAt,
             body,
-            "authorName": author->name,
-            "categories": categories[]->title
+            seoTitle,
+            seoDescription,
+            excerpt
           }
         `;
         const data = await client.fetch(query, { slug });
         if (data) {
           setPost(data);
         } else {
-          setError("Post not found");
+          const fallbackPost = blogPosts.find(p => p.id === slug || p.slug === slug);
+          if (fallbackPost) {
+            setPost(fallbackPost);
+          } else {
+            setError("Post not found");
+          }
         }
       } catch (err) {
         console.error("Error fetching blog post:", err);
-        setError("Failed to load blog post");
+        const fallbackPost = blogPosts.find(p => p.id === slug || p.slug === slug);
+        if (fallbackPost) {
+          setPost(fallbackPost);
+        } else {
+          setError("Failed to load blog post");
+        }
       } finally {
         setLoading(false);
       }
@@ -105,6 +115,64 @@ export default function BlogDetails() {
 
     fetchPost();
   }, [slug]);
+
+  // Handle Dynamic SEO Meta Title and Description
+  useEffect(() => {
+    if (!post) return;
+
+    // Save default site values for cleanup when leaving page
+    const defaultTitle = 'Social Minds | Premium Digital Growth Agency';
+    const defaultDesc = 'SOCIAL MINDS is a premium Gen-Z social media agency specializing in Instagram marketing, reel growth, branding, and content strategy. We mind your business digitally.';
+
+    // 1. Read seoTitle from Sanity, fallback to blog title
+    const title = post.seoTitle || post.title || defaultTitle;
+    document.title = title;
+
+    // 2. Read seoDescription from Sanity, fallback to blog excerpt
+    const desc = post.seoDescription || post.excerpt || defaultDesc;
+
+    // Remove any duplicate meta description tags to avoid duplicate metadata
+    const existingDescTags = document.querySelectorAll('meta[name="description"]');
+    existingDescTags.forEach((tag, index) => {
+      if (index > 0) tag.remove();
+    });
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', desc);
+
+    // Also update Open Graph tags dynamically without creating duplicates
+    const updateOgTag = (property, content) => {
+      const tags = document.querySelectorAll(`meta[property="${property}"], meta[name="${property}"]`);
+      tags.forEach((tag, index) => {
+        if (index > 0) tag.remove();
+      });
+      let tag = tags[0];
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(property.startsWith('og:') ? 'property' : 'name', property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    if (title) updateOgTag('og:title', title);
+    if (desc) updateOgTag('og:description', desc);
+
+    // Cleanup: restore default title and meta description when leaving the blog details page
+    return () => {
+      document.title = defaultTitle;
+      if (metaDesc) {
+        metaDesc.setAttribute('content', defaultDesc);
+      }
+      updateOgTag('og:title', 'SOCIAL MINDS — We Mind Your Business Digitally');
+      updateOgTag('og:description', 'Looking for a trusted digital marketing agency? Social Minds helps businesses grow with social media marketing, branding, Meta Ads, SEO, and content marketing.');
+    };
+  }, [post]);
 
   if (loading) {
     return (
@@ -139,20 +207,8 @@ export default function BlogDetails() {
     );
   }
 
-  // Format date
-  const formattedDate = new Date(post.publishedAt || new Date()).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
-
-  // Compute reading time
-  const textContent = (post.body || []).map(block => block.children ? block.children.map(c => c.text).join(' ') : '').join(' ');
-  const wordCount = textContent.split(/\s+/).filter(Boolean).length;
-  const readTime = Math.max(1, Math.round(wordCount / 200)) + ' min read';
-
   return (
-    <main style={{ background: '#F5F5F3', minHeight: '100vh', paddingBottom: '2rem' }}>
+    <main style={{ background: '#F5F5F3', minHeight: '100vh', paddingBottom: '6rem' }}>
       {/* ── TOP NAV / BACK BUTTON ── */}
       <div style={{ maxWidth: '1360px', margin: '0 auto', padding: 'clamp(110px, 14vw, 150px) 24px 32px' }}>
         <motion.div
@@ -226,116 +282,29 @@ export default function BlogDetails() {
         </motion.div>
       </section>
 
-      {/* ── 2. BELOW IMAGE: BADGE, TITLE, AUTHOR, DATE, READ TIME, CONTENT ── */}
-      <section style={{ maxWidth: '960px', margin: '-70px auto 0', position: 'relative', zIndex: 10, padding: '0 24px' }}>
+      {/* ── 2. BELOW IMAGE: TITLE AND CONTENT ── */}
+      <section style={{ maxWidth: '820px', margin: '48px auto 0', position: 'relative', zIndex: 10, padding: '0 24px' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          style={{
-            background: '#FFFFFF',
-            borderRadius: '32px',
-            padding: 'clamp(36px, 6vw, 64px)',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.06)',
-            border: '1px solid rgba(0,0,0,0.05)',
-          }}
         >
-          {/* Categories Badge */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '24px' }}>
-            {(post.categories || ['INSIGHTS']).map((cat, i) => (
-              <span key={i} style={{
-                padding: '6px 16px',
-                background: 'rgba(255,156,96,0.12)',
-                border: '1px solid rgba(255,156,96,0.3)',
-                borderRadius: '100px',
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '11px',
-                fontWeight: 700,
-                color: '#FF9C60',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-              }}>
-                {cat}
-              </span>
-            ))}
-          </div>
-
           {/* Large Title */}
           <h1 style={{
             fontFamily: "'Bebas Neue', sans-serif",
             fontSize: 'clamp(2.8rem, 6vw, 5.2rem)',
             lineHeight: 0.92,
             color: '#0A0A0A',
-            marginBottom: '32px',
+            marginBottom: '40px',
+            paddingBottom: '32px',
+            borderBottom: '1px solid rgba(0,0,0,0.08)',
             letterSpacing: '0.01em',
           }}>
             {post.title}
           </h1>
 
-          {/* Author, Date, Read Time Metadata Bar */}
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: '24px',
-            paddingBottom: '32px',
-            borderBottom: '1px solid rgba(0,0,0,0.08)',
-            marginBottom: '40px',
-          }}>
-            {post.authorName && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #FF9C60, #FF5E00)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#000',
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: '16px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                }}>
-                  {post.authorName.charAt(0)}
-                </div>
-                <div>
-                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '15px', fontWeight: 700, color: '#0A0A0A' }}>
-                    {post.authorName}
-                  </div>
-                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#888888' }}>
-                    Author
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {post.authorName && <div style={{ width: '1px', height: '32px', background: 'rgba(0,0,0,0.1)' }} />}
-
-            <div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '15px', fontWeight: 700, color: '#0A0A0A' }}>
-                {formattedDate}
-              </div>
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#888888' }}>
-                Published Date
-              </div>
-            </div>
-
-            <div style={{ width: '1px', height: '32px', background: 'rgba(0,0,0,0.1)' }} />
-
-            <div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '15px', fontWeight: 700, color: '#FF9C60' }}>
-                {readTime}
-              </div>
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: '#888888' }}>
-                Reading Time
-              </div>
-            </div>
-          </div>
-
           {/* Blog Content (Rich text formatting, headings, lists, quotes) */}
-          <div style={{ maxWidth: '820px', margin: '0 auto' }}>
+          <div>
             {post.body ? (
               <div className="portable-text-container">
                 <PortableText value={post.body} components={ptComponents} />
@@ -348,11 +317,6 @@ export default function BlogDetails() {
           </div>
         </motion.div>
       </section>
-
-      {/* ── 3. READY TO GO VIRAL CTA ── */}
-      <div style={{ marginTop: '60px' }}>
-        <FinalCTA />
-      </div>
     </main>
   );
 }
