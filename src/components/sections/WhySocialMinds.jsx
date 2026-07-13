@@ -63,14 +63,6 @@ function buildQueue(activeId) {
   return [(activeId + 1) % N, (activeId + 2) % N, (activeId + 3) % N];
 }
 
-/* Small arrow SVG */
-const ArrowIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12h14M12 5l7 7-7 7" />
-  </svg>
-);
-
 const ChevronLeft = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -229,17 +221,6 @@ export default function WhySocialMinds() {
 
                 {/* Dynamic description */}
                 <p className="wsm-desc">{active.description}</p>
-
-                {/* CTA */}
-                <motion.a
-                  href="#contact"
-                  className="wsm-cta"
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Start Growing Today
-                  <ArrowIcon />
-                </motion.a>
               </motion.div>
             </AnimatePresence>
 

@@ -693,7 +693,7 @@ export default function Contact() {
                   icon={<Mail size={20} color="#FF7030" />} label="Email Us"
                   value="socialminds.official@gmail.com"
                   sub="We reply within 24 hours"
-                  href="mailto:socialminds.official@gmail.com"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=socialminds.official@gmail.com"
                   delay={0.1}
                 />
                 <InfoRow
