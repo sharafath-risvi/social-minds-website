@@ -707,6 +707,7 @@ export default function Contact() {
                   icon={<MapPin size={20} color="#FF7030" />} label="Location"
                   value="Chennai, Tamil Nadu"
                   sub="2nd Floor, Lokesh Towers, Nungambakkam"
+                  href="https://www.google.com/maps?q=Lokesh+Towers,+No.37/28,+Kodambakkam+High+Rd,+Nungambakkam,+Chennai,+Tamil+Nadu+600034"
                   delay={0.26}
                 />
                 <InfoRow
@@ -1143,13 +1144,11 @@ export default function Contact() {
                   icon: <Mail size={22} color="#FF7030" />,
                   label: 'Email',
                   lines: ['socialminds.official@gmail.com', 'Reply within 24 hours'],
-                  href: 'mailto:socialminds.official@gmail.com',
                 },
                 {
                   icon: <Phone size={22} color="#FF7030" />,
                   label: 'Phone',
                   lines: ['+91 72003 23181', 'Mon – Sat: 9:00 AM – 6:00 PM'],
-                  href: 'tel:+917200323181',
                 },
                 {
                   icon: <CheckCircle size={22} color="#22C55E" />,
@@ -1157,62 +1156,43 @@ export default function Contact() {
                   lines: ['Currently Available', 'WhatsApp 24 / 7'],
                   green: true,
                 },
-              ].map(({ icon, label, lines, href, green }) => {
-                /* Use plain <a> / <div> — avoids Framer Motion overhead per card */
-                const Tag = href ? 'a' : 'div';
-                const tagProps = href
-                  ? { href, target: '_blank', rel: 'noopener noreferrer' }
-                  : {};
-                return (
-                  <Tag
-                    key={label}
-                    {...tagProps}
-                    style={{
-                      display: 'flex', flexDirection: 'column', gap: '10px',
-                      padding: '22px 20px',
-                      background: '#FFFFFF',
-                      border: '1px solid rgba(255,156,96,0.12)',
-                      borderRadius: '20px',
-                      /* Lightweight single shadow */
-                      boxShadow: '0 2px 12px rgba(0,0,0,0.045)',
-                      textDecoration: 'none',
-                      cursor: href ? 'pointer' : 'default',
-                      /* CSS transition on transform only — GPU composited */
-                      transition: 'transform 0.22s ease, box-shadow 0.22s ease',
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.transform = 'translateY(-4px) translateZ(0)';
-                      e.currentTarget.style.boxShadow = '0 12px 32px rgba(255,112,48,0.14), 0 0 0 1.5px rgba(255,156,96,0.28)';
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.transform = 'translateY(0) translateZ(0)';
-                      e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.045)';
-                    }}
-                  >
-                    {/* Icon bubble */}
-                    <div style={{
-                      width: '42px', height: '42px', borderRadius: '12px', flexShrink: 0,
-                      background: 'linear-gradient(135deg, rgba(255,156,96,0.1), rgba(255,112,48,0.05))',
-                      border: '1px solid rgba(255,156,96,0.16)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '19px',
-                    }}>{icon}</div>
-                    <div style={{ minWidth: 0, width: '100%' }}>
-                      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '9px', letterSpacing: '0.16em', color: '#FF7030', fontWeight: 700, textTransform: 'uppercase', marginBottom: '5px' }}>{label}</p>
-                      {lines.map((line, li) => (
-                        <p key={li} style={{
-                          fontFamily: li === 0 ? "'Space Grotesk', sans-serif" : "'Inter', sans-serif",
-                          fontSize: li === 0 ? '13px' : '11px',
-                          fontWeight: li === 0 ? 600 : 400,
-                          color: li === 0 ? (green ? '#16A34A' : '#1A1A1A') : '#9A9090',
-                          lineHeight: 1.5,
-                          overflowWrap: 'anywhere',
-                          wordBreak: 'break-word',
-                        }}>{line}</p>
-                      ))}
-                    </div>
-                  </Tag>
-                );
-              })}
+              ].map(({ icon, label, lines, green }) => (
+                <div
+                  key={label}
+                  style={{
+                    display: 'flex', flexDirection: 'column', gap: '10px',
+                    padding: '22px 20px',
+                    background: '#FFFFFF',
+                    border: '1px solid rgba(255,156,96,0.12)',
+                    borderRadius: '20px',
+                    /* Lightweight single shadow */
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.045)',
+                    cursor: 'default',
+                  }}
+                >
+                  {/* Icon bubble */}
+                  <div style={{
+                    width: '42px', height: '42px', borderRadius: '12px', flexShrink: 0,
+                    background: 'linear-gradient(135deg, rgba(255,156,96,0.1), rgba(255,112,48,0.05))',
+                    border: '1px solid rgba(255,156,96,0.16)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '19px',
+                  }}>{icon}</div>
+                  <div style={{ minWidth: 0, width: '100%' }}>
+                    <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '9px', letterSpacing: '0.16em', color: '#FF7030', fontWeight: 700, textTransform: 'uppercase', marginBottom: '5px' }}>{label}</p>
+                    {lines.map((line, li) => (
+                      <p key={li} style={{
+                        fontFamily: li === 0 ? "'Space Grotesk', sans-serif" : "'Inter', sans-serif",
+                        fontSize: li === 0 ? '13px' : '11px',
+                        fontWeight: li === 0 ? 600 : 400,
+                        color: li === 0 ? (green ? '#16A34A' : '#1A1A1A') : '#9A9090',
+                        lineHeight: 1.5,
+                        overflowWrap: 'anywhere',
+                        wordBreak: 'break-word',
+                      }}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </FadeUp>
 
