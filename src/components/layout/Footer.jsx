@@ -5,6 +5,17 @@
 
 import { Link } from 'react-router-dom';
 
+const footerServices = [
+  { label: 'Branding', path: '/services#content-strategy' },
+  { label: 'Personal Branding', path: '/services#social-media-marketing' },
+  { label: 'Influencer Marketing', path: '/services#personal-branding' },
+  { label: 'Video Editing Service', path: '/services#reel-growth' },
+  { label: 'Video Production', path: '/services#branding' },
+  { label: 'Social Media Management', path: '/services#social-media-management' },
+  { label: 'Performance Marketing', path: '/services#performance-marketing' },
+  { label: 'SEO', path: '/services#seo' },
+];
+
 const mobileFooterLinks = {
   Company: [
     { label: 'About Us', path: '/about' },
@@ -12,13 +23,7 @@ const mobileFooterLinks = {
     { label: 'Blog', path: '/blog' },
     { label: 'Contact', path: '/contact' },
   ],
-  Services: [
-    { label: 'Social Media Marketing', path: '/services#social-media-marketing' },
-    { label: 'Branding', path: '/services#branding' },
-    { label: 'Personal Branding', path: '/services#personal-branding' },
-    { label: 'Reel Growth', path: '/services#reel-growth' },
-    { label: 'Content Strategy', path: '/services#content-strategy' },
-  ],
+  Services: footerServices,
 };
 
 const desktopFooterLinks = {
@@ -34,13 +39,7 @@ const desktopFooterLinks = {
     { label: 'Career', path: '/careers' },
     { label: 'Contact', path: '/contact' },
   ],
-  Services: [
-    { label: 'Social Media Marketing', path: '/services#social-media-marketing' },
-    { label: 'Branding', path: '/services#branding' },
-    { label: 'Personal Branding', path: '/services#personal-branding' },
-    { label: 'Reel Growth', path: '/services#reel-growth' },
-    { label: 'Content Strategy', path: '/services#content-strategy' },
-  ],
+  Services: footerServices,
 };
 
 const socialLinks = [

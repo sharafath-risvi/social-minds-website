@@ -12,10 +12,10 @@ const navLinks = [
   { label: 'About', path: '/about' },
   { label: 'Services', path: '/services' },
   { 
-    label: 'Pricing', 
+    label: 'Onboarding', 
     subLinks: [
       { label: 'Onboarding', path: '/onboarding' },
-      { label: 'Plan', path: '/plan' }
+      { label: 'Packages', path: '/plan' }
     ]
   },
   { label: 'Blog', path: '/blog' },
